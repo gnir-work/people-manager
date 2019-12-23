@@ -8,3 +8,12 @@ body * {
         text-align: right;
     }
 }
+
+// Antd date picker doesn't handle rtl well
+.ant-calendar-panel * {
+    direction: ltr;
+    text-align: left;
+    .ant-calendar-header > div {
+        text-align: center;
+    }
+}

@@ -1,4 +1,6 @@
 import _ from "lodash";
+import {Moment} from "moment";
+import moment from "moment";
 
 export interface PersonInterface {
     fullName: string;
@@ -6,8 +8,8 @@ export interface PersonInterface {
     age: number;
     period: string;
     week: number;
-    arrivalTime: string;
-    departureTime: string;
+    arrivalTime: Moment;
+    departureTime: Moment;
     invitor: string;
     bed: string;
     entryPass: boolean;
@@ -27,8 +29,8 @@ export const getPeople = (): Array<PersonInterface> =>
         age: 21,
         period: "Ahud",
         week: 7,
-        arrivalTime: (new Date()).toDateString(),
-        departureTime: (new Date()).toDateString(),
+        arrivalTime: moment(),
+        departureTime: moment(),
         invitor: "gnir",
         bed: "לא צריך",
         entryPass: !!_.random(0,1),

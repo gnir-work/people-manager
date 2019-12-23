@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { Table, Tag, Switch } from "antd";
+import { Table, DatePicker } from "antd";
 import { PersonInterface } from "../api/people";
 import Flag from "./Flag";
 
@@ -38,14 +38,14 @@ const PeopleTableColumns = [
         key: "week"
     },
     {
-        title: "ממתי",
-        dataIndex: "arrivalTime",
-        key: "arrivalTime"
-    },
-    {
-        title: "עד מתי",
-        dataIndex: "departureTime",
-        key: "departureTime"
+        title: "תאריכים",
+        key: "time",
+        render: (text: string, record: PersonInterface) => (
+            <DatePicker.RangePicker
+                defaultValue={[record.arrivalTime, record.departureTime]}
+                size="small"
+            />
+        )
     },
     {
         title: "מזמין",
