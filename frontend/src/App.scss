@@ -1,0 +1,15 @@
+.ant-layout.layout {
+    background-color: #fff;
+    height: 100vh;
+    .ant-layout-content {
+        display: flex;
+        flex-direction: column;
+        .people-manager-table {
+            flex: 1;
+        }
+    }
+    .ant-layout-footer {
+        text-align: center;
+        height: 64px;
+    }
+}

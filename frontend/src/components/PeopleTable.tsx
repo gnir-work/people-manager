@@ -1,9 +1,13 @@
 import React from "react";
+import classNames from "classnames";
 import { Table } from "antd";
 import { PersonInterface } from "../api/people";
 
+import './PeopleTable.scss'
+
 interface PeopleTableProps {
     people: Array<PersonInterface>;
+    className?: String;
 }
 
 const PeopleTableColumns = [
@@ -24,9 +28,17 @@ const PeopleTableColumns = [
     }
 ];
 
-const PeopleTable: React.FC<PeopleTableProps> = ({ people }) => {
+const PeopleTable: React.FC<PeopleTableProps> = ({ people, className }) => {
     const data = people.map(person => ({ ...person, key: person.id }));
-    return <Table dataSource={people} columns={PeopleTableColumns} />;
+    return (
+        <div className={classNames(className, "people-table-container")}>
+            <Table
+                dataSource={data}
+                columns={PeopleTableColumns}
+                pagination={false}
+            />
+        </div>
+    );
 };
 
 export default PeopleTable;

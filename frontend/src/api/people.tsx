@@ -1,15 +1,16 @@
+import _ from "lodash";
+
 export interface PersonInterface {
     name: string;
     lastName: string;
-    id: string,
-    age: number
+    id: string;
+    age: number;
 }
 
-export const getPeople = (): Array<PersonInterface> => [
-    {
+export const getPeople = (): Array<PersonInterface> =>
+    _.range(46).map(id => ({
         name: "Nir",
         lastName: "Geller",
-        id: "209499359",
+        id: id.toString(),
         age: 21
-    }
-];
+    }));
