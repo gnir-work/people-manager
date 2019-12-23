@@ -1,0 +1,10 @@
+body {
+    direction: rtl;
+}
+
+body * {
+    text-align: right;
+    .ant-table-thead > tr > th {
+        text-align: right;
+    }
+}

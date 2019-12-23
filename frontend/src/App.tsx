@@ -4,6 +4,7 @@ import { getPeople } from "./api/people";
 import PeopleTable from "./components/PeopleTable";
 
 import "antd/dist/antd.css";
+import "./rtl.scss"
 import "./App.scss";
 
 const { Header, Content, Footer } = Layout;
@@ -19,7 +20,7 @@ const App: React.FC = () => {
                     mode="horizontal"
                     style={{ lineHeight: "64px" }}
                 >
-                    <Menu.Item> People Manager </Menu.Item>
+                    <Menu.Item> מנהל אנשי חוץ </Menu.Item>
                 </Menu>
             </Header>
             <Content>
