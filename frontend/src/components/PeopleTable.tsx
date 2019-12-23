@@ -18,6 +18,11 @@ const PeopleTableColumns = [
         key: "fullName"
     },
     {
+        title: "מ.א",
+        dataIndex: "personId",
+        key: "personId"
+    },
+    {
         title: "גיל",
         dataIndex: "age",
         key: "age"
@@ -70,13 +75,13 @@ const PeopleTableColumns = [
         title: "בקשת מילואים",
         dataIndex: "miluim",
         key: "miluim",
-        render: (checked: boolean) => <Flag checked={checked} />,
+        render: (checked: boolean) => <Flag checked={checked} />
     },
     {
         title: "בקשת מהקישור",
         dataIndex: "makishur",
         key: "makishur",
-        render: (checked: boolean) => <Flag checked={checked} />,
+        render: (checked: boolean) => <Flag checked={checked} />
     },
     {
         title: "הגיעה",
@@ -103,10 +108,15 @@ const PeopleTableColumns = [
 ];
 
 const PeopleTable: React.FC<PeopleTableProps> = ({ people, className }) => {
-    const data = people.map(person => ({ ...person, key: person.id }));
+    const data = people.map(person => ({ ...person, key: person.personId }));
     return (
         <div className={classNames(className, "people-table-container")}>
-            <Table dataSource={data} columns={PeopleTableColumns} size="middle" pagination={{pageSize: 30}} />
+            <Table
+                dataSource={data}
+                columns={PeopleTableColumns}
+                size="middle"
+                pagination={{ pageSize: 30 }}
+            />
         </div>
     );
 };

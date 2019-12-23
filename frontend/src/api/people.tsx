@@ -2,7 +2,7 @@ import _ from "lodash";
 
 export interface PersonInterface {
     fullName: string;
-    id: string;
+    personId: string;
     age: number;
     period: string;
     week: number;
@@ -22,7 +22,7 @@ export interface PersonInterface {
 
 export const getPeople = (): Array<PersonInterface> =>
     _.range(1000).map(id => ({
-        id: id.toString(),
+        personId: _.random(10000000, 99999999).toString(),
         fullName: "ניר גלר",
         age: 21,
         period: "Ahud",
