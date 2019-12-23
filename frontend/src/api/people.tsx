@@ -9,8 +9,8 @@ export interface PersonInterface {
 
 export const getPeople = (): Array<PersonInterface> =>
     _.range(46).map(id => ({
-        name: "Nir",
-        lastName: "Geller",
+        name: "ניר",
+        lastName: "גלר",
         id: id.toString(),
         age: 21
     }));

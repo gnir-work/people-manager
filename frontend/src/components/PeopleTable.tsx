@@ -12,17 +12,17 @@ interface PeopleTableProps {
 
 const PeopleTableColumns = [
     {
-        title: "Name",
+        title: "שם פרטי",
         dataIndex: "name",
         key: "name"
     },
     {
-        title: "Last Name",
+        title: "שם משפחה",
         dataIndex: "lastName",
         key: "lastName"
     },
     {
-        title: "Age",
+        title: "גיל",
         dataIndex: "age",
         key: "age"
     }
