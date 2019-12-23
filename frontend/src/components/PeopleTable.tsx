@@ -46,7 +46,8 @@ const PeopleTableColumns = [
                 defaultValue={[record.arrivalTime, record.departureTime]}
                 size="small"
             />
-        )
+        ),
+        width: "20em"
     },
     {
         title: "מזמין",
@@ -57,9 +58,8 @@ const PeopleTableColumns = [
         title: "מיטה",
         key: "bed",
         dataIndex: "bed",
-        render: (status: number) => (
-            <BedStatus status={status} />
-        )
+        render: (status: number) => <BedStatus status={status} />,
+        width: "4em"
     },
     {
         title: "אישור כניסה",
@@ -79,13 +79,15 @@ const PeopleTableColumns = [
         title: "בקשת מילואים",
         dataIndex: "miluim",
         key: "miluim",
-        render: (checked: boolean) => <Flag checked={checked} />
+        render: (checked: boolean) => <Flag checked={checked} />,
+        width: "5em"
     },
     {
         title: "בקשת מהקישור",
         dataIndex: "makishur",
         key: "makishur",
-        render: (checked: boolean) => <Flag checked={checked} />
+        render: (checked: boolean) => <Flag checked={checked} />,
+        width: "5em"
     },
     {
         title: "הגיעה",
@@ -107,7 +109,8 @@ const PeopleTableColumns = [
     {
         title: "הערות נוספות",
         dataIndex: "remarks",
-        key: "remarks"
+        key: "remarks",
+        width: "30em"
     }
 ];
 
