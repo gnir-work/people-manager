@@ -9,7 +9,7 @@ body * {
     }
 }
 
-// Antd date picker doesn't handle rtl well
+// Antd components that don't play well with rtl are patched here 
 .ant-calendar-panel * {
     direction: ltr;
     text-align: left;
@@ -17,3 +17,10 @@ body * {
         text-align: center;
     }
 }
+
+.ant-pagination.ant-table-pagination {
+    direction: ltr;
+    float: none;
+    text-align: center;
+}
+
