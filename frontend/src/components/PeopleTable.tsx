@@ -5,6 +5,7 @@ import { PersonInterface } from "../api/people";
 import Flag from "./Flag";
 
 import "./PeopleTable.scss";
+import BedStatus from "./BedStatus";
 
 interface PeopleTableProps {
     people: Array<PersonInterface>;
@@ -54,8 +55,11 @@ const PeopleTableColumns = [
     },
     {
         title: "מיטה",
+        key: "bed",
         dataIndex: "bed",
-        key: "beb"
+        render: (status: number) => (
+            <BedStatus status={status} />
+        )
     },
     {
         title: "אישור כניסה",

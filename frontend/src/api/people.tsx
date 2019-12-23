@@ -2,6 +2,8 @@ import _ from "lodash";
 import {Moment} from "moment";
 import moment from "moment";
 
+import { AvailableBedStatuses } from "../components/BedStatus"
+
 export interface PersonInterface {
     fullName: string;
     personId: string;
@@ -11,7 +13,7 @@ export interface PersonInterface {
     arrivalTime: Moment;
     departureTime: Moment;
     invitor: string;
-    bed: string;
+    bed: AvailableBedStatuses;
     entryPass: boolean;
     verifiedArrival: boolean;
     miluim: boolean;
@@ -31,8 +33,8 @@ export const getPeople = (): Array<PersonInterface> =>
         week: 7,
         arrivalTime: moment(),
         departureTime: moment(),
-        invitor: "gnir",
-        bed: "לא צריך",
+        invitor: "ניר גלר",
+        bed: _.sample([AvailableBedStatuses.NoNeed, AvailableBedStatuses.Found, AvailableBedStatuses.Searching]) || AvailableBedStatuses.NoNeed,
         entryPass: !!_.random(0,1),
         verifiedArrival: !!_.random(0,1),
         miluim: !!_.random(0,1),
@@ -40,5 +42,5 @@ export const getPeople = (): Array<PersonInterface> =>
         arrived: !!_.random(0,1),
         megama: "פסטן",
         reason: "פסטן פסטן פסטן",
-        remarks: "שדגדשג שדג שדג שדג שדג שדג שדג שדג שדג שדג שדג"
+        remarks: "ששדגדשג שדג שדג שדג שדג שדג שדג שדגדשג שדג שדג שדג שדג שדג שדג שדגדשג שדג שדג שדג שדג שדג שדג דגדשג שדג שדג שדג שדג שדג שדג שדג שדג שדג שדג"
     }));
