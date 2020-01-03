@@ -27,7 +27,7 @@ export interface PersonInterface {
 export const getPeople = (): Array<PersonInterface> =>
     _.range(1000).map(id => ({
         personId: _.random(10000000, 99999999).toString(),
-        fullName: "ניר גלר",
+        fullName: "ניר גלר" + _.random(1, 100).toString(),
         age: 21,
         period: "Ahud",
         week: 7,

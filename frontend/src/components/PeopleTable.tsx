@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { Table, DatePicker } from "antd";
 import { PersonInterface } from "../api/people";
 import Flag from "./Flag";
+import { sortById, sortByName } from "../utils/sorters";
 
 import "./PeopleTable.scss";
 import BedStatus from "./BedStatus";
@@ -16,12 +17,14 @@ const PeopleTableColumns = [
     {
         title: "שם מלא",
         dataIndex: "fullName",
-        key: "fullName"
+        key: "fullName",
+        sorter: sortByName
     },
     {
         title: "מ.א",
         dataIndex: "personId",
-        key: "personId"
+        key: "personId",
+        sorter: sortById
     },
     {
         title: "גיל",
