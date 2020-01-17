@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { Table, DatePicker } from "antd";
 import { PersonInterface } from "../api/people";
 import Flag from "./Flag";
+import TableFilter from './TableFilter';
 import { sortById, sortByName } from "../utils/sorters";
 
 import "./PeopleTable.scss";
@@ -18,7 +19,9 @@ const PeopleTableColumns = [
         title: "שם מלא",
         dataIndex: "fullName",
         key: "fullName",
-        sorter: sortByName
+        sorter: sortByName,
+        onFilter: (value: string, record:PersonInterface) => record['fullName'].toLowerCase().includes(value.toLowerCase()),
+        filterDropdown: TableFilter,
     },
     {
         title: "מ.א",
