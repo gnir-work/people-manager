@@ -1,11 +1,14 @@
 import React from 'react';
+import { useCallback } from 'react';
 import { Table, Input, Button, Icon } from 'antd';
+
+import "./TableFilter.scss";
 
 interface TableFilterProps {
     setSelectedKeys: Function,
     selectedKeys: string[],
-    confirm: Function,
-    clearFilters: Function
+    confirm: () => void,
+    clearFilters: () => void
 }
 
 const TableFilter: React.FC<TableFilterProps> = ({
@@ -13,34 +16,38 @@ const TableFilter: React.FC<TableFilterProps> = ({
     selectedKeys,
     confirm,
     clearFilters
-}) => (
-    <div style={{ padding: 8 }}>
+}) => {
+    const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newKeys = e.target.value ? [e.target.value] : [];
+        setSelectedKeys(newKeys);
+    };
+
+    return (<div className="table-filter">
         <Input
-            placeholder={`Search me`}
+            placeholder={`הכנס את החיפוש`}
             value={selectedKeys[0]}
-            onChange={e =>
-                setSelectedKeys(e.target.value ? [e.target.value] : [])
-            }
-            onPressEnter={() => confirm()}
-            style={{ width: 188, marginBottom: 8, display: "block" }}
+            onChange={onSearch}
+            className="search-input"
+            onPressEnter={confirm}
         />
         <Button
             type="primary"
-            onClick={() => confirm()}
+            onClick={confirm}
             icon="search"
             size="small"
-            style={{ width: 90, marginRight: 8 }}
+            className="search-button"
         >
-            Search
+            חפש
         </Button>
         <Button
-            onClick={() => clearFilters()}
+            onClick={clearFilters}
             size="small"
-            style={{ width: 90 }}
+            className="clear-button"
         >
-            Reset
+            נקה חיפוש
         </Button>
     </div>
-);
+    );
+};
 
 export default TableFilter;
