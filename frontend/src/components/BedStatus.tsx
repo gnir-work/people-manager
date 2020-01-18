@@ -1,11 +1,8 @@
 import React from 'react';
 import { Tag } from 'antd';
 
-export enum AvailableBedStatuses {
-    NoNeed,
-    Searching,
-    Found
-}
+import { AvailableBedStatuses } from "../api/types";
+
 
 export interface BedStatusProps {
     status: AvailableBedStatuses

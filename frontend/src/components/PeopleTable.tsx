@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import { Table, DatePicker } from "antd";
-import { PersonInterface } from "../api/people";
+import { PersonInterface, BasicStatus } from "../api/types";
 import Flag from "./Flag";
 import TableFilter from "./TableFilter";
 import { sortById, sortByName } from "../utils/sorters";
@@ -9,7 +9,8 @@ import { stringsFilterByField, numbersFilterByField } from "../utils/filters";
 import { enumToFilterValues } from "../utils/types";
 
 import "./PeopleTable.scss";
-import BedStatus, { AvailableBedStatuses } from "./BedStatus";
+import { AvailableBedStatuses } from "../api/types";
+import BedStatus from './BedStatus';
 
 interface PeopleTableProps {
     people: Array<PersonInterface>;
@@ -91,52 +92,66 @@ const PeopleTableColumns = [
         title: "אישור כניסה",
         dataIndex: "entryPass",
         key: "entryPass",
-        render: (checked: boolean) => <Flag checked={checked} />,
-        width: "4em"
+        filters: enumToFilterValues(BasicStatus),
+        onFilter: (status: string, record: PersonInterface) => record.entryPass === parseInt(status),
+        render: (checked: BasicStatus) => <Flag checked={checked} />,
     },
     {
         title: "ווידאו הגעה",
         dataIndex: "verifiedArrival",
         key: "verifiedArrival",
-        render: (checked: boolean) => <Flag checked={checked} />,
-        width: "4em"
+        render: (checked: BasicStatus) => <Flag checked={checked} />,
+        filters: enumToFilterValues(BasicStatus),
+        onFilter: (status: string, record: PersonInterface) => record.verifiedArrival === parseInt(status),
     },
     {
         title: "בקשת מילואים",
         dataIndex: "miluim",
         key: "miluim",
-        render: (checked: boolean) => <Flag checked={checked} />,
-        width: "5em"
+        render: (checked: BasicStatus) => <Flag checked={checked} />,
+        filters: enumToFilterValues(BasicStatus),
+        onFilter: (status: string, record: PersonInterface) => record.miluim === parseInt(status),
     },
     {
         title: "בקשת מהקישור",
         dataIndex: "makishur",
         key: "makishur",
-        render: (checked: boolean) => <Flag checked={checked} />,
-        width: "5em"
+        render: (checked: BasicStatus) => <Flag checked={checked} />,
+        filters: enumToFilterValues(BasicStatus),
+        onFilter: (status: string, record: PersonInterface) => record.makishur === parseInt(status),
     },
     {
         title: "הגיעה",
         dataIndex: "arrived",
         key: "arrived",
-        render: (checked: boolean) => <Flag checked={checked} />,
-        width: "4em"
+        render: (checked: BasicStatus) => <Flag checked={checked} />,
+        filters: enumToFilterValues(BasicStatus),
+        onFilter: (status: string, record: PersonInterface) => record.arrived === parseInt(status),
     },
     {
         title: "מגמה \\ מסלול",
         dataIndex: "megama",
-        key: "megama"
+        key: "megama",
+        onFilter: (value: string, record: PersonInterface) =>
+            stringsFilterByField(record, value, "megama"),
+        filterDropdown: TableFilter
     },
     {
         title: "סיבה",
         dataIndex: "reason",
-        key: "reason"
+        key: "reason",
+        onFilter: (value: string, record: PersonInterface) =>
+            stringsFilterByField(record, value, "reason"),
+        filterDropdown: TableFilter
     },
     {
         title: "הערות נוספות",
         dataIndex: "remarks",
         key: "remarks",
-        width: "30em"
+        width: "30em",
+        onFilter: (value: string, record: PersonInterface) =>
+            stringsFilterByField(record, value, "remarks"),
+        filterDropdown: TableFilter
     }
 ];
 

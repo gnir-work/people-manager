@@ -1,4 +1,4 @@
-import { PersonInterface } from "../api/people";
+import { PersonInterface } from "../api/types";
 
 /**
  * Compares between two person objects by their ID,

@@ -1,4 +1,4 @@
-import { PersonInterface } from "../api/people";
+import { PersonInterface, BasicStatus, AvailableBedStatuses } from "../api/types";
 import { ConditionalProps } from "./types";
 
 

@@ -1,14 +1,16 @@
-import React from 'react';
-import { Tag } from 'antd';
+import React from "react";
+import { Tag } from "antd";
 
+import { BasicStatus } from "../api/types";
 
 export interface FlagProps {
-    checked: boolean
+    checked: BasicStatus;
 }
 
-const Flag : React.FC<FlagProps> = ({ checked }) => (
-    <Tag color={checked ? 'green' : 'red'}> { checked ? 'יש' : 'אין'} </Tag>
-)
-
+const Flag: React.FC<FlagProps> = ({ checked }) => (
+    <Tag color={checked === BasicStatus.Done ? "green" : "red"}>
+        {checked === BasicStatus.Done ? "יש" : "אין"}{" "}
+    </Tag>
+);
 
 export default Flag;
