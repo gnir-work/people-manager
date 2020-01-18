@@ -9,7 +9,7 @@ export interface FlagProps {
 
 const Flag: React.FC<FlagProps> = ({ checked }) => (
     <Tag color={checked === BasicStatus.Done ? "green" : "red"}>
-        {checked === BasicStatus.Done ? "יש" : "אין"}{" "}
+        { checked } 
     </Tag>
 );
 

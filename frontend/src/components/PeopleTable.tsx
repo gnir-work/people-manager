@@ -84,8 +84,8 @@ const PeopleTableColumns = [
         key: "bed",
         dataIndex: "bed",
         filters: enumToFilterValues(AvailableBedStatuses),
-        onFilter: (value: string, record: PersonInterface) => record.bed === parseInt(value),
-        render: (status: number) => <BedStatus status={status} />,
+        onFilter: (value: string, record: PersonInterface) => record.bed === value,
+        render: (status: AvailableBedStatuses) => <BedStatus status={status} />,
         width: "4em"
     },
     {
@@ -93,7 +93,7 @@ const PeopleTableColumns = [
         dataIndex: "entryPass",
         key: "entryPass",
         filters: enumToFilterValues(BasicStatus),
-        onFilter: (status: string, record: PersonInterface) => record.entryPass === parseInt(status),
+        onFilter: (status: string, record: PersonInterface) => record.entryPass === status,
         render: (checked: BasicStatus) => <Flag checked={checked} />,
     },
     {
@@ -102,7 +102,7 @@ const PeopleTableColumns = [
         key: "verifiedArrival",
         render: (checked: BasicStatus) => <Flag checked={checked} />,
         filters: enumToFilterValues(BasicStatus),
-        onFilter: (status: string, record: PersonInterface) => record.verifiedArrival === parseInt(status),
+        onFilter: (status: string, record: PersonInterface) => record.verifiedArrival === status,
     },
     {
         title: "בקשת מילואים",
@@ -110,7 +110,7 @@ const PeopleTableColumns = [
         key: "miluim",
         render: (checked: BasicStatus) => <Flag checked={checked} />,
         filters: enumToFilterValues(BasicStatus),
-        onFilter: (status: string, record: PersonInterface) => record.miluim === parseInt(status),
+        onFilter: (status: string, record: PersonInterface) => record.miluim === status,
     },
     {
         title: "בקשת מהקישור",
@@ -118,7 +118,7 @@ const PeopleTableColumns = [
         key: "makishur",
         render: (checked: BasicStatus) => <Flag checked={checked} />,
         filters: enumToFilterValues(BasicStatus),
-        onFilter: (status: string, record: PersonInterface) => record.makishur === parseInt(status),
+        onFilter: (status: string, record: PersonInterface) => record.makishur === status,
     },
     {
         title: "הגיעה",
@@ -126,7 +126,7 @@ const PeopleTableColumns = [
         key: "arrived",
         render: (checked: BasicStatus) => <Flag checked={checked} />,
         filters: enumToFilterValues(BasicStatus),
-        onFilter: (status: string, record: PersonInterface) => record.arrived === parseInt(status),
+        onFilter: (status: string, record: PersonInterface) => record.arrived === status,
     },
     {
         title: "מגמה \\ מסלול",

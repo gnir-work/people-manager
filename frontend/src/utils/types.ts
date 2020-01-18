@@ -3,8 +3,7 @@
  * @param givenEnum The enum that you want to filter.
  */
 export const enumToFilterValues = (givenEnum: any) => Object.keys(givenEnum)
-    .filter((e: string) => !isNaN(Number(e)))
-    .map((e: string) => ({ text: givenEnum[parseInt(e)], value: e }))
+    .map((e: string) => ({ text: givenEnum[e], value: givenEnum[e] }))
 
 /**
  * Create a dynamic type which consists of all the properties of given type T 
