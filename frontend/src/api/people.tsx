@@ -10,7 +10,7 @@ export const getPeople = (): Array<PersonInterface> =>
         fullName: "ניר גלר" + _.random(1, 100).toString(),
         age: 21,
         period: "Ahud",
-        week: 7,
+        week: _.random(1, 11),
         arrivalTime: moment(),
         departureTime: moment(),
         invitor: "ניר גלר",

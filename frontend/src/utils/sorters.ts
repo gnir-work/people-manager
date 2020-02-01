@@ -21,6 +21,11 @@ export const sortByName = (
 ): number => sortByField(firstPerson, secondPerson, 'fullName')
 
 
+export const sortByWeek = (
+  firstPerson: PersonInterface,
+  secondPerson: PersonInterface
+): number => sortByField(firstPerson, secondPerson, 'week')
+
 /**
  * Compares between two person objects by a specific field.
  * @param firstPerson 

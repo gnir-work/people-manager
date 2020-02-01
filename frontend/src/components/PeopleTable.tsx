@@ -1,9 +1,10 @@
 import React from "react";
 import classNames from "classnames";
 import { Table, DatePicker } from "antd";
+import { SortOrder } from "antd/lib/table/interface";
 import { PersonInterface, AvailableBasicStatuses } from "../api/types";
 import TableFilter from "./TableFilter";
-import { sortById, sortByName } from "../utils/sorters";
+import { sortById, sortByName, sortByWeek } from "../utils/sorters";
 import { stringsFilterByField, numbersFilterByField, enumMappingToAntdFilters} from "../utils/filters";
 
 import "./PeopleTable.scss";
@@ -17,6 +18,8 @@ interface PeopleTableProps {
     people: Array<PersonInterface>;
     className?: String;
 }
+
+const defaultSortOrder : SortOrder = 'ascend';
 
 const availableBasicStatusesFilters = enumMappingToAntdFilters(basicStatusToText);
 
@@ -61,6 +64,8 @@ const PeopleTableColumns = [
         title: "שבוע",
         dataIndex: "week",
         key: "week",
+        sorter: sortByWeek,
+        defaultSortOrder,
         onFilter: (value: string, record: PersonInterface) =>
             numbersFilterByField(record, value, "week"),
         filterDropdown: TableFilter

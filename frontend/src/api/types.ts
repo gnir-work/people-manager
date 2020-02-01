@@ -11,6 +11,7 @@ export enum AvailableBasicStatuses {
     Pending,
 }
 
+
 export interface PersonInterface {
     fullName: string;
     personId: string;
