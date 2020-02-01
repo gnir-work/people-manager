@@ -1,21 +1,26 @@
 import React from "react";
 import classNames from "classnames";
 import { Table, DatePicker } from "antd";
-import { PersonInterface, BasicStatus } from "../api/types";
-import Flag from "./Flag";
+import { PersonInterface, AvailableBasicStatuses } from "../api/types";
 import TableFilter from "./TableFilter";
 import { sortById, sortByName } from "../utils/sorters";
-import { stringsFilterByField, numbersFilterByField } from "../utils/filters";
-import { enumToFilterValues } from "../utils/types";
+import { stringsFilterByField, numbersFilterByField, enumMappingToAntdFilters} from "../utils/filters";
 
 import "./PeopleTable.scss";
 import { AvailableBedStatuses } from "../api/types";
-import BedStatus from './BedStatus';
+import BedStatus from "./BedStatus";
+import { statusToText as bedStatusToText } from "./BedStatus";
+import BasicStatus from "./BasicStatus";
+import { statusToText as basicStatusToText } from "./BasicStatus";
 
 interface PeopleTableProps {
     people: Array<PersonInterface>;
     className?: String;
 }
+
+const availableBasicStatusesFilters = enumMappingToAntdFilters(basicStatusToText);
+
+const availableBedStatusesFilters = enumMappingToAntdFilters(bedStatusToText);
 
 const PeopleTableColumns = [
     {
@@ -41,7 +46,7 @@ const PeopleTableColumns = [
         dataIndex: "age",
         key: "age",
         onFilter: (value: string, record: PersonInterface) =>
-            numbersFilterByField(record, parseInt(value), "age"),
+            numbersFilterByField(record, value, "age"),
         filterDropdown: TableFilter
     },
     {
@@ -57,7 +62,7 @@ const PeopleTableColumns = [
         dataIndex: "week",
         key: "week",
         onFilter: (value: string, record: PersonInterface) =>
-            numbersFilterByField(record, parseInt(value), "week"),
+            numbersFilterByField(record, value, "week"),
         filterDropdown: TableFilter
     },
     {
@@ -83,8 +88,8 @@ const PeopleTableColumns = [
         title: "מיטה",
         key: "bed",
         dataIndex: "bed",
-        filters: enumToFilterValues(AvailableBedStatuses),
-        onFilter: (value: string, record: PersonInterface) => record.bed === value,
+        filters: availableBedStatusesFilters,
+        onFilter: (status: string, record: PersonInterface) => numbersFilterByField(record, status, "bed"),
         render: (status: AvailableBedStatuses) => <BedStatus status={status} />,
         width: "4em"
     },
@@ -92,41 +97,52 @@ const PeopleTableColumns = [
         title: "אישור כניסה",
         dataIndex: "entryPass",
         key: "entryPass",
-        filters: enumToFilterValues(BasicStatus),
-        onFilter: (status: string, record: PersonInterface) => record.entryPass === status,
-        render: (checked: BasicStatus) => <Flag checked={checked} />,
+        filters: availableBasicStatusesFilters,
+        onFilter: (status: string, record: PersonInterface) => numbersFilterByField(record, status, "entryPass"),
+        render: (checked: AvailableBasicStatuses) => (
+            <BasicStatus status={checked} />
+        )
     },
     {
         title: "ווידאו הגעה",
         dataIndex: "verifiedArrival",
         key: "verifiedArrival",
-        render: (checked: BasicStatus) => <Flag checked={checked} />,
-        filters: enumToFilterValues(BasicStatus),
-        onFilter: (status: string, record: PersonInterface) => record.verifiedArrival === status,
+        render: (checked: AvailableBasicStatuses) => (
+            <BasicStatus status={checked} />
+        ),
+        filters: availableBasicStatusesFilters,
+        onFilter: (status: string, record: PersonInterface) => numbersFilterByField(record, status, "verifiedArrival"),
     },
     {
         title: "בקשת מילואים",
         dataIndex: "miluim",
         key: "miluim",
-        render: (checked: BasicStatus) => <Flag checked={checked} />,
-        filters: enumToFilterValues(BasicStatus),
-        onFilter: (status: string, record: PersonInterface) => record.miluim === status,
+        render: (checked: AvailableBasicStatuses) => (
+            <BasicStatus status={checked} />
+        ),
+        filters: availableBasicStatusesFilters,
+        onFilter: (status: string, record: PersonInterface) => numbersFilterByField(record, status, "miluim"),
     },
     {
         title: "בקשת מהקישור",
         dataIndex: "makishur",
         key: "makishur",
-        render: (checked: BasicStatus) => <Flag checked={checked} />,
-        filters: enumToFilterValues(BasicStatus),
-        onFilter: (status: string, record: PersonInterface) => record.makishur === status,
+        render: (checked: AvailableBasicStatuses) => (
+            <BasicStatus status={checked} />
+        ),
+        filters: availableBasicStatusesFilters,
+        onFilter: (status: string, record: PersonInterface) => numbersFilterByField(record, status, "makishur"),
+
     },
     {
         title: "הגיעה",
         dataIndex: "arrived",
         key: "arrived",
-        render: (checked: BasicStatus) => <Flag checked={checked} />,
-        filters: enumToFilterValues(BasicStatus),
-        onFilter: (status: string, record: PersonInterface) => record.arrived === status,
+        render: (checked: AvailableBasicStatuses) => (
+            <BasicStatus status={checked} />
+        ),
+        filters: availableBasicStatusesFilters,
+        onFilter: (status: string, record: PersonInterface) => numbersFilterByField(record, status, "arrived"),
     },
     {
         title: "מגמה \\ מסלול",

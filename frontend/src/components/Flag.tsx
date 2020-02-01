@@ -1,16 +1,21 @@
 import React from "react";
 import { Tag } from "antd";
 
-import { BasicStatus } from "../api/types";
-
-export interface FlagProps {
-    checked: BasicStatus;
+export interface FlagProps<T extends string | number> {
+    current: T;
+    colors: {
+        [key in T]: string;
+    };
+    texts: {
+        [key in T]: string;
+    };
 }
 
-const Flag: React.FC<FlagProps> = ({ checked }) => (
-    <Tag color={checked === BasicStatus.Done ? "green" : "red"}>
-        { checked } 
-    </Tag>
-);
+
+const Flag: <T extends string | number>(p: FlagProps<T>) => React.ReactElement<FlagProps<T>> = ({
+    current,
+    colors,
+    texts
+}) => <Tag color={colors[current]}>{texts[current]}</Tag>;
 
 export default Flag;

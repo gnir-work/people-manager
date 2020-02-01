@@ -1,7 +1,7 @@
 import _ from "lodash";
 import moment from "moment";
 
-import { PersonInterface, AvailableBedStatuses, BasicStatus } from "./types"
+import { PersonInterface, AvailableBedStatuses, AvailableBasicStatuses } from "./types"
 
 
 export const getPeople = (): Array<PersonInterface> =>
@@ -15,11 +15,11 @@ export const getPeople = (): Array<PersonInterface> =>
         departureTime: moment(),
         invitor: "ניר גלר",
         bed: _.sample([AvailableBedStatuses.NoNeed, AvailableBedStatuses.Found, AvailableBedStatuses.Searching]) || AvailableBedStatuses.NoNeed,
-        entryPass: _.sample([BasicStatus.Done,BasicStatus.Pending]) || BasicStatus.Done,
-        verifiedArrival: _.sample([BasicStatus.Done,BasicStatus.Pending]) || BasicStatus.Done,
-        miluim: _.sample([BasicStatus.Done,BasicStatus.Pending]) || BasicStatus.Done,
-        makishur: _.sample([BasicStatus.Done,BasicStatus.Pending]) || BasicStatus.Done,
-        arrived: _.sample([BasicStatus.Done,BasicStatus.Pending]) || BasicStatus.Done,
+        entryPass: _.sample([AvailableBasicStatuses.Done,AvailableBasicStatuses.Pending]) || AvailableBasicStatuses.Done,
+        verifiedArrival: _.sample([AvailableBasicStatuses.Done,AvailableBasicStatuses.Pending]) || AvailableBasicStatuses.Done,
+        miluim: _.sample([AvailableBasicStatuses.Done,AvailableBasicStatuses.Pending]) || AvailableBasicStatuses.Done,
+        makishur: _.sample([AvailableBasicStatuses.Done,AvailableBasicStatuses.Pending]) || AvailableBasicStatuses.Done,
+        arrived: _.sample([AvailableBasicStatuses.Done,AvailableBasicStatuses.Pending]) || AvailableBasicStatuses.Done,
         megama: "פסטן",
         reason: "פסטן פסטן פסטן",
         remarks: "ששדגדשג שדג שדג שדג שדג שדג שדג שדגדשג שדג שדג שדג שדג שדג שדג שדגדשג שדג שדג שדג שדג שדג שדג דגדשג שדג שדג שדג שדג שדג שדג שדג שדג שדג שדג"

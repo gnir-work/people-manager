@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag } from 'antd';
+import Flag from './Flag';
 
 import { AvailableBedStatuses } from "../api/types";
 
@@ -14,8 +14,14 @@ const statusToColor = {
     [AvailableBedStatuses.Found]: 'green',
 }
 
+export const statusToText = {
+    [AvailableBedStatuses.NoNeed]: 'אין צורך',
+    [AvailableBedStatuses.Searching]: 'מחפשים',
+    [AvailableBedStatuses.Found]: 'יש מיטה',
+}
+
 const BedStatus : React.FC<BedStatusProps> = ({ status }) => (
-    <Tag color={statusToColor[status]}> { status } </Tag>
+    <Flag<AvailableBedStatuses> colors={statusToColor} current={status} texts={statusToText} />
 )
 
 
