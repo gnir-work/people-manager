@@ -8,8 +8,7 @@ else
 	against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
 
-FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.ts" "*.tsx" "*.scss" | sed 's| |\\ |g')
-[ -z "$FILES" ] && exit 0
+FRONTEND_FILES=$(git diff --name-only --diff-filter=ACMR "*.ts" "*.tsx" "*.scss")
 
 # Format and lint frontend
 cd frontend
@@ -18,6 +17,6 @@ npm run lint
 cd -
 
 # Add back the modified/prettified files to staging
-echo "$FILES" | xargs git add
+echo "$FRONTEND_FILES" | xargs git add
 
 exit 0
