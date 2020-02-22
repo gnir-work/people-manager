@@ -129,9 +129,7 @@ export const PeopleTableColumns = [
     title: "ווידאו הגעה",
     dataIndex: "verifiedArrival",
     key: "verifiedArrival",
-    render: (status: AvailableBasicStatuses) => (
-      <BasicStatus status={status} />
-    ),
+    render: (status: AvailableBasicStatuses) => <BasicStatus status={status} />,
     filters: availableBasicStatusesFilters,
     onFilter: (status: string, record: PersonInterface) =>
       numbersFilterByField(record, status, "verifiedArrival")
@@ -140,9 +138,7 @@ export const PeopleTableColumns = [
     title: "בקשת מילואים",
     dataIndex: "miluim",
     key: "miluim",
-    render: (status: AvailableBasicStatuses) => (
-      <BasicStatus status={status} />
-    ),
+    render: (status: AvailableBasicStatuses) => <BasicStatus status={status} />,
     filters: availableBasicStatusesFilters,
     onFilter: (status: string, record: PersonInterface) =>
       numbersFilterByField(record, status, "miluim")
@@ -151,9 +147,7 @@ export const PeopleTableColumns = [
     title: "בקשת מהקישור",
     dataIndex: "makishur",
     key: "makishur",
-    render: (status: AvailableBasicStatuses) => (
-      <BasicStatus status={status} />
-    ),
+    render: (status: AvailableBasicStatuses) => <BasicStatus status={status} />,
     filters: availableBasicStatusesFilters,
     onFilter: (status: string, record: PersonInterface) =>
       numbersFilterByField(record, status, "makishur")
@@ -162,9 +156,7 @@ export const PeopleTableColumns = [
     title: "הגיעה",
     dataIndex: "arrived",
     key: "arrived",
-    render: (status: AvailableBasicStatuses) => (
-      <BasicStatus status={status} />
-    ),
+    render: (status: AvailableBasicStatuses) => <BasicStatus status={status} />,
     filters: availableBasicStatusesFilters,
     onFilter: (status: string, record: PersonInterface) =>
       numbersFilterByField(record, status, "arrived")

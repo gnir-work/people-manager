@@ -8,13 +8,14 @@ else
 	against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
 
-FRONTEND_FILES=$(git diff --name-only --diff-filter=ACMR "*.ts" "*.tsx" "*.scss")
-
 # Format and lint frontend
 cd frontend
 npm run format 
 npm run lint
 cd -
+
+# Get the formatted files
+FRONTEND_FILES=$(git diff --name-only --diff-filter=ACMR "*.ts" "*.tsx" "*.scss")
 
 # Add back the modified/prettified files to staging
 echo "$FRONTEND_FILES" | xargs git add
