@@ -2,7 +2,7 @@ import React from 'react';
 import Flag from './Flag';
 
 import { AvailableBasicStatuses } from "../api/types";
-
+import { basicStatusToText} from "../consts";
 
 
 export interface BedStatusProps {
@@ -14,13 +14,8 @@ const statusToColor = {
     [AvailableBasicStatuses.Pending]: 'red',
 }
 
-export const statusToText = {
-    [AvailableBasicStatuses.Done]: 'יש',
-    [AvailableBasicStatuses.Pending]: 'טרם',
-}
-
 const BasicStatus : React.FC<BedStatusProps> = ({ status }) => (
-    <Flag<AvailableBasicStatuses> colors={statusToColor} current={status} texts={statusToText} />
+    <Flag<AvailableBasicStatuses> colors={statusToColor} current={status} texts={basicStatusToText} />
 )
 
 

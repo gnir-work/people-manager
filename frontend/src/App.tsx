@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout, Menu } from "antd";
 import { getPeople } from "./api/people";
-import PeopleTable from "./components/PeopleTable";
+import PeopleTable from "./components/PeopleTable/PeopleTable";
 
 import "antd/dist/antd.css";
 import "./rtl.scss"

@@ -21,8 +21,8 @@ export const numbersFilterByField = (
 ) => person[field] === parseInt(value);
 
 /**
- * Convert an array of mappings from an enum to the shown text to antd filters.
- * @param filters An array of possible filters that will be used in antd's table filter.
+ * Convert a dict of mappings to antd filters format.
+ * @param filters An dict mapping between the value and the text that should be shown in the filter.
  */
 export const enumMappingToAntdFilters = (filters: { [key: number]: string }) =>
     _.keys(filters).map((value: string) => ({
