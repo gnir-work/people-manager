@@ -2,11 +2,18 @@ import React from "react";
 import { SortOrder } from "antd/lib/table/interface";
 import { DatePicker } from "antd";
 
-import TableFilter from "../TableFilter";
-import { sortById, sortByName, sortByWeek, sortByArrivalTime } from "../../utils/sorters";
+import TableTextFilter from "../TableTextFilter";
+import TableDateFilter from "../TableDateFilter";
+import {
+  sortById,
+  sortByName,
+  sortByWeek,
+  sortByArrivalTime
+} from "../../utils/sorters";
 import {
   stringsFilterByField,
   numbersFilterByField,
+  datesFilterByField,
   enumMappingToAntdFilters
 } from "../../utils/filters";
 import {
@@ -17,6 +24,7 @@ import {
 import BedStatus from "../BedStatus";
 import BasicStatus from "../BasicStatus";
 import { basicStatusToText, bedStatusToText } from "../../consts";
+import moment, { Moment } from "moment";
 
 const defaultSortOrder: SortOrder = "ascend";
 
@@ -34,7 +42,7 @@ export const PeopleTableColumns = [
     sorter: sortByName,
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "fullName"),
-    filterDropdown: TableFilter
+    filterDropdown: TableTextFilter
   },
   {
     title: "מ.א",
@@ -43,7 +51,7 @@ export const PeopleTableColumns = [
     sorter: sortById,
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "personId"),
-    filterDropdown: TableFilter
+    filterDropdown: TableTextFilter
   },
   {
     title: "גיל",
@@ -51,7 +59,7 @@ export const PeopleTableColumns = [
     key: "age",
     onFilter: (value: string, record: PersonInterface) =>
       numbersFilterByField(record, value, "age"),
-    filterDropdown: TableFilter
+    filterDropdown: TableTextFilter
   },
   {
     title: "תקופה",
@@ -59,7 +67,7 @@ export const PeopleTableColumns = [
     key: "period",
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "period"),
-    filterDropdown: TableFilter
+    filterDropdown: TableTextFilter
   },
   {
     title: "שבוע",
@@ -69,10 +77,10 @@ export const PeopleTableColumns = [
     defaultSortOrder,
     onFilter: (value: string, record: PersonInterface) =>
       numbersFilterByField(record, value, "week"),
-    filterDropdown: TableFilter
+    filterDropdown: TableTextFilter
   },
   {
-    title: "תאריכים",
+    title: "תאריכים (לפי זמן הגעה)",
     key: "time",
     render: (text: string, record: PersonInterface) => (
       <DatePicker.RangePicker
@@ -80,6 +88,11 @@ export const PeopleTableColumns = [
         size="small"
       />
     ),
+    filterDropdown: TableDateFilter,
+    onFilter: (datesRange: {since: Moment, until: Moment}, record: PersonInterface) => {
+        debugger;
+        return datesFilterByField(record, datesRange, "arrivalTime");
+    },
     sorter: sortByArrivalTime,
     width: "20em"
   },
@@ -89,7 +102,7 @@ export const PeopleTableColumns = [
     key: "invitor",
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "invitor"),
-    filterDropdown: TableFilter
+    filterDropdown: TableTextFilter
   },
   {
     title: "מיטה",
@@ -162,7 +175,7 @@ export const PeopleTableColumns = [
     key: "megama",
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "megama"),
-    filterDropdown: TableFilter
+    filterDropdown: TableTextFilter
   },
   {
     title: "סיבה",
@@ -170,7 +183,7 @@ export const PeopleTableColumns = [
     key: "reason",
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "reason"),
-    filterDropdown: TableFilter
+    filterDropdown: TableTextFilter
   },
   {
     title: "הערות נוספות",
@@ -179,6 +192,6 @@ export const PeopleTableColumns = [
     width: "30em",
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "remarks"),
-    filterDropdown: TableFilter
+    filterDropdown: TableTextFilter
   }
 ];

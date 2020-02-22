@@ -1,17 +1,16 @@
 import React from 'react';
-import { useCallback } from 'react';
-import { Table, Input, Button, Icon } from 'antd';
+import { Input, Button } from 'antd';
 
 import "./TableFilter.scss";
 
-interface TableFilterProps {
+interface TableTextFilterProps {
     setSelectedKeys: Function,
     selectedKeys: string[],
     confirm: () => void,
     clearFilters: () => void
 }
 
-const TableFilter: React.FC<TableFilterProps> = ({
+const TableTextFilter: React.FC<TableTextFilterProps> = ({
     setSelectedKeys,
     selectedKeys,
     confirm,
@@ -50,4 +49,4 @@ const TableFilter: React.FC<TableFilterProps> = ({
     );
 };
 
-export default TableFilter;
+export default TableTextFilter;
