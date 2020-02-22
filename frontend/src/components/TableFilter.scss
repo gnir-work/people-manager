@@ -1,0 +1,21 @@
+.table-filter {
+  direction: ltr;
+  padding: 8px;
+  text-align: left;
+
+  .search-input {
+    width: 188px;
+    margin-bottom: 8px;
+    display: block;
+    direction: rtl;
+  }
+
+  .clear-button {
+    width: 90px;
+  }
+
+  .search-button {
+    width: 90px;
+    margin-right: 8px;
+  }
+}

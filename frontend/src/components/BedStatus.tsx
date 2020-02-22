@@ -1,31 +1,25 @@
-import React from 'react';
-import { Tag } from 'antd';
+import React from "react";
+import Flag from "./Flag";
 
-export enum AvailableBedStatuses {
-    NoNeed,
-    Searching,
-    Found
-}
+import { AvailableBedStatuses } from "../api/types";
+import { bedStatusToText } from "../consts";
 
 export interface BedStatusProps {
-    status: AvailableBedStatuses
+  status: AvailableBedStatuses;
 }
 
 const statusToColor = {
-    [AvailableBedStatuses.NoNeed]: 'green',
-    [AvailableBedStatuses.Searching]: 'red',
-    [AvailableBedStatuses.Found]: 'green',
-}
+  [AvailableBedStatuses.NoNeed]: "green",
+  [AvailableBedStatuses.Searching]: "red",
+  [AvailableBedStatuses.Found]: "green"
+};
 
-const statusToText = {
-    [AvailableBedStatuses.NoNeed]: 'אין צורך',
-    [AvailableBedStatuses.Searching]: 'מחפשים',
-    [AvailableBedStatuses.Found]: 'יש מיטה',
-}
-
-const BedStatus : React.FC<BedStatusProps> = ({ status }) => (
-    <Tag color={statusToColor[status]}> { statusToText[status]} </Tag>
-)
-
+const BedStatus: React.FC<BedStatusProps> = ({ status }) => (
+  <Flag<AvailableBedStatuses>
+    colors={statusToColor}
+    current={status}
+    texts={bedStatusToText}
+  />
+);
 
 export default BedStatus;
