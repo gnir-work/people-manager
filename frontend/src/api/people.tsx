@@ -11,7 +11,7 @@ export const getPeople = (): Array<PersonInterface> =>
         age: 21,
         period: "Ahud",
         week: _.random(1, 11),
-        arrivalTime: moment(),
+        arrivalTime: moment().day(_.random(1, 10)),
         departureTime: moment(),
         invitor: "ניר גלר",
         bed: _.sample([AvailableBedStatuses.NoNeed, AvailableBedStatuses.Found, AvailableBedStatuses.Searching]) || AvailableBedStatuses.NoNeed,

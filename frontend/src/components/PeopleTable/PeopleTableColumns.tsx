@@ -3,7 +3,7 @@ import { SortOrder } from "antd/lib/table/interface";
 import { DatePicker } from "antd";
 
 import TableFilter from "../TableFilter";
-import { sortById, sortByName, sortByWeek } from "../../utils/sorters";
+import { sortById, sortByName, sortByWeek, sortByArrivalTime } from "../../utils/sorters";
 import {
   stringsFilterByField,
   numbersFilterByField,
@@ -80,6 +80,7 @@ export const PeopleTableColumns = [
         size="small"
       />
     ),
+    sorter: sortByArrivalTime,
     width: "20em"
   },
   {
