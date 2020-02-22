@@ -1,6 +1,7 @@
 import React from "react";
 import { SortOrder } from "antd/lib/table/interface";
 import { DatePicker } from "antd";
+import { Moment } from "moment";
 
 import TableTextFilter from "../TableTextFilter";
 import TableDateFilter from "../TableDateFilter";
@@ -24,7 +25,6 @@ import {
 import BedStatus from "../BedStatus";
 import BasicStatus from "../BasicStatus";
 import { basicStatusToText, bedStatusToText } from "../../consts";
-import moment, { Moment } from "moment";
 
 const defaultSortOrder: SortOrder = "ascend";
 
@@ -82,7 +82,7 @@ export const PeopleTableColumns = [
   {
     title: "תאריכים (לפי זמן הגעה)",
     key: "time",
-    render: (text: string, record: PersonInterface) => (
+    render: (value: string, record: PersonInterface) => (
       <DatePicker.RangePicker
         defaultValue={[record.arrivalTime, record.departureTime]}
         size="small"
@@ -129,8 +129,8 @@ export const PeopleTableColumns = [
     title: "ווידאו הגעה",
     dataIndex: "verifiedArrival",
     key: "verifiedArrival",
-    render: (checked: AvailableBasicStatuses) => (
-      <BasicStatus status={checked} />
+    render: (status: AvailableBasicStatuses) => (
+      <BasicStatus status={status} />
     ),
     filters: availableBasicStatusesFilters,
     onFilter: (status: string, record: PersonInterface) =>
@@ -140,8 +140,8 @@ export const PeopleTableColumns = [
     title: "בקשת מילואים",
     dataIndex: "miluim",
     key: "miluim",
-    render: (checked: AvailableBasicStatuses) => (
-      <BasicStatus status={checked} />
+    render: (status: AvailableBasicStatuses) => (
+      <BasicStatus status={status} />
     ),
     filters: availableBasicStatusesFilters,
     onFilter: (status: string, record: PersonInterface) =>
@@ -151,8 +151,8 @@ export const PeopleTableColumns = [
     title: "בקשת מהקישור",
     dataIndex: "makishur",
     key: "makishur",
-    render: (checked: AvailableBasicStatuses) => (
-      <BasicStatus status={checked} />
+    render: (status: AvailableBasicStatuses) => (
+      <BasicStatus status={status} />
     ),
     filters: availableBasicStatusesFilters,
     onFilter: (status: string, record: PersonInterface) =>
@@ -162,8 +162,8 @@ export const PeopleTableColumns = [
     title: "הגיעה",
     dataIndex: "arrived",
     key: "arrived",
-    render: (checked: AvailableBasicStatuses) => (
-      <BasicStatus status={checked} />
+    render: (status: AvailableBasicStatuses) => (
+      <BasicStatus status={status} />
     ),
     filters: availableBasicStatusesFilters,
     onFilter: (status: string, record: PersonInterface) =>

@@ -1,10 +1,10 @@
 import React from "react";
 import { DatePicker, Button } from "antd";
+import { RangePickerValue } from "antd/lib/date-picker/interface";
+import { Moment } from "moment";
 
 import "./TableFilter.scss";
 import "./TableDateFilter.scss";
-import { RangePickerValue } from "antd/lib/date-picker/interface";
-import { Moment } from "moment";
 
 interface TableDateFilterProps {
   setSelectedKeys: Function;

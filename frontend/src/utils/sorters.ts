@@ -1,20 +1,10 @@
 import { PersonInterface } from "../api/types";
 
-/**
- * Compares between two person objects by their ID,
- * @param firstPerson
- * @param secondPerson
- */
 export const sortById = (
   firstPerson: PersonInterface,
   secondPerson: PersonInterface
 ): number => sortByField(firstPerson, secondPerson, "personId");
 
-/**
- * Compares between two person objects by their name.
- * @param firstPerson
- * @param secondPerson
- */
 export const sortByName = (
   firstPerson: PersonInterface,
   secondPerson: PersonInterface
