@@ -1,6 +1,6 @@
 import React from "react";
 import { SortOrder } from "antd/lib/table/interface";
-import { DatePicker } from "antd";
+import { DatePicker, Icon } from "antd";
 import { Moment } from "moment";
 
 import TableTextFilter from "../TableTextFilter";
@@ -35,6 +35,12 @@ const availableBasicStatusesFilters = enumMappingToAntdFilters(
 const availableBedStatusesFilters = enumMappingToAntdFilters(bedStatusToText);
 
 export const PeopleTableColumns = [
+  {
+    title: "",
+    dataIndex: "",
+    key: "actions",
+    render: () => <Icon onClick={console.log} type="delete" />
+  },
   {
     title: "שם מלא",
     dataIndex: "fullName",
