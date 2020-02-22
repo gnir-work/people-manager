@@ -1,16 +1,16 @@
 .ant-layout.layout {
-    background-color: #fff;
-    height: 100vh;
-    .ant-layout-content {
-        display: flex;
-        flex-direction: column;
-        padding: 0 1em 0 0;
-        .people-manager-table {
-            flex: 1;
-        }
+  background-color: #fff;
+  height: 100vh;
+  .ant-layout-content {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em 0 0;
+    .people-manager-table {
+      flex: 1;
     }
-    .ant-layout-footer {
-        text-align: center;
-        height: 64px;
-    }
+  }
+  .ant-layout-footer {
+    text-align: center;
+    height: 64px;
+  }
 }

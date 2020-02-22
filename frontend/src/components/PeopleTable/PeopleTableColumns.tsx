@@ -89,10 +89,10 @@ export const PeopleTableColumns = [
       />
     ),
     filterDropdown: TableDateFilter,
-    onFilter: (datesRange: {since: Moment, until: Moment}, record: PersonInterface) => {
-        debugger;
-        return datesFilterByField(record, datesRange, "arrivalTime");
-    },
+    onFilter: (
+      datesRange: { since: Moment; until: Moment },
+      record: PersonInterface
+    ) => datesFilterByField(record, datesRange, "arrivalTime"),
     sorter: sortByArrivalTime,
     width: "20em"
   },

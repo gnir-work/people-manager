@@ -4,10 +4,14 @@ import { DatePicker, Button } from "antd";
 import "./TableFilter.scss";
 import "./TableDateFilter.scss";
 import { RangePickerValue } from "antd/lib/date-picker/interface";
+import { Moment } from "moment";
 
 interface TableDateFilterProps {
   setSelectedKeys: Function;
-  selectedKeys: string[];
+  selectedKeys: Array<{
+    since: Moment;
+    until: Moment;
+  }>;
   confirm: () => void;
   clearFilters: () => void;
 }
@@ -19,7 +23,6 @@ const TableDateFilter: React.FC<TableDateFilterProps> = ({
   clearFilters
 }) => {
   const onSearch = (dates: RangePickerValue) => {
-    debugger;
     setSelectedKeys([
       {
         since: dates[0],
@@ -27,8 +30,6 @@ const TableDateFilter: React.FC<TableDateFilterProps> = ({
       }
     ]);
   };
-
-  console.log(selectedKeys);
 
   return (
     <div className="table-filter table-date-filter">
