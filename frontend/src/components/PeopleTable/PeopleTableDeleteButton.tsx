@@ -1,5 +1,5 @@
 import React, { useContext, useCallback } from "react";
-import { Icon } from "antd";
+import { Icon, message } from "antd";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { PersonInterface } from "../../api/types";
 
@@ -17,7 +17,11 @@ const PeopleTableDeleteButton: React.FC<PeopleTableDeleteButtonProps> = ({
 }) => {
   const { deletePerson } = useContext(PeopleContext);
   const handleClick = useCallback(() => {
-    deletePerson(person);
+    if (deletePerson(person)) {
+      message.success(`${person.fullName} נמחק בהצלחה!`);
+    } else {
+      message.error(`לא ניתן למחוק את ${person.fullName}`);
+    }
   }, [deletePerson]);
 
   return <Icon type="delete" onClick={handleClick} />;

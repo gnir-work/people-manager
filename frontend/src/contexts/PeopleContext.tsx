@@ -22,13 +22,20 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
 
   /**
    * Deletes a specific person identified by _id.
+   *
    * @param personToDelete The person to delete from the dataset.
+   * @returns a boolean indicating the success of the operation.
    */
-  const deletePerson = (personToDelete: PersonInterface) => {
-    const filteredPeople = people.filter(
-      person => person._id !== personToDelete._id
-    );
-    setPeople(filteredPeople);
+  const deletePerson = (personToDelete: PersonInterface): boolean => {
+    if (people.find(person => person._id === personToDelete._id)) {
+      const filteredPeople = people.filter(
+        person => person._id !== personToDelete._id
+      );
+      setPeople(filteredPeople);
+      return true;
+    } else {
+      return false;
+    }
   };
 
   return (
