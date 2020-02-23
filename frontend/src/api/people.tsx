@@ -18,6 +18,8 @@ const generatePersonId = (person: PersonInterface) =>
 export const getPeople = (): Array<PersonInterface> =>
   _.range(1000)
     .map(id => ({
+      // TODO: remove the temp id when we move to backend
+      _id: "temp",
       personId: _.random(10000000, 99999999).toString(),
       fullName: "ניר גלר" + _.random(1, 100).toString(),
       age: 21,

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Layout, Menu } from "antd";
-import { getPeople } from "./api/people";
+import { PeopleContextProvider } from "./contexts/PeopleContext";
 import PeopleTable from "./components/PeopleTable/PeopleTable";
 
 import "antd/dist/antd.css";
@@ -10,7 +10,6 @@ import "./App.scss";
 const { Header, Content, Footer } = Layout;
 
 const App: React.FC = () => {
-  const [people, setPeople] = useState(getPeople);
   return (
     <Layout className="layout">
       <Header>
@@ -20,7 +19,9 @@ const App: React.FC = () => {
         </Menu>
       </Header>
       <Content>
-        <PeopleTable people={people} className="people-manager-table" />
+        <PeopleContextProvider>
+          <PeopleTable className="people-manager-table" />
+        </PeopleContextProvider>
       </Content>
       <Footer>Bis Hibur ©2019 Created by Nir Geller</Footer>
     </Layout>
