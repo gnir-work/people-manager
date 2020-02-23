@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Layout, Menu } from "antd";
 import { PeopleContextProvider } from "./contexts/PeopleContext";
 import PeopleTable from "./components/PeopleTable/PeopleTable";
