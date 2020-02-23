@@ -12,6 +12,7 @@ export enum AvailableBasicStatuses {
 }
 
 export interface PersonInterface {
+  _id: string;
   fullName: string;
   personId: string;
   age: number;

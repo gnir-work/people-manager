@@ -25,6 +25,7 @@ import {
 import BedStatus from "../BedStatus";
 import BasicStatus from "../BasicStatus";
 import { basicStatusToText, bedStatusToText } from "../../consts";
+import PeopleTableDeleteButton from "./PeopleTableDeleteButton";
 
 const defaultSortOrder: SortOrder = "ascend";
 
@@ -35,12 +36,6 @@ const availableBasicStatusesFilters = enumMappingToAntdFilters(
 const availableBedStatusesFilters = enumMappingToAntdFilters(bedStatusToText);
 
 export const PeopleTableColumns = [
-  {
-    title: "",
-    dataIndex: "",
-    key: "actions",
-    render: () => <Icon onClick={console.log} type="delete" />
-  },
   {
     title: "שם מלא",
     dataIndex: "fullName",
@@ -191,5 +186,13 @@ export const PeopleTableColumns = [
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "remarks"),
     filterDropdown: TableTextFilter
+  },
+  {
+    title: "",
+    dataIndex: "",
+    key: "actions",
+    render: (text: string, record: PersonInterface) => (
+      <PeopleTableDeleteButton person={record} />
+    )
   }
 ];

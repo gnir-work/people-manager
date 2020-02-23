@@ -14,7 +14,7 @@ const App: React.FC = () => {
   return (
     <Layout className="layout">
       <Header>
-        <div className="logo"></div>
+        <div className="logo" />
         <Menu theme="dark" mode="horizontal" style={{ lineHeight: "64px" }}>
           <Menu.Item> מנהל אנשי חוץ </Menu.Item>
         </Menu>
