@@ -47,7 +47,8 @@ export const PeopleTableColumns = [
     filterDropdown: TableTextFilter,
     render: (value: string, record: PersonInterface) => (
       <PeopleTableEditableText text={value} field="fullName" person={record} />
-    )
+    ),
+    width: "40em"
   },
   {
     title: "מ.א",

@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getPeople } from "../api/people";
 import { PersonInterface } from "../api/types";
+import _ from "lodash";
 
 const defaultData: {
   people: PersonInterface[];
@@ -51,7 +52,7 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
    */
   const getFieldDataSet = (field: keyof PersonInterface) => {
     const fields = people.map((person: PersonInterface) => person[field]);
-    return fields;
+    return _.uniq(fields);
   };
 
   /**
