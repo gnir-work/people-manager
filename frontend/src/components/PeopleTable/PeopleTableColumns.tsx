@@ -1,6 +1,6 @@
 import React from "react";
 import { SortOrder } from "antd/lib/table/interface";
-import { DatePicker } from "antd";
+import { DatePicker, Icon } from "antd";
 import { Moment } from "moment";
 
 import TableTextFilter from "../TableTextFilter";
@@ -25,6 +25,7 @@ import {
 import BedStatus from "../BedStatus";
 import BasicStatus from "../BasicStatus";
 import { basicStatusToText, bedStatusToText } from "../../consts";
+import PeopleTableDeleteButton from "./PeopleTableDeleteButton";
 
 const defaultSortOrder: SortOrder = "ascend";
 
@@ -185,5 +186,13 @@ export const PeopleTableColumns = [
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "remarks"),
     filterDropdown: TableTextFilter
+  },
+  {
+    title: "",
+    dataIndex: "",
+    key: "actions",
+    render: (text: string, record: PersonInterface) => (
+      <PeopleTableDeleteButton person={record} />
+    )
   }
 ];
