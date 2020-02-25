@@ -26,6 +26,7 @@ import BedStatus from "../BedStatus";
 import BasicStatus from "../BasicStatus";
 import { basicStatusToText, bedStatusToText } from "../../consts";
 import PeopleTableDeleteButton from "./PeopleTableDeleteButton";
+import PeopleTableEditableText from "./PeopleTableEditableText";
 
 const defaultSortOrder: SortOrder = "ascend";
 
@@ -43,7 +44,10 @@ export const PeopleTableColumns = [
     sorter: sortByName,
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "fullName"),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: PersonInterface) => (
+      <PeopleTableEditableText text={value} field="fullName" person={record} />
+    )
   },
   {
     title: "מ.א",
