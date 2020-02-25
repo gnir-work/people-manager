@@ -24,7 +24,7 @@ const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
   const [editing, setEditing] = useState(false);
   const { getFieldDataSet, updatePerson } = useContext(PeopleContext);
 
-  const dataSet = getFieldDataSet(field).filter(data:string => data.contains);
+  const dataSet = getFieldDataSet(field);
 
   console.log(dataSet);
   const toggleEditing = () => {
