@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { PersonInterface } from "../api/types";
+import { Person } from "../types/person";
 import { ConditionalProps } from "./types";
 import moment, { Moment } from "moment";
 
@@ -11,9 +11,9 @@ import moment, { Moment } from "moment";
  * @param field The field to check against
  */
 export const stringsFilterByField = (
-  person: PersonInterface,
+  person: Person,
   text: string,
-  field: ConditionalProps<PersonInterface, string>
+  field: ConditionalProps<Person, string>
 ) => person[field].toLowerCase().includes(text.toLowerCase());
 
 /**
@@ -23,9 +23,9 @@ export const stringsFilterByField = (
  * @param field The field to check against.
  */
 export const numbersFilterByField = (
-  person: PersonInterface,
+  person: Person,
   value: string,
-  field: ConditionalProps<PersonInterface, number>
+  field: ConditionalProps<Person, number>
 ) => person[field] === parseInt(value);
 
 /**
@@ -36,9 +36,9 @@ export const numbersFilterByField = (
  * @param field The date field that will be filtered.
  */
 export const datesFilterByField = (
-  person: PersonInterface,
+  person: Person,
   datesRange: { since: Moment; until: Moment },
-  field: ConditionalProps<PersonInterface, moment.Moment>
+  field: ConditionalProps<Person, moment.Moment>
 ) =>
   datesRange.since.startOf("day") <= person[field] &&
   person[field] <= datesRange.until.endOf("day");

@@ -1,12 +1,12 @@
 import React, { useContext, useCallback } from "react";
 import { Icon, message } from "antd";
 import { PeopleContext } from "../../contexts/PeopleContext";
-import { PersonInterface } from "../../api/types";
+import { Person } from "../../types/person";
 
 import "./PeopleTableDeleteButton.scss";
 
 interface PeopleTableDeleteButtonProps {
-  person: PersonInterface;
+  person: Person;
 }
 
 /**

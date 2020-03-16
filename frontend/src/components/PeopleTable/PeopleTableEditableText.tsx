@@ -1,6 +1,6 @@
 import React, { useContext, useState, KeyboardEvent } from "react";
 import { AutoComplete, message } from "antd";
-import { PersonInterface } from "../../api/types";
+import { Person } from "../../types/person";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { ConditionalProps } from "../../utils/types";
 
@@ -11,8 +11,8 @@ import "./PeopleTableEditableText.scss";
 
 interface PeopleTableEditableTextProps {
   initialValue: string;
-  field: ConditionalProps<PersonInterface, string>;
-  person: PersonInterface;
+  field: ConditionalProps<Person, string>;
+  person: Person;
   initialDataSet?: string[];
   allowNewValues?: boolean;
 }

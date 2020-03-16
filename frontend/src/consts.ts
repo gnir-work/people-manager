@@ -1,12 +1,6 @@
-import { AvailableBedStatuses, AvailableBasicStatuses } from "./api/types";
+import { PersonStatuses } from "./types/person";
 
-export const bedStatusToText = {
-  [AvailableBedStatuses.NoNeed]: "אין צורך",
-  [AvailableBedStatuses.Searching]: "מחפשים",
-  [AvailableBedStatuses.Found]: "יש מיטה"
-};
-
-export const basicStatusToText = {
-  [AvailableBasicStatuses.Done]: "יש",
-  [AvailableBasicStatuses.Pending]: "טרם"
+export const personStatusToText = {
+  [PersonStatuses.Citizen]: "אזרח",
+  [PersonStatuses.Soldier]: "חייל"
 };
