@@ -26,6 +26,7 @@ import BedStatus from "../BedStatus";
 import BasicStatus from "../BasicStatus";
 import { basicStatusToText, bedStatusToText } from "../../consts";
 import PeopleTableDeleteButton from "./PeopleTableDeleteButton";
+import PeopleTableEditableText from "./PeopleTableEditableText";
 
 const defaultSortOrder: SortOrder = "ascend";
 
@@ -43,7 +44,15 @@ export const PeopleTableColumns = [
     sorter: sortByName,
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "fullName"),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: PersonInterface) => (
+      <PeopleTableEditableText
+        field="fullName"
+        person={record}
+        initialValue={value}
+      />
+    ),
+    width: "40em"
   },
   {
     title: "מ.א",
@@ -52,7 +61,14 @@ export const PeopleTableColumns = [
     sorter: sortById,
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "personId"),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: PersonInterface) => (
+      <PeopleTableEditableText
+        field="personId"
+        person={record}
+        initialValue={value}
+      />
+    )
   },
   {
     title: "גיל",
@@ -68,7 +84,16 @@ export const PeopleTableColumns = [
     key: "period",
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "period"),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: PersonInterface) => (
+      <PeopleTableEditableText
+        field="period"
+        person={record}
+        initialValue={value}
+        allowNewValues={false}
+        initialDataSet={["מכינה", "אחוד"]}
+      />
+    )
   },
   {
     title: "שבוע",
@@ -103,7 +128,14 @@ export const PeopleTableColumns = [
     key: "invitor",
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "invitor"),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: PersonInterface) => (
+      <PeopleTableEditableText
+        field="invitor"
+        person={record}
+        initialValue={value}
+      />
+    )
   },
   {
     title: "מיטה",
@@ -168,7 +200,16 @@ export const PeopleTableColumns = [
     key: "megama",
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "megama"),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: PersonInterface) => (
+      <PeopleTableEditableText
+        field="megama"
+        person={record}
+        initialValue={value}
+        allowNewValues={false}
+        initialDataSet={["נאון", "נמו"]}
+      />
+    )
   },
   {
     title: "סיבה",
@@ -176,7 +217,14 @@ export const PeopleTableColumns = [
     key: "reason",
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "reason"),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: PersonInterface) => (
+      <PeopleTableEditableText
+        field="reason"
+        person={record}
+        initialValue={value}
+      />
+    )
   },
   {
     title: "הערות נוספות",
@@ -185,7 +233,14 @@ export const PeopleTableColumns = [
     width: "30em",
     onFilter: (value: string, record: PersonInterface) =>
       stringsFilterByField(record, value, "remarks"),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: PersonInterface) => (
+      <PeopleTableEditableText
+        field="remarks"
+        person={record}
+        initialValue={value}
+      />
+    )
   },
   {
     title: "",

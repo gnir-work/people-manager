@@ -1,10 +1,18 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getPeople } from "../api/people";
 import { PersonInterface } from "../api/types";
+import _ from "lodash";
 
-const defaultData: { people: PersonInterface[]; deletePerson: Function } = {
+const defaultData: {
+  people: PersonInterface[];
+  deletePerson: Function;
+  getFieldDataSet: Function;
+  updatePerson: Function;
+} = {
   people: [],
-  deletePerson: () => {}
+  deletePerson: () => {},
+  getFieldDataSet: () => {},
+  updatePerson: () => {}
 };
 
 export const PeopleContext = createContext(defaultData);
@@ -38,11 +46,34 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
     }
   };
 
+  /**
+   * Retrieves all of the unique values of a given field.
+   * @param field The field from which the data set should be built
+   */
+  const getFieldDataSet = (field: keyof PersonInterface) => {
+    const fields = people.map((person: PersonInterface) => person[field]);
+    return _.uniq(fields);
+  };
+
+  /**
+   * Update a specific person.
+   */
+  const updatePerson = (newPerson: PersonInterface) => {
+    const newPeople = [
+      ...people.map(person =>
+        person._id === newPerson._id ? newPerson : person
+      )
+    ];
+    setPeople(newPeople);
+  };
+
   return (
     <PeopleContext.Provider
       value={{
         people,
-        deletePerson
+        deletePerson,
+        getFieldDataSet,
+        updatePerson
       }}
     >
       {children}
