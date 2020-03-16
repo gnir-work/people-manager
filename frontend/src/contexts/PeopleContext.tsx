@@ -47,7 +47,7 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
   };
 
   /**
-   * Generates unique
+   * Retrieves all of the unique values of a given field.
    * @param field The field from which the data set should be built
    */
   const getFieldDataSet = (field: keyof PersonInterface) => {
@@ -56,7 +56,7 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
   };
 
   /**
-   * Update person
+   * Update a specific person.
    */
   const updatePerson = (newPerson: PersonInterface) => {
     const newPeople = [
