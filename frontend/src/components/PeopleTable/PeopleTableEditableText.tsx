@@ -1,5 +1,5 @@
 import React, { useContext, useState, KeyboardEvent } from "react";
-import { AutoComplete } from "antd";
+import { AutoComplete, message } from "antd";
 import { PersonInterface } from "../../api/types";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { ConditionalProps } from "../../utils/types";
@@ -7,26 +7,32 @@ import { ConditionalProps } from "../../utils/types";
 import "./PeopleTableDeleteButton.scss";
 import { SelectValue } from "antd/lib/select";
 
+import "./PeopleTableEditableText.scss";
+
 interface PeopleTableEditableTextProps {
-  text: string;
   initialValue: string;
   field: ConditionalProps<PersonInterface, string>;
   person: PersonInterface;
+  initialDataSet?: string[];
+  allowNewValues?: boolean;
 }
 
 /**
  * A delete button specific for the peoples data table.
  */
 const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
-  text,
   field,
   person,
-  initialValue
+  initialValue,
+  allowNewValues = true,
+  initialDataSet = []
 }) => {
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(initialValue);
   const { getFieldDataSet, updatePerson } = useContext(PeopleContext);
-  const dataSet = getFieldDataSet(field).filter((fieldValue: string) =>
+  const wholeDataSet =
+    initialDataSet.length > 0 ? initialDataSet : getFieldDataSet(field);
+  const dataSet = wholeDataSet.filter((fieldValue: string) =>
     fieldValue.includes(value)
   );
 
@@ -41,6 +47,7 @@ const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
   const finishEditing = (newValue: string) => {
     updatePerson({ ...person, [field]: newValue });
     setEditing(false);
+    message.success("שדה עודכן בהצלחה");
   };
 
   /**
@@ -62,20 +69,25 @@ const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
   };
 
   /**
-   * Handle the case that Enter was pressed however handleSelect was not fired as there are
-   * no items to select (The case of adding a new item).
+   * Handle the case the value enter isn't part of the dataset (The case of adding a new value).
    * @param event
    */
-  const handleEnter = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter") {
-      if (dataSet.length === 0) {
+  const createNewValue = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" && dataSet.length === 0) {
+      if (!allowNewValues) {
+        message.error("בבקשה תבחרו אחד מהשדות הקיימים");
+      } else {
         finishEditing(value);
       }
     }
   };
 
   return editing ? (
-    <div onDoubleClick={toggleEditing} onKeyDown={handleEnter}>
+    <div
+      className="editable-field"
+      onDoubleClick={toggleEditing}
+      onKeyDown={createNewValue}
+    >
       <AutoComplete
         value={value}
         onSelect={handleSelect}
@@ -84,7 +96,9 @@ const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
       />
     </div>
   ) : (
-    <span onDoubleClick={toggleEditing}>{text}</span>
+    <span className="editable-field" onDoubleClick={toggleEditing}>
+      {initialValue}
+    </span>
   );
 };
 

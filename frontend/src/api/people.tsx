@@ -23,7 +23,7 @@ export const getPeople = (): Array<PersonInterface> =>
       personId: _.random(10000000, 99999999).toString(),
       fullName: "ניר גלר" + _.random(1, 100).toString(),
       age: 21,
-      period: "Ahud",
+      period: "מכינה",
       week: _.random(1, 11),
       arrivalTime: moment().day(_.random(1, 10)),
       departureTime: moment(),
