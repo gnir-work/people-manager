@@ -1,7 +1,7 @@
 import React from "react";
 import { Input, Button } from "antd";
 
-import "./TableFilter.scss";
+import "./TableTextFilter.scss";
 
 interface TableTextFilterProps {
   setSelectedKeys: Function;
