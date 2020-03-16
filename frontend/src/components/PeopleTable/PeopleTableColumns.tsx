@@ -5,15 +5,20 @@ import { sortById, sortByName } from "../../utils/sorters";
 import {
   stringsFilterByField,
   enumMappingToAntdFilters,
-  numbersFilterByField
+  numbersFilterByField,
+  arrayFilterByField
 } from "../../utils/filters";
-import { Person, PersonStatuses } from "../../types/person";
-import { personStatusToText } from "../../consts";
+import { Person, PersonStatuses, PersonPreference } from "../../types/person";
+import { personStatusToText, personPreferenceToText } from "../../consts";
 import PersonStatus from "./PersonStatus";
-import PeopleTableDeleteButton from "./PeopleTableDeleteButton";
-import PeopleTableEditableText from "./PeopleTableEditableText";
+import PeopleTableDeleteButton from "./DeleteButton";
+import PeopleTableEditableText from "./EditableText";
+import PersonPreferenceTags from "./PersonPreferences";
 
 const personStatusFilters = enumMappingToAntdFilters(personStatusToText);
+const personPreferenceFilters = enumMappingToAntdFilters(
+  personPreferenceToText
+);
 
 export const PeopleTableColumns = [
   {
@@ -57,6 +62,18 @@ export const PeopleTableColumns = [
     filters: personStatusFilters,
     onFilter: (status: string, record: Person) =>
       numbersFilterByField(record, status, "status")
+  },
+  {
+    title: "העדפות",
+    dataIndex: "preferences",
+    key: "preferences",
+    render: (preferences: PersonPreference[]) => (
+      <PersonPreferenceTags preferences={preferences} />
+    ),
+    width: "30em",
+    filters: personPreferenceFilters,
+    onFilter: (preference: string, record: Person) =>
+      arrayFilterByField(record, Number.parseInt(preference), "preferences")
   },
   {
     title: "הערות נוספות",

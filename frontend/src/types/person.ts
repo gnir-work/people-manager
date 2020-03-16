@@ -1,4 +1,4 @@
-export enum PersonPreferences {
+export enum PersonPreference {
   StayOverNight,
   Lectures,
   ExerciseChecking
@@ -15,7 +15,7 @@ interface PersonArguments {
   status: PersonStatuses;
   team: string;
   remarks?: string;
-  preferences?: PersonPreferences[];
+  preferences?: PersonPreference[];
 }
 
 export class Person {
@@ -25,7 +25,7 @@ export class Person {
   status: PersonStatuses;
   team: string;
   remarks: string;
-  preferences: PersonPreferences[];
+  preferences: PersonPreference[];
 
   constructor(args: PersonArguments) {
     this.id = args.personalId;

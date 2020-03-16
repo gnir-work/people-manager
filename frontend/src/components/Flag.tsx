@@ -9,12 +9,20 @@ export interface FlagProps<T extends string | number> {
   texts: {
     [key in T]: string;
   };
+  className?: string;
 }
 
 const Flag: <T extends string | number>(
   p: FlagProps<T>
-) => React.ReactElement<FlagProps<T>> = ({ current, colors, texts }) => (
-  <Tag color={colors[current]}>{texts[current]}</Tag>
+) => React.ReactElement<FlagProps<T>> = ({
+  current,
+  colors,
+  texts,
+  className
+}) => (
+  <Tag className={className} color={colors[current]}>
+    {texts[current]}
+  </Tag>
 );
 
 export default Flag;

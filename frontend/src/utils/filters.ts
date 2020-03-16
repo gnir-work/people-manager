@@ -1,6 +1,6 @@
 import _ from "lodash";
-import { Person } from "../types/person";
-import { ConditionalProps } from "./types";
+import { Person, PersonPreference } from "../types/person";
+import { ConditionalProps, getElementType } from "./types";
 import moment, { Moment } from "moment";
 
 /**
@@ -42,6 +42,12 @@ export const datesFilterByField = (
 ) =>
   datesRange.since.startOf("day") <= person[field] &&
   person[field] <= datesRange.until.endOf("day");
+
+export function arrayFilterByField<
+  K extends ConditionalProps<Person, Array<any>>
+>(person: Person, value: getElementType<Person[K]>, field: K) {
+  return person[field].includes(value);
+}
 
 /**
  * Convert a dict of mappings to antd filters format.
