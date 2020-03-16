@@ -27,7 +27,7 @@ const PeopleTableDeleteButton: React.FC<PeopleTableDeleteButtonProps> = ({
     } else {
       message.error(`לא ניתן למחוק את ${person.fullName}`);
     }
-  }, [deletePerson]);
+  }, [deletePerson, person]);
 
   return <Icon type="delete" onClick={handleClick} />;
 };
