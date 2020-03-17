@@ -1,7 +1,8 @@
 import React from "react";
 import { Tag } from "antd";
+import { TagProps } from "antd/lib/tag";
 
-export interface FlagProps<T extends string | number> {
+export interface FlagProps<T extends string | number> extends TagProps {
   current: T;
   colors: {
     [key in T]: string;
@@ -9,7 +10,6 @@ export interface FlagProps<T extends string | number> {
   texts: {
     [key in T]: string;
   };
-  className?: string;
 }
 
 const Flag: <T extends string | number>(
@@ -18,9 +18,9 @@ const Flag: <T extends string | number>(
   current,
   colors,
   texts,
-  className
+  ...otherProps
 }) => (
-  <Tag className={className} color={colors[current]}>
+  <Tag {...otherProps} color={colors[current]}>
     {texts[current]}
   </Tag>
 );

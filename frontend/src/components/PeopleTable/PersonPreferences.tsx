@@ -39,6 +39,16 @@ const PersonPreferenceTags: React.FC<PersonPreferenceTagsProps> = ({
     updatePerson(newPerson);
   };
 
+  const deletePreference = (preferenceToDelete: PersonPreference) => {
+    const newPerson = {
+      ...person,
+      preferences: person.preferences.filter(
+        preference => preference !== preferenceToDelete
+      )
+    };
+    updatePerson(newPerson);
+  };
+
   return (
     <div>
       {person.preferences.map(preference => (
@@ -48,6 +58,8 @@ const PersonPreferenceTags: React.FC<PersonPreferenceTagsProps> = ({
           current={preference}
           colors={preferenceToColor}
           texts={personPreferenceToText}
+          closable
+          onClose={() => deletePreference(preference)}
         />
       ))}
       {dataSet.length > 0 && (
