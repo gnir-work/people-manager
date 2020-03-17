@@ -8,7 +8,7 @@ import {
   arrayFilterByField
 } from "../../utils/filters";
 import { Person } from "../../types/person";
-import PersonStatus from "./PersonStatus";
+import PersonTag from "./PersonTag";
 import PeopleTableDeleteButton from "./DeleteButton";
 import PeopleTableEditableText from "./EditableText";
 import PersonTags from "./PersonTags";
@@ -18,7 +18,10 @@ import {
   megamut,
   preferenceToColor,
   megamutToColor,
-  subjects
+  subjects,
+  statusToColor,
+  availabilityToColor,
+  availability
 } from "../../consts";
 
 export const PeopleTableColumns = [
@@ -73,11 +76,31 @@ export const PeopleTableColumns = [
     dataIndex: "status",
     key: "status",
     render: (status: string, record: Person) => (
-      <PersonStatus person={record} />
+      <PersonTag
+        field="status"
+        possibleTags={personStatuses}
+        colors={statusToColor}
+        person={record}
+      />
     ),
     filters: arrayToAntdMappings(personStatuses),
-    onFilter: (status: string, record: Person) =>
-      stringsFilterByField(record, status, "status")
+    onFilter: (status: string, record: Person) => record.status === status
+  },
+  {
+    title: "זמינות",
+    dataIndex: "availability",
+    key: "availability",
+    render: (currentAvailability: string, record: Person) => (
+      <PersonTag
+        field="availability"
+        possibleTags={availability}
+        colors={availabilityToColor}
+        person={record}
+      />
+    ),
+    filters: arrayToAntdMappings(availability),
+    onFilter: (availability: string, record: Person) =>
+      record.availability === availability
   },
   {
     title: "צוות אחרון",

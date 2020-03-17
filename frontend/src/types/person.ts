@@ -8,6 +8,7 @@ interface PersonArguments {
   preferences?: string[];
   megamut: string[];
   subjects: string[];
+  availability: string;
 }
 
 export class Person {
@@ -21,6 +22,7 @@ export class Person {
   preferences: string[];
   megamut: string[];
   subjects: string[];
+  availability: string;
 
   constructor(args: PersonArguments) {
     this.id = args.personalId;
@@ -33,5 +35,6 @@ export class Person {
     this.preferences = args.preferences || [];
     this.megamut = args.megamut || [];
     this.subjects = args.subjects || [];
+    this.availability = args.availability || "";
   }
 }

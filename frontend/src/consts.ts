@@ -6,6 +6,8 @@ export const megamut = ["מערכות", "מחקר", "מקורות"];
 
 export const subjects = ["python", "C", "ביטים"];
 
+export const availability = ["לא זמין", "זמין אבל עמוס", "זמין"];
+
 export const statusToColor: {
   [key: string]: string;
 } = {
@@ -27,4 +29,10 @@ export const megamutToColor: {
   מערכות: "green",
   מקורות: "orange",
   מחקר: "purple"
+};
+
+export const availabilityToColor = {
+  "לא זמין": "red",
+  "זמין אבל עמוס": "orange",
+  זמין: "green"
 };

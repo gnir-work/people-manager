@@ -5,7 +5,8 @@ import {
   personPreferences,
   personStatuses,
   megamut,
-  subjects
+  subjects,
+  availability
 } from "../consts";
 
 const getRandomNumberOfItemsFromList = (data: any[]) =>
@@ -23,6 +24,7 @@ export const getPeople = (): Person[] =>
         remarks: "ששדגדשג",
         preferences: getRandomNumberOfItemsFromList(personPreferences),
         megamut: getRandomNumberOfItemsFromList(megamut),
-        subjects: getRandomNumberOfItemsFromList(subjects)
+        subjects: getRandomNumberOfItemsFromList(subjects),
+        availability: _.sample(availability) || availability[0]
       })
   );
