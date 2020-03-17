@@ -8,5 +8,5 @@ export const personStatusToText = {
 export const personPreferenceToText = {
   [PersonPreference.ExerciseChecking]: "בדיקת תרגילים",
   [PersonPreference.Lectures]: "הרצאות",
-  [PersonPreference.StayOverNight]: "לישאר לישון"
+  [PersonPreference.StayOverNight]: "להישאר לישון"
 };

@@ -67,8 +67,8 @@ export const PeopleTableColumns = [
     title: "העדפות",
     dataIndex: "preferences",
     key: "preferences",
-    render: (preferences: PersonPreference[]) => (
-      <PersonPreferenceTags preferences={preferences} />
+    render: (preferences: PersonPreference[], record: Person) => (
+      <PersonPreferenceTags person={record} />
     ),
     width: "30em",
     filters: personPreferenceFilters,
