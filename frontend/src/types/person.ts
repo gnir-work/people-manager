@@ -12,6 +12,7 @@ export enum PersonStatuses {
 interface PersonArguments {
   fullName: string;
   personalId: string;
+  phone: string;
   status: PersonStatuses;
   team: string;
   remarks?: string;
@@ -22,6 +23,7 @@ export class Person {
   readonly id: string;
   fullName: string;
   personalId: string;
+  phone: string;
   status: PersonStatuses;
   team: string;
   remarks: string;
@@ -31,6 +33,7 @@ export class Person {
     this.id = args.personalId;
     this.fullName = args.fullName;
     this.personalId = args.personalId;
+    this.phone = args.phone;
     this.status = args.status;
     this.team = args.team;
     this.remarks = args.remarks || "";

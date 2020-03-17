@@ -55,6 +55,19 @@ export const PeopleTableColumns = [
     )
   },
   {
+    title: "פלאפון",
+    dataIndex: "phone",
+    key: "phone",
+    render: (value: string, record: Person) => (
+      <PeopleTableEditableText
+        field="phone"
+        person={record}
+        initialValue={value}
+      />
+    ),
+    width: "12em"
+  },
+  {
     title: "מצב שירות",
     dataIndex: "status",
     key: "status",

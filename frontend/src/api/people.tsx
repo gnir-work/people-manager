@@ -25,6 +25,7 @@ export const getPeople = (): Person[] =>
       new Person({
         team: "פיירו",
         status: PersonStatuses.Citizen,
+        phone: "053-0000000",
         personalId: _.random(10000000, 99999999).toString(),
         fullName: "ניר גלר" + _.random(1, 100).toString(),
         remarks: "ששדגדשג",
