@@ -1,7 +1,7 @@
 import React from "react";
 
 import TableTextFilter from "../TableTextFilter";
-import { sortById, sortByName, sortByTeam } from "../../utils/sorters";
+import { sortByField } from "../../utils/sorters";
 import {
   stringsFilterByField,
   arrayToAntdMappings,
@@ -29,7 +29,8 @@ export const PeopleTableColumns = [
     title: "שם מלא",
     dataIndex: "fullName",
     key: "fullName",
-    sorter: sortByName,
+    sorter: (firstPerson: Person, secondPerson: Person) =>
+      sortByField(firstPerson, secondPerson, "fullName"),
     onFilter: (value: string, record: Person) =>
       stringsFilterByField(record, value, "fullName"),
     filterDropdown: TableTextFilter,
@@ -46,7 +47,8 @@ export const PeopleTableColumns = [
     title: "מ.א",
     dataIndex: "personalId",
     key: "personalId",
-    sorter: sortById,
+    sorter: (firstPerson: Person, secondPerson: Person) =>
+      sortByField(firstPerson, secondPerson, "personalId"),
     onFilter: (value: string, record: Person) =>
       stringsFilterByField(record, value, "personalId"),
     filterDropdown: TableTextFilter,
@@ -74,6 +76,8 @@ export const PeopleTableColumns = [
   {
     title: "מצב שירות",
     dataIndex: "status",
+    sorter: (firstPerson: Person, secondPerson: Person) =>
+      sortByField(firstPerson, secondPerson, "status"),
     key: "status",
     render: (status: string, record: Person) => (
       <PersonTag
@@ -90,6 +94,8 @@ export const PeopleTableColumns = [
     title: "זמינות",
     dataIndex: "availability",
     key: "availability",
+    sorter: (firstPerson: Person, secondPerson: Person) =>
+      sortByField(firstPerson, secondPerson, "availability"),
     render: (currentAvailability: string, record: Person) => (
       <PersonTag
         field="availability"
@@ -103,10 +109,11 @@ export const PeopleTableColumns = [
       record.availability === availability
   },
   {
-    title: "צוות אחרון",
+    title: "צוות",
     dataIndex: "team",
     key: "team",
-    sorter: sortByTeam,
+    sorter: (firstPerson: Person, secondPerson: Person) =>
+      sortByField(firstPerson, secondPerson, "team"),
     onFilter: (value: string, record: Person) =>
       stringsFilterByField(record, value, "team"),
     filterDropdown: TableTextFilter,
