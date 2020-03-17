@@ -8,6 +8,7 @@ import "./PersonPreferences.scss";
 import { SelectValue } from "antd/lib/select";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import AddPreference from "./AddPreference";
+import { arrayFilterByField } from "../../utils/filters";
 
 interface PersonPreferenceTagsProps {
   person: Person;
@@ -24,9 +25,15 @@ const PersonPreferenceTags: React.FC<PersonPreferenceTagsProps> = ({
 }) => {
   const { updatePerson } = useContext(PeopleContext);
   let dataSet = _.toPairs(personPreferenceToText)
-    .filter(([key, value]) => !person.preferences.includes(key as any))
-    .map(([key, value]) => value);
+    .filter(([preference, text]) =>
+      arrayFilterByField(person, preference as any, "preferences")
+    )
+    .map(([preference, text]) => text);
 
+  /**
+   * Add the new preference to the current person
+   * @param value
+   */
   const addNewPreference = (value: SelectValue) => {
     const newPreference = _.invert(personPreferenceToText)[value.toString()];
     const newPerson = {
@@ -36,6 +43,10 @@ const PersonPreferenceTags: React.FC<PersonPreferenceTagsProps> = ({
     updatePerson(newPerson);
   };
 
+  /**
+   * Delete the preference from the current person.
+   * @param preferenceToDelete
+   */
   const deletePreference = (preferenceToDelete: PersonPreference) => {
     const newPerson = {
       ...person,
