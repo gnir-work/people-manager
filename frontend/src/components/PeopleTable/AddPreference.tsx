@@ -26,7 +26,16 @@ const AddPreference: React.FC<AddPreferenceProps> = ({ dataSet, onSubmit }) => {
   };
 
   return editing ? (
-    <AutoComplete dataSource={dataSet} onSelect={handleSelection} />
+    <AutoComplete
+      ref={(instance: AutoComplete) => {
+        if (instance) {
+          instance.focus();
+        }
+      }}
+      defaultOpen
+      dataSource={dataSet}
+      onSelect={handleSelection}
+    />
   ) : (
     <Tag onClick={startEditing} className="add-preference">
       <Icon type="plus" /> הוספת העדפה
