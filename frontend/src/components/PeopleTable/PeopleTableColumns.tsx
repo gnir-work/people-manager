@@ -36,7 +36,7 @@ export const PeopleTableColumns = [
         initialValue={value}
       />
     ),
-    width: "40em"
+    width: "15em"
   },
   {
     title: "מ.א",

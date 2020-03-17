@@ -21,8 +21,8 @@ const AddPreference: React.FC<AddPreferenceProps> = ({ dataSet, onSubmit }) => {
     onSubmit(value.toString());
   };
 
-  const startEditing = () => {
-    setEditing(true);
+  const toggleEditing = () => {
+    setEditing(!editing);
   };
 
   return editing ? (
@@ -35,9 +35,10 @@ const AddPreference: React.FC<AddPreferenceProps> = ({ dataSet, onSubmit }) => {
       defaultOpen
       dataSource={dataSet}
       onSelect={handleSelection}
+      onBlur={toggleEditing}
     />
   ) : (
-    <Tag onClick={startEditing} className="add-preference">
+    <Tag onClick={toggleEditing} className="add-preference">
       <Icon type="plus" /> הוספת העדפה
     </Tag>
   );
