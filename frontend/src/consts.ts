@@ -1,19 +1,28 @@
-import { PersonStatuses, PersonPreference } from "./types/person";
-import { Megama } from "./types/organization";
+export const personStatuses = ["אזרח", "חייל"];
 
-export const personStatusToText = {
-  [PersonStatuses.Citizen]: "אזרח",
-  [PersonStatuses.Soldier]: "חייל"
+export const personPreferences = ["בדיקת תרגילים", "הרצאות", "להישאר לישון"];
+
+export const megamut = ["מערכות", "מחקר", "מקורות"];
+
+export const statusToColor: {
+  [key: string]: string;
+} = {
+  אזרח: "blue",
+  חייל: "green"
 };
 
-export const personPreferenceToText = {
-  [PersonPreference.ExerciseChecking]: "בדיקת תרגילים",
-  [PersonPreference.Lectures]: "הרצאות",
-  [PersonPreference.StayOverNight]: "להישאר לישון"
+export const preferenceToColor: {
+  [key: string]: string;
+} = {
+  "בדיקת תרגילים": "magenta",
+  הרצאות: "geekblue",
+  "להישאר לישון": "volcano"
 };
 
-export const megamaToText = {
-  [Megama.Maarachot]: "מערכות",
-  [Megama.Mehkar]: "מחקר",
-  [Megama.Mekorot]: "מקורות"
+export const megamutToColor: {
+  [key: string]: string;
+} = {
+  מערכות: "green",
+  מקורות: "orange",
+  מחקר: "purple"
 };

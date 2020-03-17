@@ -1,36 +1,22 @@
 import _ from "lodash";
 
-import { Person, PersonStatuses, PersonPreference } from "../types/person";
-import { Megama } from "../types/organization";
+import { Person } from "../types/person";
+import { personPreferences, personStatuses, megamut } from "../consts";
 
-const getRandomNumberOfPreferences = () => {
-  const numberOfPreferences = _.random(0, 3);
-  let preferences: PersonPreference[] = [];
-
-  if (numberOfPreferences > 0) {
-    preferences.push(PersonPreference.ExerciseChecking);
-  }
-  if (numberOfPreferences > 1) {
-    preferences.push(PersonPreference.StayOverNight);
-  }
-  if (numberOfPreferences > 2) {
-    preferences.push(PersonPreference.Lectures);
-  }
-
-  return preferences;
-};
+const getRandomNumberOfItemsFromList = (data: any[]) =>
+  data.slice(0, _.random(0, data.length - 1));
 
 export const getPeople = (): Person[] =>
   _.range(1000).map(
     id =>
       new Person({
         team: "פיירו",
-        status: PersonStatuses.Citizen,
+        status: _.sample(personStatuses) || personStatuses[0],
         phone: "053-0000000",
         personalId: _.random(10000000, 99999999).toString(),
         fullName: "ניר גלר" + _.random(1, 100).toString(),
         remarks: "ששדגדשג",
-        preferences: getRandomNumberOfPreferences(),
-        megamut: [Megama.Maarachot]
+        preferences: getRandomNumberOfItemsFromList(personPreferences),
+        megamut: getRandomNumberOfItemsFromList(megamut)
       })
   );

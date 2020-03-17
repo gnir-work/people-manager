@@ -38,11 +38,11 @@ export function arrayFilterByField<
 }
 
 /**
- * Convert a dict of mappings to antd filters format.
- * @param filters An dict mapping between the value and the text that should be shown in the filter.
+ * Convert an array of literals to antd filters format.
+ * @param filters
  */
-export const enumMappingToAntdFilters = (filters: { [key: string]: string }) =>
-  _.keys(filters).map((value: string) => ({
-    text: filters[value],
+export const arrayToAntdMappings = (filters: string[]) =>
+  filters.map((value: string) => ({
+    text: value,
     value
   }));

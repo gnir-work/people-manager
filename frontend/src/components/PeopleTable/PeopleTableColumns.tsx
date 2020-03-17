@@ -4,27 +4,20 @@ import TableTextFilter from "../TableTextFilter";
 import { sortById, sortByName, sortByTeam } from "../../utils/sorters";
 import {
   stringsFilterByField,
-  enumMappingToAntdFilters,
+  arrayToAntdMappings,
   arrayFilterByField
 } from "../../utils/filters";
-import { Person, PersonStatuses, PersonPreference } from "../../types/person";
-import {
-  personStatusToText,
-  personPreferenceToText,
-  megamaToText
-} from "../../consts";
+import { Person } from "../../types/person";
 import PersonStatus from "./PersonStatus";
 import PeopleTableDeleteButton from "./DeleteButton";
 import PeopleTableEditableText from "./EditableText";
 import PersonPreferenceTags from "./PersonPreferences";
-import { Megama } from "../../types/organization";
 import Megamut from "./Megamut";
+import { personStatuses, personPreferences, megamut } from "../../consts";
 
-const personStatusFilters = enumMappingToAntdFilters(personStatusToText);
-const personPreferenceFilters = enumMappingToAntdFilters(
-  personPreferenceToText
-);
-const megamaFilters = enumMappingToAntdFilters(megamaToText);
+const personStatusFilters = arrayToAntdMappings(personStatuses);
+const personPreferenceFilters = arrayToAntdMappings(personPreferences);
+const megamaFilters = arrayToAntdMappings(megamut);
 
 export const PeopleTableColumns = [
   {
@@ -77,7 +70,7 @@ export const PeopleTableColumns = [
     title: "מצב שירות",
     dataIndex: "status",
     key: "status",
-    render: (status: PersonStatuses) => <PersonStatus status={status} />,
+    render: (status: string) => <PersonStatus status={status} />,
     filters: personStatusFilters,
     onFilter: (status: string, record: Person) =>
       stringsFilterByField(record, status, "status")
@@ -103,24 +96,24 @@ export const PeopleTableColumns = [
     title: "העדפות",
     dataIndex: "preferences",
     key: "preferences",
-    render: (preferences: PersonPreference[], record: Person) => (
+    render: (preferences: string[], record: Person) => (
       <PersonPreferenceTags person={record} />
     ),
     width: "30em",
     filters: personPreferenceFilters,
-    onFilter: (preference: PersonPreference, record: Person) =>
+    onFilter: (preference: string, record: Person) =>
       arrayFilterByField(record, preference, "preferences")
   },
   {
     title: "מגמות רלוונטיות",
     dataIndex: "megamut",
     key: "megamut",
-    render: (preferences: Megama[], record: Person) => (
+    render: (preferences: string[], record: Person) => (
       <Megamut person={record} />
     ),
     width: "30em",
     filters: megamaFilters,
-    onFilter: (megama: Megama, record: Person) =>
+    onFilter: (megama: string, record: Person) =>
       arrayFilterByField(record, megama, "megamut")
   },
   {

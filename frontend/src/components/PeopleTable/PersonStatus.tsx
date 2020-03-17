@@ -1,20 +1,13 @@
 import React from "react";
-import Flag from "../Flag";
+import { Tag } from "antd";
+import { statusToColor } from "../../consts";
 
-import { PersonStatuses } from "../../types/person";
-import { personStatusToText } from "../../consts";
-
-export interface BedStatusProps {
-  status: PersonStatuses;
+export interface PersonStatusProps {
+  status: string;
 }
 
-const statusToColor = {
-  [PersonStatuses.Citizen]: "blue",
-  [PersonStatuses.Soldier]: "green"
-};
-
-const BasicStatus: React.FC<BedStatusProps> = ({ status }) => (
-  <Flag colors={statusToColor} current={status} texts={personStatusToText} />
+const PersonStatus: React.FC<PersonStatusProps> = ({ status }) => (
+  <Tag color={statusToColor[status]}>{status}</Tag>
 );
 
-export default BasicStatus;
+export default PersonStatus;

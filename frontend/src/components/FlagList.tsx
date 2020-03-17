@@ -1,19 +1,17 @@
 import React from "react";
-import Flag from "./Flag";
 import AddFlag from "./AddFlag";
 
 import "./FlagList.scss";
+import { Tag } from "antd";
+import _ from "lodash";
 
 interface FlagListProps {
   flags: string[];
   dataSet: string[];
+  colors?: {
+    [color: string]: string;
+  };
   additionText: string;
-  colorMapping: {
-    [key: string]: string;
-  };
-  textMapping: {
-    [key: string]: string;
-  };
   onFlagDelete: Function;
   onFlagCreation: Function;
 }
@@ -21,24 +19,23 @@ interface FlagListProps {
 const FlagList: React.FC<FlagListProps> = ({
   flags,
   dataSet,
-  colorMapping,
+  colors = {},
   onFlagCreation,
   onFlagDelete,
-  textMapping,
   additionText
 }) => {
   return (
     <div className="flag-list">
       {flags.map(data => (
-        <Flag
+        <Tag
+          color={_.isEmpty(colors) ? "" : colors[data]}
           key={data}
           className="flag"
-          current={data}
-          colors={colorMapping}
-          texts={textMapping}
           closable
           onClose={() => onFlagDelete(data)}
-        />
+        >
+          {data}
+        </Tag>
       ))}
       {dataSet.length > 0 && (
         <AddFlag
