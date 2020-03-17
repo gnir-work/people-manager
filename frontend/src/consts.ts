@@ -4,6 +4,8 @@ export const personPreferences = ["בדיקת תרגילים", "הרצאות", "
 
 export const megamut = ["מערכות", "מחקר", "מקורות"];
 
+export const subjects = ["python", "C", "ביטים"];
+
 export const statusToColor: {
   [key: string]: string;
 } = {

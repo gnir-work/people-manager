@@ -1,10 +1,15 @@
 import _ from "lodash";
 
 import { Person } from "../types/person";
-import { personPreferences, personStatuses, megamut } from "../consts";
+import {
+  personPreferences,
+  personStatuses,
+  megamut,
+  subjects
+} from "../consts";
 
 const getRandomNumberOfItemsFromList = (data: any[]) =>
-  data.slice(0, _.random(0, data.length - 1));
+  data.slice(0, _.random(0, data.length));
 
 export const getPeople = (): Person[] =>
   _.range(1000).map(
@@ -17,6 +22,7 @@ export const getPeople = (): Person[] =>
         fullName: "ניר גלר" + _.random(1, 100).toString(),
         remarks: "ששדגדשג",
         preferences: getRandomNumberOfItemsFromList(personPreferences),
-        megamut: getRandomNumberOfItemsFromList(megamut)
+        megamut: getRandomNumberOfItemsFromList(megamut),
+        subjects: getRandomNumberOfItemsFromList(subjects)
       })
   );

@@ -17,12 +17,9 @@ import {
   personPreferences,
   megamut,
   preferenceToColor,
-  megamutToColor
+  megamutToColor,
+  subjects
 } from "../../consts";
-
-const personStatusFilters = arrayToAntdMappings(personStatuses);
-const personPreferenceFilters = arrayToAntdMappings(personPreferences);
-const megamaFilters = arrayToAntdMappings(megamut);
 
 export const PeopleTableColumns = [
   {
@@ -76,7 +73,7 @@ export const PeopleTableColumns = [
     dataIndex: "status",
     key: "status",
     render: (status: string) => <PersonStatus status={status} />,
-    filters: personStatusFilters,
+    filters: arrayToAntdMappings(personStatuses),
     onFilter: (status: string, record: Person) =>
       stringsFilterByField(record, status, "status")
   },
@@ -110,7 +107,7 @@ export const PeopleTableColumns = [
       />
     ),
     width: "30em",
-    filters: personPreferenceFilters,
+    filters: arrayToAntdMappings(personPreferences),
     onFilter: (preference: string, record: Person) =>
       arrayFilterByField(record, preference, "preferences")
   },
@@ -127,9 +124,21 @@ export const PeopleTableColumns = [
       />
     ),
     width: "30em",
-    filters: megamaFilters,
+    filters: arrayToAntdMappings(megamut),
     onFilter: (megama: string, record: Person) =>
       arrayFilterByField(record, megama, "megamut")
+  },
+  {
+    title: "מערכים רלוונטיים",
+    dataIndex: "subjects",
+    key: "subjects",
+    render: (data: string[], record: Person) => (
+      <PersonTags field="subjects" possibleTags={subjects} person={record} />
+    ),
+    width: "30em",
+    filters: arrayToAntdMappings(subjects),
+    onFilter: (subject: string, record: Person) =>
+      arrayFilterByField(record, subject, "subjects")
   },
   {
     title: "הערות נוספות",
