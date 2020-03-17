@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import { AutoComplete, Tag, Icon } from "antd";
 import { SelectValue } from "antd/lib/select";
 
-import "./AddFlag.scss";
-import { StringChain } from "lodash";
+import "./AddTag.scss";
 
-interface AddFlagProps {
+interface AddTagProps {
   dataSet: string[];
   onSubmit: Function;
   text: string;
 }
 
-const AddFlag: React.FC<AddFlagProps> = ({ dataSet, onSubmit, text }) => {
+const AddTag: React.FC<AddTagProps> = ({ dataSet, onSubmit, text }) => {
   const [editing, setEditing] = useState(false);
 
   /**
@@ -40,10 +39,10 @@ const AddFlag: React.FC<AddFlagProps> = ({ dataSet, onSubmit, text }) => {
       onBlur={toggleEditing}
     />
   ) : (
-    <Tag onClick={toggleEditing} className="add-flag flag">
+    <Tag onClick={toggleEditing} className="add-tag">
       <Icon type="plus" /> {text}
     </Tag>
   );
 };
 
-export default AddFlag;
+export default AddTag;

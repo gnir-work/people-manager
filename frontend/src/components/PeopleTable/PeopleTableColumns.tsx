@@ -11,9 +11,14 @@ import { Person } from "../../types/person";
 import PersonStatus from "./PersonStatus";
 import PeopleTableDeleteButton from "./DeleteButton";
 import PeopleTableEditableText from "./EditableText";
-import PersonPreferenceTags from "./PersonPreferences";
-import Megamut from "./Megamut";
-import { personStatuses, personPreferences, megamut } from "../../consts";
+import PersonTags from "./PersonTags";
+import {
+  personStatuses,
+  personPreferences,
+  megamut,
+  preferenceToColor,
+  megamutToColor
+} from "../../consts";
 
 const personStatusFilters = arrayToAntdMappings(personStatuses);
 const personPreferenceFilters = arrayToAntdMappings(personPreferences);
@@ -96,8 +101,13 @@ export const PeopleTableColumns = [
     title: "העדפות",
     dataIndex: "preferences",
     key: "preferences",
-    render: (preferences: string[], record: Person) => (
-      <PersonPreferenceTags person={record} />
+    render: (data: string[], record: Person) => (
+      <PersonTags
+        field="preferences"
+        possibleTags={personPreferences}
+        person={record}
+        colors={preferenceToColor}
+      />
     ),
     width: "30em",
     filters: personPreferenceFilters,
@@ -108,8 +118,13 @@ export const PeopleTableColumns = [
     title: "מגמות רלוונטיות",
     dataIndex: "megamut",
     key: "megamut",
-    render: (preferences: string[], record: Person) => (
-      <Megamut person={record} />
+    render: (data: string[], record: Person) => (
+      <PersonTags
+        colors={megamutToColor}
+        field="megamut"
+        possibleTags={megamut}
+        person={record}
+      />
     ),
     width: "30em",
     filters: megamaFilters,
