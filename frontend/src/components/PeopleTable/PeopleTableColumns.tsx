@@ -5,7 +5,6 @@ import { sortById, sortByName, sortByTeam } from "../../utils/sorters";
 import {
   stringsFilterByField,
   enumMappingToAntdFilters,
-  numbersFilterByField,
   arrayFilterByField
 } from "../../utils/filters";
 import { Person, PersonStatuses, PersonPreference } from "../../types/person";
@@ -74,7 +73,7 @@ export const PeopleTableColumns = [
     render: (status: PersonStatuses) => <PersonStatus status={status} />,
     filters: personStatusFilters,
     onFilter: (status: string, record: Person) =>
-      numbersFilterByField(record, status, "status")
+      stringsFilterByField(record, status, "status")
   },
   {
     title: "העדפות",
@@ -85,8 +84,8 @@ export const PeopleTableColumns = [
     ),
     width: "30em",
     filters: personPreferenceFilters,
-    onFilter: (preference: string, record: Person) =>
-      arrayFilterByField(record, Number.parseInt(preference), "preferences")
+    onFilter: (preference: PersonPreference, record: Person) =>
+      arrayFilterByField(record, preference, "preferences")
   },
   {
     title: "צוות אחרון",

@@ -17,18 +17,6 @@ export const stringsFilterByField = (
 ) => person[field].toLowerCase().includes(text.toLowerCase());
 
 /**
- * Checks if the person value of the property key is equal.
- * @param person The person that should be filtered.
- * @param value The numeric value as a string
- * @param field The field to check against.
- */
-export const numbersFilterByField = (
-  person: Person,
-  value: string,
-  field: ConditionalProps<Person, number>
-) => person[field] === parseInt(value);
-
-/**
  * Checks wether the persons date field is within the range given.
  * Please notice the range is inclusive on both ends (since and until).
  * @param person The person that should be filtered.
@@ -53,8 +41,8 @@ export function arrayFilterByField<
  * Convert a dict of mappings to antd filters format.
  * @param filters An dict mapping between the value and the text that should be shown in the filter.
  */
-export const enumMappingToAntdFilters = (filters: { [key: number]: string }) =>
+export const enumMappingToAntdFilters = (filters: { [key: string]: string }) =>
   _.keys(filters).map((value: string) => ({
-    text: filters[parseInt(value)],
+    text: filters[value],
     value
   }));

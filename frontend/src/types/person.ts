@@ -1,12 +1,12 @@
 export enum PersonPreference {
-  StayOverNight,
-  Lectures,
-  ExerciseChecking
+  StayOverNight = "StayOverNight",
+  Lectures = "Lectures",
+  ExerciseChecking = "ExerciseChecking"
 }
 
 export enum PersonStatuses {
-  Soldier,
-  Citizen
+  Soldier = "Soldier",
+  Citizen = "Citizen"
 }
 
 interface PersonArguments {

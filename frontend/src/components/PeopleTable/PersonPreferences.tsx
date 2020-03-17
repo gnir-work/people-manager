@@ -24,17 +24,14 @@ const PersonPreferenceTags: React.FC<PersonPreferenceTagsProps> = ({
 }) => {
   const { updatePerson } = useContext(PeopleContext);
   let dataSet = _.toPairs(personPreferenceToText)
-    .filter(
-      ([key, value]) =>
-        !person.preferences.includes(Number.parseInt(key) as any)
-    )
+    .filter(([key, value]) => !person.preferences.includes(key as any))
     .map(([key, value]) => value);
 
   const addNewPreference = (value: SelectValue) => {
     const newPreference = _.invert(personPreferenceToText)[value.toString()];
     const newPerson = {
       ...person,
-      preferences: [...person.preferences, Number.parseInt(newPreference)]
+      preferences: [...person.preferences, newPreference]
     };
     updatePerson(newPerson);
   };
