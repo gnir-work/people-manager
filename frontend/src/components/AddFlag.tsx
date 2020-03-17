@@ -40,7 +40,7 @@ const AddFlag: React.FC<AddFlagProps> = ({ dataSet, onSubmit, text }) => {
       onBlur={toggleEditing}
     />
   ) : (
-    <Tag onClick={toggleEditing} className="add-Flag">
+    <Tag onClick={toggleEditing} className="add-flag flag">
       <Icon type="plus" /> {text}
     </Tag>
   );
