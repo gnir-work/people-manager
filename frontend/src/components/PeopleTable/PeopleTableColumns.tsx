@@ -94,7 +94,7 @@ export const PeopleTableColumns = [
         initialValue={value}
       />
     ),
-    width: "10em"
+    width: "12em"
   },
   {
     title: "העדפות",
