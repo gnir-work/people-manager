@@ -5,6 +5,7 @@ import { SelectValue } from "antd/lib/select";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import TagList from "../TagList";
 import { ConditionalProps } from "../../utils/types";
+import { message } from "antd";
 
 interface PersonPreferenceTagsProps {
   person: Person;
@@ -32,9 +33,10 @@ const PersonTags: React.FC<PersonPreferenceTagsProps> = ({
     const newTag = value.toString();
     const newPerson = {
       ...person,
-      preferences: [...person[field], newTag]
+      [field]: [...person[field], newTag]
     };
     updatePerson(newPerson);
+    message.success(`השדה ${newTag} נוסף בהצלחה!`);
   };
 
   /**
@@ -47,6 +49,7 @@ const PersonTags: React.FC<PersonPreferenceTagsProps> = ({
       [field]: person[field].filter(tag => tag !== tagToDelete)
     };
     updatePerson(newPerson);
+    message.success(`השדה ${tagToDelete} הוסר בהצלחה!`);
   };
 
   return (

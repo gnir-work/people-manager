@@ -4,6 +4,7 @@ import EditableTag from "../EditableTag";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { Person } from "../../types/person";
 import { ConditionalProps } from "../../utils/types";
+import { message } from "antd";
 
 export interface PersonTag {
   person: Person;
@@ -29,6 +30,7 @@ const PersonTag: React.FC<PersonTag> = ({
         [field]: newTag
       };
       updatePerson(newPerson);
+      message.success("שדה עודכן בהצלחה");
     },
     [updatePerson]
   );

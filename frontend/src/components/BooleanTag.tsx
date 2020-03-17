@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Person } from "../types/person";
 import { ConditionalProps } from "../utils/types";
 import { PeopleContext } from "../contexts/PeopleContext";
-import { Tag } from "antd";
+import { Tag, message } from "antd";
 
 interface BooleanTagProps {
   person: Person;
@@ -18,6 +18,7 @@ const BooleanTag: React.FC<BooleanTagProps> = ({ person, field }) => {
       [field]: !person[field]
     };
     updatePerson(newPerson);
+    message.success("שדה עודכן בהצלחה");
   };
 
   return (
