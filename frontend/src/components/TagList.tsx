@@ -7,7 +7,7 @@ import _ from "lodash";
 
 interface TagListProps {
   tags: string[];
-  dataSet: string[];
+  additionalPossibleTags: string[];
   colors?: {
     [color: string]: string;
   };
@@ -18,7 +18,7 @@ interface TagListProps {
 
 const TagList: React.FC<TagListProps> = ({
   tags,
-  dataSet,
+  additionalPossibleTags,
   colors = {},
   onTagCreation,
   onTagDelete,
@@ -36,10 +36,10 @@ const TagList: React.FC<TagListProps> = ({
           {tag}
         </Tag>
       ))}
-      {dataSet.length > 0 && (
+      {additionalPossibleTags.length > 0 && (
         <AddTag
           text={additionText}
-          dataSet={dataSet}
+          possibleTags={additionalPossibleTags}
           onSubmit={onTagCreation}
         />
       )}

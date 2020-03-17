@@ -53,7 +53,7 @@ const PersonTags: React.FC<PersonPreferenceTagsProps> = ({
     <TagList
       tags={person[field]}
       colors={colors}
-      dataSet={dataSet}
+      additionalPossibleTags={dataSet}
       onTagCreation={addNewTag}
       onTagDelete={deleteTag}
       additionText="הוספת העדפה"

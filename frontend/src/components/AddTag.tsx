@@ -5,12 +5,12 @@ import { SelectValue } from "antd/lib/select";
 import "./AddTag.scss";
 
 interface AddTagProps {
-  dataSet: string[];
+  possibleTags: string[];
   onSubmit: Function;
   text: string;
 }
 
-const AddTag: React.FC<AddTagProps> = ({ dataSet, onSubmit, text }) => {
+const AddTag: React.FC<AddTagProps> = ({ possibleTags, onSubmit, text }) => {
   const [editing, setEditing] = useState(false);
 
   /**
@@ -34,7 +34,7 @@ const AddTag: React.FC<AddTagProps> = ({ dataSet, onSubmit, text }) => {
         }
       }}
       defaultOpen
-      dataSource={dataSet}
+      dataSource={possibleTags}
       onSelect={handleSelection}
       onBlur={toggleEditing}
     />
