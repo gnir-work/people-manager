@@ -21,8 +21,10 @@ import {
   subjects,
   statusToColor,
   availabilityToColor,
-  availability
+  availability,
+  antdBooleanFilters
 } from "../../consts";
+import BooleanTag from "../BooleanTag";
 
 export const PeopleTableColumns = [
   {
@@ -171,6 +173,19 @@ export const PeopleTableColumns = [
     filters: arrayToAntdMappings(subjects),
     onFilter: (subject: string, record: Person) =>
       arrayFilterByField(record, subject, "subjects")
+  },
+  {
+    title: "סגל עבר",
+    dataIndex: "wasSegel",
+    key: "wasSegel",
+    sorter: (firstPerson: Person, secondPerson: Person) =>
+      sortByField(firstPerson, secondPerson, "wasSegel"),
+    render: (wasSegel: string, record: Person) => (
+      <BooleanTag field="wasSegel" person={record} />
+    ),
+    filters: antdBooleanFilters,
+    onFilter: (wasSegel: string, record: Person) =>
+      String(record.wasSegel) === wasSegel
   },
   {
     title: "הערות נוספות",

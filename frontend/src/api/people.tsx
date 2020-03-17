@@ -25,6 +25,7 @@ export const getPeople = (): Person[] =>
         preferences: getRandomNumberOfItemsFromList(personPreferences),
         megamut: getRandomNumberOfItemsFromList(megamut),
         subjects: getRandomNumberOfItemsFromList(subjects),
-        availability: _.sample(availability) || availability[0]
+        availability: _.sample(availability) || availability[0],
+        wasSegel: _.sample([true, false])
       })
   );

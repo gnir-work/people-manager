@@ -36,3 +36,17 @@ export const availabilityToColor = {
   "זמין אבל עמוס": "orange",
   זמין: "green"
 };
+
+/**
+ * Filters for the antd table component that correspond to boolean fields.
+ */
+export const antdBooleanFilters = [
+  {
+    text: "כן",
+    value: "true"
+  },
+  {
+    text: "לא",
+    value: "false"
+  }
+];

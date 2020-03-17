@@ -4,11 +4,12 @@ interface PersonArguments {
   phone: string;
   status: string;
   team: string;
-  remarks?: string;
-  preferences?: string[];
   megamut: string[];
   subjects: string[];
   availability: string;
+  wasSegel?: boolean;
+  remarks?: string;
+  preferences?: string[];
 }
 
 export class Person {
@@ -23,6 +24,7 @@ export class Person {
   megamut: string[];
   subjects: string[];
   availability: string;
+  wasSegel: boolean;
 
   constructor(args: PersonArguments) {
     this.id = args.personalId;
@@ -36,5 +38,6 @@ export class Person {
     this.megamut = args.megamut || [];
     this.subjects = args.subjects || [];
     this.availability = args.availability || "";
+    this.wasSegel = args.wasSegel || false;
   }
 }
