@@ -72,7 +72,9 @@ export const PeopleTableColumns = [
     title: "מצב שירות",
     dataIndex: "status",
     key: "status",
-    render: (status: string) => <PersonStatus status={status} />,
+    render: (status: string, record: Person) => (
+      <PersonStatus person={record} />
+    ),
     filters: arrayToAntdMappings(personStatuses),
     onFilter: (status: string, record: Person) =>
       stringsFilterByField(record, status, "status")
