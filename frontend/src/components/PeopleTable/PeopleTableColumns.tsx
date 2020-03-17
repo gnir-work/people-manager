@@ -1,7 +1,7 @@
 import React from "react";
 
 import TableTextFilter from "../TableTextFilter";
-import { sortById, sortByName } from "../../utils/sorters";
+import { sortById, sortByName, sortByTeam } from "../../utils/sorters";
 import {
   stringsFilterByField,
   enumMappingToAntdFilters,
@@ -74,6 +74,23 @@ export const PeopleTableColumns = [
     filters: personPreferenceFilters,
     onFilter: (preference: string, record: Person) =>
       arrayFilterByField(record, Number.parseInt(preference), "preferences")
+  },
+  {
+    title: "צוות אחרון",
+    dataIndex: "team",
+    key: "team",
+    sorter: sortByTeam,
+    onFilter: (value: string, record: Person) =>
+      stringsFilterByField(record, value, "team"),
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: Person) => (
+      <PeopleTableEditableText
+        field="team"
+        person={record}
+        initialValue={value}
+      />
+    ),
+    width: "10em"
   },
   {
     title: "הערות נוספות",

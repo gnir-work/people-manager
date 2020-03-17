@@ -6,6 +6,9 @@ export const sortById = (firstPerson: Person, secondPerson: Person): number =>
 export const sortByName = (firstPerson: Person, secondPerson: Person): number =>
   sortByField(firstPerson, secondPerson, "fullName");
 
+export const sortByTeam = (firstPerson: Person, secondPerson: Person): number =>
+  sortByField(firstPerson, secondPerson, "team");
+
 /**
  * Compares between two person objects by a specific field.
  * @param firstPerson
