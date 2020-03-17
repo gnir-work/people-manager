@@ -1,6 +1,7 @@
 import _ from "lodash";
 
 import { Person, PersonStatuses, PersonPreference } from "../types/person";
+import { Megama } from "../types/organization";
 
 const getRandomNumberOfPreferences = () => {
   const numberOfPreferences = _.random(0, 3);
@@ -29,6 +30,7 @@ export const getPeople = (): Person[] =>
         personalId: _.random(10000000, 99999999).toString(),
         fullName: "ניר גלר" + _.random(1, 100).toString(),
         remarks: "ששדגדשג",
-        preferences: getRandomNumberOfPreferences()
+        preferences: getRandomNumberOfPreferences(),
+        megamut: [Megama.Maarachot]
       })
   );

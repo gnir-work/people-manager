@@ -14,11 +14,7 @@ const statusToColor = {
 };
 
 const BasicStatus: React.FC<BedStatusProps> = ({ status }) => (
-  <Flag<PersonStatuses>
-    colors={statusToColor}
-    current={status}
-    texts={personStatusToText}
-  />
+  <Flag colors={statusToColor} current={status} texts={personStatusToText} />
 );
 
 export default BasicStatus;

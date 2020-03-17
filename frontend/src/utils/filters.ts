@@ -34,7 +34,7 @@ export const datesFilterByField = (
 export function arrayFilterByField<
   K extends ConditionalProps<Person, Array<any>>
 >(person: Person, value: getElementType<Person[K]>, field: K) {
-  return person[field].includes(value);
+  return (person[field] as any).includes(value);
 }
 
 /**

@@ -1,3 +1,5 @@
+import { Megama } from "./organization";
+
 export enum PersonPreference {
   StayOverNight = "StayOverNight",
   Lectures = "Lectures",
@@ -17,6 +19,7 @@ interface PersonArguments {
   team: string;
   remarks?: string;
   preferences?: PersonPreference[];
+  megamut: Megama[];
 }
 
 export class Person {
@@ -28,6 +31,7 @@ export class Person {
   team: string;
   remarks: string;
   preferences: PersonPreference[];
+  megamut: Megama[];
 
   constructor(args: PersonArguments) {
     this.id = args.personalId;
@@ -38,5 +42,6 @@ export class Person {
     this.team = args.team;
     this.remarks = args.remarks || "";
     this.preferences = args.preferences || [];
+    this.megamut = args.megamut || [];
   }
 }

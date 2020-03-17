@@ -2,19 +2,17 @@ import React from "react";
 import { Tag } from "antd";
 import { TagProps } from "antd/lib/tag";
 
-export interface FlagProps<T extends string | number> extends TagProps {
-  current: T;
+export interface FlagProps extends TagProps {
+  current: string;
   colors: {
-    [key in T]: string;
+    [key: string]: string;
   };
   texts: {
-    [key in T]: string;
+    [key: string]: string;
   };
 }
 
-const Flag: <T extends string | number>(
-  p: FlagProps<T>
-) => React.ReactElement<FlagProps<T>> = ({
+const Flag: React.FC<FlagProps> = ({
   current,
   colors,
   texts,

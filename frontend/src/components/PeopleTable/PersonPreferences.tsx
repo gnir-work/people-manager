@@ -1,14 +1,11 @@
 import React, { useContext } from "react";
 import _ from "lodash";
 import { PersonPreference, Person } from "../../types/person";
-import Flag from "../Flag";
 import { personPreferenceToText } from "../../consts";
-
-import "./PersonPreferences.scss";
 import { SelectValue } from "antd/lib/select";
 import { PeopleContext } from "../../contexts/PeopleContext";
-import AddPreference from "./AddPreference";
 import { arrayFilterByField } from "../../utils/filters";
+import FlagList from "../FlagList";
 
 interface PersonPreferenceTagsProps {
   person: Person;
@@ -25,8 +22,9 @@ const PersonPreferenceTags: React.FC<PersonPreferenceTagsProps> = ({
 }) => {
   const { updatePerson } = useContext(PeopleContext);
   let dataSet = _.toPairs(personPreferenceToText)
-    .filter(([preference, text]) =>
-      arrayFilterByField(person, preference as any, "preferences")
+    .filter(
+      ([preference, text]) =>
+        !arrayFilterByField(person, preference as any, "preferences")
     )
     .map(([preference, text]) => text);
 
@@ -58,22 +56,15 @@ const PersonPreferenceTags: React.FC<PersonPreferenceTagsProps> = ({
   };
 
   return (
-    <div>
-      {person.preferences.map(preference => (
-        <Flag<PersonPreference>
-          key={preference}
-          className="person-preference"
-          current={preference}
-          colors={preferenceToColor}
-          texts={personPreferenceToText}
-          closable
-          onClose={() => deletePreference(preference)}
-        />
-      ))}
-      {dataSet.length > 0 && (
-        <AddPreference dataSet={dataSet} onSubmit={addNewPreference} />
-      )}
-    </div>
+    <FlagList
+      flags={person.preferences}
+      dataSet={dataSet}
+      colorMapping={preferenceToColor}
+      textMapping={personPreferenceToText}
+      onFlagCreation={addNewPreference}
+      onFlagDelete={deletePreference}
+      additionText="הוספת העדפה"
+    />
   );
 };
 
