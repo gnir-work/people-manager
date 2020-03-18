@@ -17,10 +17,10 @@ interface EditableTagProps extends TagProps {
  * to handle that case to the onDelete prop.
  *
  * Please notice:
- * In case the tag is deletable, click the tag will prompt the user to change
+ * In case the tag can be deleted, clicking the tag will prompt the user to change
  * its value while clicking the close icon will delete the tag.
  *
- * In case the tag isn't deletable clicking the tag or the close icon will prompt the user
+ * In case the tag can't be deleted only clicking the close icon will prompt the user
  * to change the tags value.
  */
 const EditableTag: React.FC<EditableTagProps> = ({
