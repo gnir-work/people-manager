@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { Person } from "../types/person";
 import { ConditionalProps, getElementType } from "./types";
 import moment, { Moment } from "moment";

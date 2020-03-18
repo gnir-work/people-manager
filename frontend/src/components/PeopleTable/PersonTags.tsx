@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import _ from "lodash";
 import { Person } from "../../types/person";
 import { SelectValue } from "antd/lib/select";
 import { PeopleContext } from "../../contexts/PeopleContext";

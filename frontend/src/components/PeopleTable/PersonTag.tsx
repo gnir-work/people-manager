@@ -1,5 +1,4 @@
-import React, { useContext, useCallback } from "react";
-import { personStatuses } from "../../consts";
+import React, { useContext } from "react";
 import EditableTag from "../EditableTag";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { Person } from "../../types/person";
@@ -23,17 +22,14 @@ const PersonTag: React.FC<PersonTag> = ({
 }) => {
   const { updatePerson } = useContext(PeopleContext);
 
-  const handleTagChange = useCallback(
-    (newTag: string) => {
-      const newPerson = {
-        ...person,
-        [field]: newTag
-      };
-      updatePerson(newPerson);
-      message.success("שדה עודכן בהצלחה");
-    },
-    [updatePerson]
-  );
+  const handleTagChange = (newTag: string) => {
+    const newPerson = {
+      ...person,
+      [field]: newTag
+    };
+    updatePerson(newPerson);
+    message.success("שדה עודכן בהצלחה");
+  };
 
   return (
     <EditableTag
