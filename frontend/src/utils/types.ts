@@ -4,7 +4,7 @@
  * For example, Given a type
  * interface Person {
  *    name: string,
- *    agae: number
+ *    age: number
  * }
  *
  * ConditionalProps<Person, string> will return a type with only name inside of it.
