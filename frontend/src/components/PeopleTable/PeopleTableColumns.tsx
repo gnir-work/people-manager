@@ -24,7 +24,7 @@ import {
   availability,
   antdBooleanFilters
 } from "../../consts";
-import BooleanTag from "../BooleanTag";
+import BooleanField from "../BooleanField";
 
 export const PeopleTableColumns = [
   {
@@ -181,7 +181,7 @@ export const PeopleTableColumns = [
     sorter: (firstPerson: Person, secondPerson: Person) =>
       sortByField(firstPerson, secondPerson, "wasSegel"),
     render: (wasSegel: string, record: Person) => (
-      <BooleanTag field="wasSegel" person={record} />
+      <BooleanField field="wasSegel" person={record} />
     ),
     filters: antdBooleanFilters,
     onFilter: (wasSegel: string, record: Person) =>

@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import { Person } from "../types/person";
 import { ConditionalProps } from "../utils/types";
 import { PeopleContext } from "../contexts/PeopleContext";
-import { Tag, message } from "antd";
+import { message, Checkbox } from "antd";
 
-interface BooleanTagProps {
+interface BooleanFieldProps {
   person: Person;
   field: ConditionalProps<Person, boolean>;
 }
 
-const BooleanTag: React.FC<BooleanTagProps> = ({ person, field }) => {
+const BooleanField: React.FC<BooleanFieldProps> = ({ person, field }) => {
   const { updatePerson } = useContext(PeopleContext);
 
   const handleClick = () => {
@@ -22,14 +22,12 @@ const BooleanTag: React.FC<BooleanTagProps> = ({ person, field }) => {
   };
 
   return (
-    <Tag
+    <Checkbox
+      checked={person[field]}
       className="clickable"
       onClick={handleClick}
-      color={person[field] ? "green" : "red"}
-    >
-      {person[field] ? "כן" : "לא"}
-    </Tag>
+    />
   );
 };
 
-export default BooleanTag;
+export default BooleanField;
