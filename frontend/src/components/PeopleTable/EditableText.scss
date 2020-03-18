@@ -1,3 +1,6 @@
-.people-table-container .editable-field:hover {
-  cursor: pointer;
+.people-table-container .editable-field {
+  white-space: nowrap;
+  &:hover {
+    cursor: pointer;
+  }
 }

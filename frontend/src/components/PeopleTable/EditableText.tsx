@@ -47,7 +47,7 @@ const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
   };
 
   return editing ? (
-    <div className="editable-field" onDoubleClick={toggleEditing}>
+    <div onClick={toggleEditing}>
       <Input
         autoFocus
         onBlur={toggleEditing}
@@ -57,7 +57,7 @@ const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
       />
     </div>
   ) : (
-    <span className="editable-field" onDoubleClick={toggleEditing}>
+    <span className="editable-field" onClick={toggleEditing}>
       {initialValue}
     </span>
   );

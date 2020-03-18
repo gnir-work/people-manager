@@ -60,7 +60,8 @@ export const PeopleTableColumns = [
         person={record}
         initialValue={value}
       />
-    )
+    ),
+    width: "15em"
   },
   {
     title: "פלאפון",
@@ -140,7 +141,6 @@ export const PeopleTableColumns = [
         colors={preferenceToColor}
       />
     ),
-    width: "30em",
     filters: arrayToAntdMappings(personPreferences),
     onFilter: (preference: string, record: Person) =>
       arrayFilterByField(record, preference, "preferences")
@@ -157,7 +157,6 @@ export const PeopleTableColumns = [
         person={record}
       />
     ),
-    width: "30em",
     filters: arrayToAntdMappings(megamut),
     onFilter: (megama: string, record: Person) =>
       arrayFilterByField(record, megama, "megamut")
@@ -169,7 +168,6 @@ export const PeopleTableColumns = [
     render: (data: string[], record: Person) => (
       <PersonTags field="subjects" possibleTags={subjects} person={record} />
     ),
-    width: "30em",
     filters: arrayToAntdMappings(subjects),
     onFilter: (subject: string, record: Person) =>
       arrayFilterByField(record, subject, "subjects")
