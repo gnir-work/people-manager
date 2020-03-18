@@ -12,6 +12,8 @@ interface AddTagProps {
 
 const AddTag: React.FC<AddTagProps> = ({ possibleTags, onSubmit, text }) => {
   const [editing, setEditing] = useState(false);
+  const [filter, setFilter] = useState("");
+  const filteredTags = possibleTags.filter(tag => tag.includes(filter));
 
   /**
    * Handle the selection of a value from the auto complete.
@@ -26,11 +28,16 @@ const AddTag: React.FC<AddTagProps> = ({ possibleTags, onSubmit, text }) => {
     setEditing(!editing);
   };
 
+  const handleChange = (newFilter: SelectValue) => {
+    setFilter(newFilter.toString());
+  };
+
   return editing ? (
     <AutoComplete
+      onChange={handleChange}
       autoFocus
       defaultOpen
-      dataSource={possibleTags}
+      dataSource={filteredTags}
       onSelect={handleSelection}
       onBlur={toggleEditing}
     />
