@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Person } from "../../types/person";
 import { PeopleContext } from "../../contexts/PeopleContext";
-import TagList from "../TagList";
+import TagList from "../tags/TagList";
 import { ConditionalProps } from "../../utils/types";
 import { message } from "antd";
 import { EDIT_SUCCESS_MESSAGE } from "../../consts";

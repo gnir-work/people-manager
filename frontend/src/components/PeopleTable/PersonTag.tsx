@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import EditableTag from "../EditableTag";
+import EditableTag from "../tags/EditableTag";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { Person } from "../../types/person";
 import { ConditionalProps } from "../../utils/types";

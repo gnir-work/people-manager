@@ -1,6 +1,6 @@
 import React from "react";
 
-import TableTextFilter from "../TableTextFilter";
+import TableTextFilter from "../filters/TableTextFilter";
 import { sortByField } from "../../utils/sorters";
 import {
   stringsFilterByField,
@@ -9,7 +9,7 @@ import {
 } from "../../utils/filters";
 import { Person } from "../../types/person";
 import PersonTag from "./PersonTag";
-import PeopleTableDeleteButton from "./DeleteButton";
+import PeopleTableDeleteButton from "../actions/DeleteButton";
 import PeopleTableEditableText from "./EditableText";
 import PersonTags from "./PersonTags";
 import {
@@ -24,7 +24,7 @@ import {
   AVAILABILITY,
   ANTD_BOOLEAN_FILTERS
 } from "../../consts";
-import BooleanField from "../BooleanField";
+import BooleanField from "../fields/BooleanField";
 
 export const PeopleTableColumns = [
   {

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { Person } from "../types/person";
-import { ConditionalProps } from "../utils/types";
-import { PeopleContext } from "../contexts/PeopleContext";
+import { Person } from "../../types/person";
+import { ConditionalProps } from "../../utils/types";
+import { PeopleContext } from "../../contexts/PeopleContext";
 import { message, Checkbox } from "antd";
-import { EDIT_SUCCESS_MESSAGE } from "../consts";
+import { EDIT_SUCCESS_MESSAGE } from "../../consts";
 
 interface BooleanFieldProps {
   person: Person;
