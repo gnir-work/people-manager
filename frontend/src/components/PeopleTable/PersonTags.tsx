@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Person } from "../../types/person";
-import { SelectValue } from "antd/lib/select";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import TagList from "../TagList";
 import { ConditionalProps } from "../../utils/types";
 import { message } from "antd";
+import { EDIT_SUCCESS_MESSAGE } from "../../consts";
 
 interface PersonPreferenceTagsProps {
   person: Person;
@@ -28,27 +28,13 @@ const PersonTags: React.FC<PersonPreferenceTagsProps> = ({
    * Add the new tag to the current person
    * @param value
    */
-  const addNewTag = (value: SelectValue) => {
-    const newTag = value.toString();
+  const handleTagsChange = (newTags: string[]) => {
     const newPerson = {
       ...person,
-      [field]: [...person[field], newTag]
+      [field]: newTags
     };
     updatePerson(newPerson);
-    message.success(`השדה ${newTag} נוסף בהצלחה!`);
-  };
-
-  /**
-   * Delete the tag from the current person.
-   * @param tagToDelete
-   */
-  const deleteTag = (tagToDelete: string) => {
-    const newPerson = {
-      ...person,
-      [field]: person[field].filter(tag => tag !== tagToDelete)
-    };
-    updatePerson(newPerson);
-    message.success(`השדה ${tagToDelete} הוסר בהצלחה!`);
+    message.success(EDIT_SUCCESS_MESSAGE);
   };
 
   return (
@@ -56,8 +42,7 @@ const PersonTags: React.FC<PersonPreferenceTagsProps> = ({
       tags={person[field]}
       colors={colors}
       additionalPossibleTags={dataSet}
-      onTagCreation={addNewTag}
-      onTagDelete={deleteTag}
+      onTagsChange={handleTagsChange}
       additionText="הוספת העדפה"
     />
   );

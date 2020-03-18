@@ -3,6 +3,7 @@ import { Person } from "../types/person";
 import { ConditionalProps } from "../utils/types";
 import { PeopleContext } from "../contexts/PeopleContext";
 import { message, Checkbox } from "antd";
+import { EDIT_SUCCESS_MESSAGE } from "../consts";
 
 interface BooleanFieldProps {
   person: Person;
@@ -18,7 +19,7 @@ const BooleanField: React.FC<BooleanFieldProps> = ({ person, field }) => {
       [field]: !person[field]
     };
     updatePerson(newPerson);
-    message.success("שדה עודכן בהצלחה");
+    message.success(EDIT_SUCCESS_MESSAGE);
   };
 
   return (

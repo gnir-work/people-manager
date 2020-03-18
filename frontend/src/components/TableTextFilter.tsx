@@ -4,7 +4,7 @@ import { Input, Button } from "antd";
 import "./TableTextFilter.scss";
 
 interface TableTextFilterProps {
-  setSelectedKeys: Function;
+  setSelectedKeys: (newFilters: string[]) => void;
   selectedKeys: string[];
   confirm: () => void;
   clearFilters: () => void;

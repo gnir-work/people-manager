@@ -1,21 +1,21 @@
-export const personStatuses = ["אזרח", "חייל"];
+export const PERSON_STATUSES = ["אזרח", "חייל"];
 
-export const personPreferences = ["בדיקת תרגילים", "הרצאות", "להישאר לישון"];
+export const PERSON_PREFERENCES = ["בדיקת תרגילים", "הרצאות", "להישאר לישון"];
 
-export const megamut = ["מערכות", "מחקר", "מקורות"];
+export const MEGAMUT = ["מערכות", "מחקר", "מקורות"];
 
-export const subjects = ["python", "C", "ביטים"];
+export const SUBJECTS = ["python", "C", "ביטים"];
 
-export const availability = ["לא זמין", "זמין אבל עמוס", "זמין"];
+export const AVAILABILITY = ["לא זמין", "זמין אבל עמוס", "זמין"];
 
-export const statusToColor: {
+export const STATUS_TO_COLOR: {
   [key: string]: string;
 } = {
   אזרח: "blue",
   חייל: "green"
 };
 
-export const preferenceToColor: {
+export const PREFERENCE_TO_COLOR: {
   [key: string]: string;
 } = {
   "בדיקת תרגילים": "magenta",
@@ -23,7 +23,7 @@ export const preferenceToColor: {
   "להישאר לישון": "volcano"
 };
 
-export const megamutToColor: {
+export const MEGAMUT_TO_COLOR: {
   [key: string]: string;
 } = {
   מערכות: "green",
@@ -31,7 +31,7 @@ export const megamutToColor: {
   מחקר: "purple"
 };
 
-export const availabilityToColor = {
+export const AVAILABILITY_TO_COLOR = {
   "לא זמין": "red",
   "זמין אבל עמוס": "orange",
   זמין: "green"
@@ -40,7 +40,7 @@ export const availabilityToColor = {
 /**
  * Filters for the antd table component that correspond to boolean fields.
  */
-export const antdBooleanFilters = [
+export const ANTD_BOOLEAN_FILTERS = [
   {
     text: "כן",
     value: "true"
@@ -50,3 +50,5 @@ export const antdBooleanFilters = [
     value: "false"
   }
 ];
+
+export const EDIT_SUCCESS_MESSAGE = "שדה עודכן בהצלחה.";

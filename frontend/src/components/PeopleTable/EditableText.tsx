@@ -5,6 +5,7 @@ import { PeopleContext } from "../../contexts/PeopleContext";
 import { ConditionalProps } from "../../utils/types";
 
 import "./EditableText.scss";
+import { EDIT_SUCCESS_MESSAGE } from "../../consts";
 
 interface PeopleTableEditableTextProps {
   initialValue: string;
@@ -28,36 +29,27 @@ const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
     setEditing(!editing);
   };
 
-  /**
-   * Handle the event of changing the value in the input.
-   * @param value
-   */
   const handleChange = (value: ChangeEvent<HTMLInputElement>) => {
     setValue(value.target.value);
   };
 
-  /**
-   * Handle the case the value enter isn't part of the dataset (The case of adding a new value).
-   * @param event
-   */
-  const createNewValue = (event: KeyboardEvent<HTMLDivElement>) => {
+  const handleTextChange = (event: KeyboardEvent<HTMLDivElement>) => {
     updatePerson({ ...person, [field]: value });
     setEditing(false);
-    message.success("שדה עודכן בהצלחה");
+    message.success(EDIT_SUCCESS_MESSAGE);
   };
 
   return editing ? (
-    <div onClick={toggleEditing}>
-      <Input
-        autoFocus
-        onBlur={toggleEditing}
-        value={value}
-        onChange={handleChange}
-        onPressEnter={createNewValue}
-      />
-    </div>
+    <Input
+      onClick={toggleEditing}
+      autoFocus
+      onBlur={toggleEditing}
+      value={value}
+      onChange={handleChange}
+      onPressEnter={handleTextChange}
+    />
   ) : (
-    <span className="editable-field" onClick={toggleEditing}>
+    <span className="editable-field clickable" onClick={toggleEditing}>
       {initialValue}
     </span>
   );

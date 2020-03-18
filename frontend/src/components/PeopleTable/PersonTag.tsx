@@ -4,6 +4,7 @@ import { PeopleContext } from "../../contexts/PeopleContext";
 import { Person } from "../../types/person";
 import { ConditionalProps } from "../../utils/types";
 import { message } from "antd";
+import { EDIT_SUCCESS_MESSAGE } from "../../consts";
 
 export interface PersonTag {
   person: Person;
@@ -28,7 +29,7 @@ const PersonTag: React.FC<PersonTag> = ({
       [field]: newTag
     };
     updatePerson(newPerson);
-    message.success("שדה עודכן בהצלחה");
+    message.success(EDIT_SUCCESS_MESSAGE);
   };
 
   return (

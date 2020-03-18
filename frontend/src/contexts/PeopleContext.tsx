@@ -5,14 +5,14 @@ import _ from "lodash";
 
 const defaultData: {
   people: Person[];
-  deletePerson: Function;
-  getFieldDataSet: Function;
-  updatePerson: Function;
+  deletePerson: (personToDelete: Person) => boolean;
+  getFieldDataSet: (field: keyof Person) => any[];
+  updatePerson: (newPerson: Person) => void;
 } = {
   people: [],
-  deletePerson: () => {},
-  getFieldDataSet: () => {},
-  updatePerson: () => {}
+  deletePerson: (personToDelete: Person) => true,
+  getFieldDataSet: (field: keyof Person) => [],
+  updatePerson: (newPerson: Person) => {}
 };
 
 export const PeopleContext = createContext(defaultData);
