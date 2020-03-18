@@ -28,11 +28,7 @@ const AddTag: React.FC<AddTagProps> = ({ possibleTags, onSubmit, text }) => {
 
   return editing ? (
     <AutoComplete
-      ref={(instance: AutoComplete) => {
-        if (instance) {
-          instance.focus();
-        }
-      }}
+      autoFocus
       defaultOpen
       dataSource={possibleTags}
       onSelect={handleSelection}
