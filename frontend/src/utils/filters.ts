@@ -1,6 +1,5 @@
-import _ from "lodash";
-import { PersonInterface } from "../api/types";
-import { ConditionalProps } from "./types";
+import { Person } from "../types/person";
+import { ConditionalProps, getElementType } from "./types";
 import moment, { Moment } from "moment";
 
 /**
@@ -11,22 +10,10 @@ import moment, { Moment } from "moment";
  * @param field The field to check against
  */
 export const stringsFilterByField = (
-  person: PersonInterface,
+  person: Person,
   text: string,
-  field: ConditionalProps<PersonInterface, string>
+  field: ConditionalProps<Person, string>
 ) => person[field].toLowerCase().includes(text.toLowerCase());
-
-/**
- * Checks if the person value of the property key is equal.
- * @param person The person that should be filtered.
- * @param value The numeric value as a string
- * @param field The field to check against.
- */
-export const numbersFilterByField = (
-  person: PersonInterface,
-  value: string,
-  field: ConditionalProps<PersonInterface, number>
-) => person[field] === parseInt(value);
 
 /**
  * Checks wether the persons date field is within the range given.
@@ -36,19 +23,25 @@ export const numbersFilterByField = (
  * @param field The date field that will be filtered.
  */
 export const datesFilterByField = (
-  person: PersonInterface,
+  person: Person,
   datesRange: { since: Moment; until: Moment },
-  field: ConditionalProps<PersonInterface, moment.Moment>
+  field: ConditionalProps<Person, moment.Moment>
 ) =>
   datesRange.since.startOf("day") <= person[field] &&
   person[field] <= datesRange.until.endOf("day");
 
+export function arrayFilterByField<
+  K extends ConditionalProps<Person, Array<any>>
+>(person: Person, value: getElementType<Person[K]>, field: K) {
+  return (person[field] as any).includes(value);
+}
+
 /**
- * Convert a dict of mappings to antd filters format.
- * @param filters An dict mapping between the value and the text that should be shown in the filter.
+ * Convert an array of literals to antd filters format.
+ * @param filters
  */
-export const enumMappingToAntdFilters = (filters: { [key: number]: string }) =>
-  _.keys(filters).map((value: string) => ({
-    text: filters[parseInt(value)],
+export const arrayToAntdMappings = (filters: string[]) =>
+  filters.map((value: string) => ({
+    text: value,
     value
   }));

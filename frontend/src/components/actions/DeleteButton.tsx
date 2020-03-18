@@ -1,12 +1,12 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext } from "react";
 import { Icon, message } from "antd";
 import { PeopleContext } from "../../contexts/PeopleContext";
-import { PersonInterface } from "../../api/types";
+import { Person } from "../../types/person";
 
-import "./PeopleTableDeleteButton.scss";
+import "./DeleteButton.scss";
 
 interface PeopleTableDeleteButtonProps {
-  person: PersonInterface;
+  person: Person;
 }
 
 /**
@@ -21,13 +21,13 @@ const PeopleTableDeleteButton: React.FC<PeopleTableDeleteButtonProps> = ({
    * Delete the person passed as a props to this component and show a toaster with
    * the result of the deletion (Success or Failure).
    */
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     if (deletePerson(person)) {
       message.success(`${person.fullName} נמחק בהצלחה!`);
     } else {
       message.error(`לא ניתן למחוק את ${person.fullName}`);
     }
-  }, [deletePerson]);
+  };
 
   return <Icon type="delete" onClick={handleClick} />;
 };

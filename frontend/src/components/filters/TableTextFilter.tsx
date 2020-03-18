@@ -1,10 +1,10 @@
 import React from "react";
 import { Input, Button } from "antd";
 
-import "./TableFilter.scss";
+import "./TableTextFilter.scss";
 
 interface TableTextFilterProps {
-  setSelectedKeys: Function;
+  setSelectedKeys: (newFilters: string[]) => void;
   selectedKeys: string[];
   confirm: () => void;
   clearFilters: () => void;

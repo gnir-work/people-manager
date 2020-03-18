@@ -1,240 +1,199 @@
 import React from "react";
-import { SortOrder } from "antd/lib/table/interface";
-import { DatePicker, Icon } from "antd";
-import { Moment } from "moment";
 
-import TableTextFilter from "../TableTextFilter";
-import TableDateFilter from "../TableDateFilter";
-import {
-  sortById,
-  sortByName,
-  sortByWeek,
-  sortByArrivalTime
-} from "../../utils/sorters";
+import TableTextFilter from "../filters/TableTextFilter";
+import { sortByField } from "../../utils/sorters";
 import {
   stringsFilterByField,
-  numbersFilterByField,
-  datesFilterByField,
-  enumMappingToAntdFilters
+  arrayToAntdMappings,
+  arrayFilterByField
 } from "../../utils/filters";
+import { Person } from "../../types/person";
+import PersonTag from "./PersonTag";
+import PeopleTableDeleteButton from "../actions/DeleteButton";
+import PeopleTableEditableText from "./EditableText";
+import PersonTags from "./PersonTags";
 import {
-  AvailableBedStatuses,
-  AvailableBasicStatuses,
-  PersonInterface
-} from "../../api/types";
-import BedStatus from "../BedStatus";
-import BasicStatus from "../BasicStatus";
-import { basicStatusToText, bedStatusToText } from "../../consts";
-import PeopleTableDeleteButton from "./PeopleTableDeleteButton";
-import PeopleTableEditableText from "./PeopleTableEditableText";
-
-const defaultSortOrder: SortOrder = "ascend";
-
-const availableBasicStatusesFilters = enumMappingToAntdFilters(
-  basicStatusToText
-);
-
-const availableBedStatusesFilters = enumMappingToAntdFilters(bedStatusToText);
+  PERSON_STATUSES,
+  PERSON_PREFERENCES,
+  MEGAMUT,
+  PREFERENCE_TO_COLOR,
+  MEGAMUT_TO_COLOR,
+  SUBJECTS,
+  STATUS_TO_COLOR,
+  AVAILABILITY_TO_COLOR,
+  AVAILABILITY,
+  ANTD_BOOLEAN_FILTERS
+} from "../../consts";
+import BooleanField from "../fields/BooleanField";
 
 export const PeopleTableColumns = [
   {
     title: "שם מלא",
     dataIndex: "fullName",
     key: "fullName",
-    sorter: sortByName,
-    onFilter: (value: string, record: PersonInterface) =>
+    sorter: (firstPerson: Person, secondPerson: Person) =>
+      sortByField(firstPerson, secondPerson, "fullName"),
+    onFilter: (value: string, record: Person) =>
       stringsFilterByField(record, value, "fullName"),
     filterDropdown: TableTextFilter,
-    render: (value: string, record: PersonInterface) => (
+    render: (value: string, record: Person) => (
       <PeopleTableEditableText
         field="fullName"
         person={record}
         initialValue={value}
       />
     ),
-    width: "40em"
+    width: "15em"
   },
   {
     title: "מ.א",
-    dataIndex: "personId",
-    key: "personId",
-    sorter: sortById,
-    onFilter: (value: string, record: PersonInterface) =>
-      stringsFilterByField(record, value, "personId"),
+    dataIndex: "personalId",
+    key: "personalId",
+    sorter: (firstPerson: Person, secondPerson: Person) =>
+      sortByField(firstPerson, secondPerson, "personalId"),
+    onFilter: (value: string, record: Person) =>
+      stringsFilterByField(record, value, "personalId"),
     filterDropdown: TableTextFilter,
-    render: (value: string, record: PersonInterface) => (
+    render: (value: string, record: Person) => (
       <PeopleTableEditableText
-        field="personId"
+        field="personalId"
         person={record}
         initialValue={value}
-      />
-    )
-  },
-  {
-    title: "גיל",
-    dataIndex: "age",
-    key: "age",
-    onFilter: (value: string, record: PersonInterface) =>
-      numbersFilterByField(record, value, "age"),
-    filterDropdown: TableTextFilter
-  },
-  {
-    title: "תקופה",
-    dataIndex: "period",
-    key: "period",
-    onFilter: (value: string, record: PersonInterface) =>
-      stringsFilterByField(record, value, "period"),
-    filterDropdown: TableTextFilter,
-    render: (value: string, record: PersonInterface) => (
-      <PeopleTableEditableText
-        field="period"
-        person={record}
-        initialValue={value}
-        allowNewValues={false}
-        initialDataSet={["מכינה", "אחוד"]}
-      />
-    )
-  },
-  {
-    title: "שבוע",
-    dataIndex: "week",
-    key: "week",
-    sorter: sortByWeek,
-    defaultSortOrder,
-    onFilter: (value: string, record: PersonInterface) =>
-      numbersFilterByField(record, value, "week"),
-    filterDropdown: TableTextFilter
-  },
-  {
-    title: "תאריכים (לפי זמן הגעה)",
-    key: "time",
-    render: (value: string, record: PersonInterface) => (
-      <DatePicker.RangePicker
-        defaultValue={[record.arrivalTime, record.departureTime]}
-        size="small"
       />
     ),
-    filterDropdown: TableDateFilter,
-    onFilter: (
-      datesRange: { since: Moment; until: Moment },
-      record: PersonInterface
-    ) => datesFilterByField(record, datesRange, "arrivalTime"),
-    sorter: sortByArrivalTime,
-    width: "20em"
+    width: "15em"
   },
   {
-    title: "מזמין",
-    dataIndex: "invitor",
-    key: "invitor",
-    onFilter: (value: string, record: PersonInterface) =>
-      stringsFilterByField(record, value, "invitor"),
-    filterDropdown: TableTextFilter,
-    render: (value: string, record: PersonInterface) => (
+    title: "פלאפון",
+    dataIndex: "phone",
+    key: "phone",
+    render: (value: string, record: Person) => (
       <PeopleTableEditableText
-        field="invitor"
+        field="phone"
         person={record}
         initialValue={value}
       />
-    )
+    ),
+    width: "12em"
   },
   {
-    title: "מיטה",
-    key: "bed",
-    dataIndex: "bed",
-    filters: availableBedStatusesFilters,
-    onFilter: (status: string, record: PersonInterface) =>
-      numbersFilterByField(record, status, "bed"),
-    render: (status: AvailableBedStatuses) => <BedStatus status={status} />,
-    width: "4em"
-  },
-  {
-    title: "אישור כניסה",
-    dataIndex: "entryPass",
-    key: "entryPass",
-    filters: availableBasicStatusesFilters,
-    onFilter: (status: string, record: PersonInterface) =>
-      numbersFilterByField(record, status, "entryPass"),
-    render: (checked: AvailableBasicStatuses) => (
-      <BasicStatus status={checked} />
-    )
-  },
-  {
-    title: "ווידאו הגעה",
-    dataIndex: "verifiedArrival",
-    key: "verifiedArrival",
-    render: (status: AvailableBasicStatuses) => <BasicStatus status={status} />,
-    filters: availableBasicStatusesFilters,
-    onFilter: (status: string, record: PersonInterface) =>
-      numbersFilterByField(record, status, "verifiedArrival")
-  },
-  {
-    title: "בקשת מילואים",
-    dataIndex: "miluim",
-    key: "miluim",
-    render: (status: AvailableBasicStatuses) => <BasicStatus status={status} />,
-    filters: availableBasicStatusesFilters,
-    onFilter: (status: string, record: PersonInterface) =>
-      numbersFilterByField(record, status, "miluim")
-  },
-  {
-    title: "בקשת מהקישור",
-    dataIndex: "makishur",
-    key: "makishur",
-    render: (status: AvailableBasicStatuses) => <BasicStatus status={status} />,
-    filters: availableBasicStatusesFilters,
-    onFilter: (status: string, record: PersonInterface) =>
-      numbersFilterByField(record, status, "makishur")
-  },
-  {
-    title: "הגיעה",
-    dataIndex: "arrived",
-    key: "arrived",
-    render: (status: AvailableBasicStatuses) => <BasicStatus status={status} />,
-    filters: availableBasicStatusesFilters,
-    onFilter: (status: string, record: PersonInterface) =>
-      numbersFilterByField(record, status, "arrived")
-  },
-  {
-    title: "מגמה \\ מסלול",
-    dataIndex: "megama",
-    key: "megama",
-    onFilter: (value: string, record: PersonInterface) =>
-      stringsFilterByField(record, value, "megama"),
-    filterDropdown: TableTextFilter,
-    render: (value: string, record: PersonInterface) => (
-      <PeopleTableEditableText
-        field="megama"
+    title: "מצב שירות",
+    dataIndex: "status",
+    sorter: (firstPerson: Person, secondPerson: Person) =>
+      sortByField(firstPerson, secondPerson, "status"),
+    key: "status",
+    render: (status: string, record: Person) => (
+      <PersonTag
+        field="status"
+        possibleTags={PERSON_STATUSES}
+        colors={STATUS_TO_COLOR}
         person={record}
-        initialValue={value}
-        allowNewValues={false}
-        initialDataSet={["נאון", "נמו"]}
       />
-    )
+    ),
+    filters: arrayToAntdMappings(PERSON_STATUSES),
+    onFilter: (status: string, record: Person) => record.status === status
   },
   {
-    title: "סיבה",
-    dataIndex: "reason",
-    key: "reason",
-    onFilter: (value: string, record: PersonInterface) =>
-      stringsFilterByField(record, value, "reason"),
+    title: "זמינות",
+    dataIndex: "availability",
+    key: "availability",
+    sorter: (firstPerson: Person, secondPerson: Person) =>
+      sortByField(firstPerson, secondPerson, "availability"),
+    render: (currentAvailability: string, record: Person) => (
+      <PersonTag
+        field="availability"
+        possibleTags={AVAILABILITY}
+        colors={AVAILABILITY_TO_COLOR}
+        person={record}
+      />
+    ),
+    filters: arrayToAntdMappings(AVAILABILITY),
+    onFilter: (availability: string, record: Person) =>
+      record.availability === availability
+  },
+  {
+    title: "צוות",
+    dataIndex: "team",
+    key: "team",
+    sorter: (firstPerson: Person, secondPerson: Person) =>
+      sortByField(firstPerson, secondPerson, "team"),
+    onFilter: (value: string, record: Person) =>
+      stringsFilterByField(record, value, "team"),
     filterDropdown: TableTextFilter,
-    render: (value: string, record: PersonInterface) => (
+    render: (value: string, record: Person) => (
       <PeopleTableEditableText
-        field="reason"
+        field="team"
         person={record}
         initialValue={value}
       />
-    )
+    ),
+    width: "12em"
+  },
+  {
+    title: "העדפות",
+    dataIndex: "preferences",
+    key: "preferences",
+    render: (data: string[], record: Person) => (
+      <PersonTags
+        field="preferences"
+        possibleTags={PERSON_PREFERENCES}
+        person={record}
+        colors={PREFERENCE_TO_COLOR}
+      />
+    ),
+    filters: arrayToAntdMappings(PERSON_PREFERENCES),
+    onFilter: (preference: string, record: Person) =>
+      arrayFilterByField(record, preference, "preferences")
+  },
+  {
+    title: "מגמות רלוונטיות",
+    dataIndex: "megamut",
+    key: "megamut",
+    render: (data: string[], record: Person) => (
+      <PersonTags
+        colors={MEGAMUT_TO_COLOR}
+        field="megamut"
+        possibleTags={MEGAMUT}
+        person={record}
+      />
+    ),
+    filters: arrayToAntdMappings(MEGAMUT),
+    onFilter: (megama: string, record: Person) =>
+      arrayFilterByField(record, megama, "megamut")
+  },
+  {
+    title: "מערכים רלוונטיים",
+    dataIndex: "subjects",
+    key: "subjects",
+    render: (data: string[], record: Person) => (
+      <PersonTags field="subjects" possibleTags={SUBJECTS} person={record} />
+    ),
+    filters: arrayToAntdMappings(SUBJECTS),
+    onFilter: (subject: string, record: Person) =>
+      arrayFilterByField(record, subject, "subjects")
+  },
+  {
+    title: "סגל עבר",
+    dataIndex: "wasSegel",
+    key: "wasSegel",
+    sorter: (firstPerson: Person, secondPerson: Person) =>
+      sortByField(firstPerson, secondPerson, "wasSegel"),
+    render: (wasSegel: string, record: Person) => (
+      <BooleanField field="wasSegel" person={record} />
+    ),
+    filters: ANTD_BOOLEAN_FILTERS,
+    onFilter: (wasSegel: string, record: Person) =>
+      String(record.wasSegel) === wasSegel
   },
   {
     title: "הערות נוספות",
     dataIndex: "remarks",
     key: "remarks",
     width: "30em",
-    onFilter: (value: string, record: PersonInterface) =>
+    onFilter: (value: string, record: Person) =>
       stringsFilterByField(record, value, "remarks"),
     filterDropdown: TableTextFilter,
-    render: (value: string, record: PersonInterface) => (
+    render: (value: string, record: Person) => (
       <PeopleTableEditableText
         field="remarks"
         person={record}
@@ -246,7 +205,7 @@ export const PeopleTableColumns = [
     title: "",
     dataIndex: "",
     key: "actions",
-    render: (text: string, record: PersonInterface) => (
+    render: (text: string, record: Person) => (
       <PeopleTableDeleteButton person={record} />
     )
   }

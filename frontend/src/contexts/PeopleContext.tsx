@@ -1,18 +1,18 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getPeople } from "../api/people";
-import { PersonInterface } from "../api/types";
+import { Person } from "../types/person";
 import _ from "lodash";
 
 const defaultData: {
-  people: PersonInterface[];
-  deletePerson: Function;
-  getFieldDataSet: Function;
-  updatePerson: Function;
+  people: Person[];
+  deletePerson: (personToDelete: Person) => boolean;
+  getFieldDataSet: (field: keyof Person) => any[];
+  updatePerson: (newPerson: Person) => void;
 } = {
   people: [],
-  deletePerson: () => {},
-  getFieldDataSet: () => {},
-  updatePerson: () => {}
+  deletePerson: (personToDelete: Person) => true,
+  getFieldDataSet: (field: keyof Person) => [],
+  updatePerson: (newPerson: Person) => {}
 };
 
 export const PeopleContext = createContext(defaultData);
@@ -22,22 +22,22 @@ export const PeopleContext = createContext(defaultData);
  * From fetching the data set to deleting or adding people.
  */
 export const PeopleContextProvider: React.FC = ({ children }) => {
-  const [people, setPeople]: [PersonInterface[], Function] = useState([]);
+  const [people, setPeople]: [Person[], Function] = useState([]);
 
   useEffect(() => {
     setPeople(getPeople());
   }, []);
 
   /**
-   * Deletes a specific person identified by _id.
+   * Deletes a specific person identified by id.
    *
    * @param personToDelete The person to delete from the dataset.
    * @returns a boolean indicating the success of the operation.
    */
-  const deletePerson = (personToDelete: PersonInterface): boolean => {
-    if (people.find(person => person._id === personToDelete._id)) {
+  const deletePerson = (personToDelete: Person): boolean => {
+    if (people.find(person => person.id === personToDelete.id)) {
       const filteredPeople = people.filter(
-        person => person._id !== personToDelete._id
+        person => person.id !== personToDelete.id
       );
       setPeople(filteredPeople);
       return true;
@@ -50,19 +50,17 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
    * Retrieves all of the unique values of a given field.
    * @param field The field from which the data set should be built
    */
-  const getFieldDataSet = (field: keyof PersonInterface) => {
-    const fields = people.map((person: PersonInterface) => person[field]);
+  const getFieldDataSet = (field: keyof Person) => {
+    const fields = people.map((person: Person) => person[field]);
     return _.uniq(fields);
   };
 
   /**
    * Update a specific person.
    */
-  const updatePerson = (newPerson: PersonInterface) => {
+  const updatePerson = (newPerson: Person) => {
     const newPeople = [
-      ...people.map(person =>
-        person._id === newPerson._id ? newPerson : person
-      )
+      ...people.map(person => (person.id === newPerson.id ? newPerson : person))
     ];
     setPeople(newPeople);
   };

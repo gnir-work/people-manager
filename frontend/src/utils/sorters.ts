@@ -1,24 +1,4 @@
-import { PersonInterface } from "../api/types";
-
-export const sortById = (
-  firstPerson: PersonInterface,
-  secondPerson: PersonInterface
-): number => sortByField(firstPerson, secondPerson, "personId");
-
-export const sortByName = (
-  firstPerson: PersonInterface,
-  secondPerson: PersonInterface
-): number => sortByField(firstPerson, secondPerson, "fullName");
-
-export const sortByWeek = (
-  firstPerson: PersonInterface,
-  secondPerson: PersonInterface
-): number => sortByField(firstPerson, secondPerson, "week");
-
-export const sortByArrivalTime = (
-  firstPerson: PersonInterface,
-  secondPerson: PersonInterface
-) => sortByField(firstPerson, secondPerson, "arrivalTime");
+import { Person } from "../types/person";
 
 /**
  * Compares between two person objects by a specific field.
@@ -26,10 +6,10 @@ export const sortByArrivalTime = (
  * @param secondPerson
  * @param field The field name by which the objects should be compared
  */
-const sortByField = (
-  firstPerson: PersonInterface,
-  secondPerson: PersonInterface,
-  field: keyof PersonInterface
+export const sortByField = (
+  firstPerson: Person,
+  secondPerson: Person,
+  field: keyof Person
 ): number => {
   if (firstPerson[field] > secondPerson[field]) {
     return 1;
