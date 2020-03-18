@@ -1,9 +1,8 @@
-import React, { useContext, useState, KeyboardEvent } from "react";
-import { AutoComplete, message } from "antd";
+import React, { useContext, useState, KeyboardEvent, ChangeEvent } from "react";
+import { message, Input } from "antd";
 import { Person } from "../../types/person";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { ConditionalProps } from "../../utils/types";
-import { SelectValue } from "antd/lib/select";
 
 import "./EditableText.scss";
 
@@ -11,8 +10,6 @@ interface PeopleTableEditableTextProps {
   initialValue: string;
   field: ConditionalProps<Person, string>;
   person: Person;
-  initialDataSet?: string[];
-  allowNewValues?: boolean;
 }
 
 /**
@@ -21,49 +18,22 @@ interface PeopleTableEditableTextProps {
 const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
   field,
   person,
-  initialValue,
-  allowNewValues = true,
-  initialDataSet = []
+  initialValue
 }) => {
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(initialValue);
-  const { getFieldDataSet, updatePerson } = useContext(PeopleContext);
-  const wholeDataSet =
-    initialDataSet.length > 0 ? initialDataSet : getFieldDataSet(field);
-  const dataSet = wholeDataSet.filter((fieldValue: string) =>
-    fieldValue.includes(value)
-  );
+  const { updatePerson } = useContext(PeopleContext);
 
   const toggleEditing = () => {
     setEditing(!editing);
   };
 
   /**
-   * Update the application with the new value for the current field.
-   * @param newValue
-   */
-  const finishEditing = (newValue: string) => {
-    updatePerson({ ...person, [field]: newValue });
-    setEditing(false);
-    message.success("שדה עודכן בהצלחה");
-  };
-
-  /**
    * Handle the event of changing the value in the input.
    * @param value
    */
-  const handleChange = (value: SelectValue) => {
-    setValue(value.toString());
-  };
-
-  /**
-   * Handle the event of selecting an item from the list, be it with the Enter key
-   * or with the mouse.
-   * @param value
-   */
-  const handleSelect = (value: SelectValue) => {
-    setValue(value.toString());
-    finishEditing(value.toString());
+  const handleChange = (value: ChangeEvent<HTMLInputElement>) => {
+    setValue(value.target.value);
   };
 
   /**
@@ -71,28 +41,19 @@ const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
    * @param event
    */
   const createNewValue = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter" && dataSet.length === 0) {
-      if (!allowNewValues) {
-        message.error("בבקשה תבחרו אחד מהשדות הקיימים");
-      } else {
-        finishEditing(value);
-      }
-    }
+    updatePerson({ ...person, [field]: value });
+    setEditing(false);
+    message.success("שדה עודכן בהצלחה");
   };
 
   return editing ? (
-    <div
-      className="editable-field"
-      onDoubleClick={toggleEditing}
-      onKeyDown={createNewValue}
-    >
-      <AutoComplete
+    <div className="editable-field" onDoubleClick={toggleEditing}>
+      <Input
         autoFocus
         onBlur={toggleEditing}
         value={value}
-        onSelect={handleSelect}
         onChange={handleChange}
-        dataSource={dataSet}
+        onPressEnter={createNewValue}
       />
     </div>
   ) : (
