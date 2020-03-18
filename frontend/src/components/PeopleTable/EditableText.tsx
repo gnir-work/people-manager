@@ -87,6 +87,7 @@ const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
       onKeyDown={createNewValue}
     >
       <AutoComplete
+        onBlur={toggleEditing}
         value={value}
         onSelect={handleSelect}
         onChange={handleChange}
