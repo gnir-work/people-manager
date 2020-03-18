@@ -6,6 +6,7 @@ import PeopleTable from "./components/PeopleTable/PeopleTable";
 import "antd/dist/antd.css";
 import "./rtl.scss";
 import "./App.scss";
+import AddPersonModal from "./components/PeopleTable/AddPersonModal";
 
 const { Header, Content, Footer } = Layout;
 
@@ -21,6 +22,7 @@ const App: React.FC = () => {
       <Content>
         <PeopleContextProvider>
           <PeopleTable className="people-manager-table" />
+          <AddPersonModal />
         </PeopleContextProvider>
       </Content>
       <Footer>Bis Hibur ©2019 Created by Nir Geller</Footer>
