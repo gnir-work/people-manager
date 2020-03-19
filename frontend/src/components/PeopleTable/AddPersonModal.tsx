@@ -53,12 +53,15 @@ const AddPersonModal: React.FC = () => {
   };
 
   const submitModal = () => {
-    form.validateFields().then(values => {
-      form.resetFields();
-      addPerson(values as any);
-      hideModal();
-      message.success(`${values.fullName} נוצר בהצלחה`);
-    });
+    form
+      .validateFields()
+      .then(values => {
+        form.resetFields();
+        addPerson(values as any);
+        hideModal();
+        message.success(`${values.fullName} נוצר בהצלחה`);
+      })
+      .catch(() => {});
   };
 
   return (
@@ -74,6 +77,7 @@ const AddPersonModal: React.FC = () => {
       >
         <Form
           {...layout}
+          size="small"
           form={form}
           name="form_in_modal"
           initialValues={initialValues}
