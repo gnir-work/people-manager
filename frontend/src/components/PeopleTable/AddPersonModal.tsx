@@ -34,7 +34,7 @@ const initialValues = {
 };
 
 const AddPersonModal: React.FC = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
   const { addPerson } = useContext(PeopleContext);
 
@@ -91,7 +91,7 @@ const AddPersonModal: React.FC = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="personId"
+            name="personalId"
             label="מ.א"
             rules={[{ required: true, message: "בבקשה הכנס מספר אישי" }]}
           >
