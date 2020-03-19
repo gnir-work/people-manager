@@ -87,7 +87,7 @@ const AddPersonModal: React.FC = () => {
               ))}
             </Radio.Group>
           </Form.Item>
-          <Form.Item name="wasSegel" label="סגל עבר">
+          <Form.Item name="wasSegel" label="סגל עבר" valuePropName="checked">
             <Checkbox />
           </Form.Item>
           <Form.Item name="preferences" label="העדפות">
