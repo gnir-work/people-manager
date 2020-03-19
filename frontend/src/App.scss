@@ -16,6 +16,17 @@
   }
 }
 
+.ant-modal-content {
+  .ant-modal-close {
+    left: 0;
+    right: auto;
+  }
+
+  .ant-modal-footer {
+    text-align: left;
+  }
+}
+
 .clickable {
   cursor: pointer;
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddButton from "../actions/AddButton";
-import { Modal } from "antd";
+import { Modal, Button } from "antd";
 
 const AddPersonModal: React.FC = () => {
   const [visible, setVisible] = useState(false);
@@ -20,8 +20,21 @@ const AddPersonModal: React.FC = () => {
   return (
     <>
       <AddButton onClick={showModal} />
-      <Modal visible={visible} onCancel={hideModal} onOk={addPerson}>
-        <h1>I am a modal!</h1>
+      <Modal
+        title="הוספת איש חוץ"
+        visible={visible}
+        onCancel={hideModal}
+        onOk={addPerson}
+        footer={[
+          <Button key="back" onClick={hideModal}>
+            ביטול
+          </Button>,
+          <Button key="submit" type="primary" onClick={addPerson}>
+            הוספה
+          </Button>
+        ]}
+      >
+        <h1>אני יפהפה</h1>
       </Modal>
     </>
   );
