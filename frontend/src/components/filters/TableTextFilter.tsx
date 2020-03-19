@@ -1,5 +1,6 @@
 import React from "react";
 import { Input, Button } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 
 import "./TableTextFilter.scss";
 
@@ -38,7 +39,7 @@ const TableTextFilter: React.FC<TableTextFilterProps> = ({
       <Button
         type="primary"
         onClick={confirm}
-        icon="search"
+        icon={<SearchOutlined />}
         size="small"
         className="search-button"
       >

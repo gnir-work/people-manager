@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { AutoComplete, Tag, Icon } from "antd";
+import { AutoComplete, Tag } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import { SelectValue } from "antd/lib/select";
 
 import "./AddTag.scss";
@@ -44,13 +45,13 @@ const AddTag: React.FC<AddTagProps> = ({ possibleTags, onSubmit, text }) => {
       onChange={handleChange}
       autoFocus
       defaultOpen
-      dataSource={filteredTags}
+      options={filteredTags.map(tag => ({ value: tag }))}
       onSelect={handleSelection}
       onBlur={toggleEditing}
     />
   ) : (
     <Tag onClick={toggleEditing} className="clickable add-tag">
-      <Icon type="plus" /> {text}
+      <PlusOutlined /> {text}
     </Tag>
   );
 };

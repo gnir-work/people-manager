@@ -62,7 +62,7 @@ const EditableTag: React.FC<EditableTagProps> = ({
   return editing ? (
     <AutoComplete
       onChange={handleChange}
-      dataSource={filteredTags}
+      options={filteredTags.map(tag => ({ value: tag }))}
       onSelect={handleSelection}
       defaultOpen
       onBlur={toggleEditing}

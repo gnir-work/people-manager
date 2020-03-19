@@ -22,7 +22,6 @@ const PersonTags: React.FC<PersonPreferenceTagsProps> = ({
   colors = {}
 }) => {
   const { updatePerson } = useContext(PeopleContext);
-  let dataSet = possibleTags.filter(tag => !person[field].includes(tag));
 
   /**
    * Add the new tag to the current person
@@ -41,8 +40,8 @@ const PersonTags: React.FC<PersonPreferenceTagsProps> = ({
     <TagList
       tags={person[field]}
       colors={colors}
-      additionalPossibleTags={dataSet}
-      onTagsChange={handleTagsChange}
+      possibleTags={possibleTags}
+      onChange={handleTagsChange}
       additionText="הוספת העדפה"
     />
   );
