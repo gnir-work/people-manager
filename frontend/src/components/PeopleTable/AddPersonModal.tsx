@@ -6,7 +6,9 @@ import {
   AVAILABILITY,
   PERSON_PREFERENCES,
   SUBJECTS,
-  MEGAMUT
+  MEGAMUT,
+  MEGAMUT_TO_COLOR,
+  PREFERENCE_TO_COLOR
 } from "../../consts";
 import TextArea from "antd/lib/input/TextArea";
 import TagList from "../tags/TagList";
@@ -84,26 +86,22 @@ const AddPersonModal: React.FC = () => {
           <Form.Item label="סגל עבר">
             <Checkbox />
           </Form.Item>
-          <Form.Item label="העדפות">
+          <Form.Item label="העדפות" name="preferences">
             <TagList
-              additionalPossibleTags={PERSON_PREFERENCES}
-              onTagsChange={() => {}}
+              possibleTags={PERSON_PREFERENCES}
+              colors={PREFERENCE_TO_COLOR}
               additionText="הוספת העדפה"
             />
           </Form.Item>
-          <Form.Item label="מגמות">
+          <Form.Item label="מגמות" name="megamut">
             <TagList
-              additionalPossibleTags={MEGAMUT}
-              onTagsChange={() => {}}
+              possibleTags={MEGAMUT}
+              colors={MEGAMUT_TO_COLOR}
               additionText="הוספת מגמה"
             />
           </Form.Item>
-          <Form.Item label="מערכים">
-            <TagList
-              additionalPossibleTags={SUBJECTS}
-              onTagsChange={() => {}}
-              additionText="הוספת מערך"
-            />
+          <Form.Item label="מערכים" name="subjects">
+            <TagList possibleTags={SUBJECTS} additionText="הוספת מערך" />
           </Form.Item>
           <Form.Item label="הערות נוספות">
             <TextArea />

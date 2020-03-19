@@ -6,33 +6,35 @@ import _ from "lodash";
 import EditableTag from "./EditableTag";
 
 interface TagListProps {
-  tags?: string[];
-  additionalPossibleTags: string[];
+  value?: string[];
+  possibleTags: string[];
   colors?: {
     [color: string]: string;
   };
   additionText: string;
-  onTagsChange: (newTags: string[]) => void;
+  onChange?: (newTags: string[]) => void;
 }
 
 const TagList: React.FC<TagListProps> = ({
-  tags = [],
-  additionalPossibleTags,
+  value: tags = [],
+  possibleTags,
   colors = {},
-  onTagsChange,
+  onChange = () => {},
   additionText
 }) => {
+  let unselectedTags = possibleTags.filter(tag => !tags.includes(tag));
+
   const handleTagDeletion = (tagToDelete: string) => {
-    onTagsChange(tags.filter(tag => tag !== tagToDelete));
+    onChange(tags.filter(tag => tag !== tagToDelete));
   };
 
   const handleTagAddition = (newTag: string) => {
-    onTagsChange([...tags, newTag]);
+    onChange([...tags, newTag]);
   };
 
   const handleTagChange = (oldTag: string, newTag: string) => {
     const FilteredTags = tags.filter(tag => tag !== oldTag);
-    onTagsChange([...FilteredTags, newTag]);
+    onChange([...FilteredTags, newTag]);
   };
 
   return (
@@ -41,7 +43,7 @@ const TagList: React.FC<TagListProps> = ({
         <EditableTag
           color={_.isEmpty(colors) ? "" : colors[tag]}
           key={tag}
-          possibleTags={additionalPossibleTags}
+          possibleTags={unselectedTags}
           onDelete={() => handleTagDeletion(tag)}
           onTagChange={(newTag: string) => handleTagChange(tag, newTag)}
           closable
@@ -49,10 +51,10 @@ const TagList: React.FC<TagListProps> = ({
           {tag}
         </EditableTag>
       ))}
-      {additionalPossibleTags.length > 0 && (
+      {unselectedTags.length > 0 && (
         <AddTag
           text={additionText}
-          possibleTags={additionalPossibleTags}
+          possibleTags={unselectedTags}
           onSubmit={handleTagAddition}
         />
       )}
