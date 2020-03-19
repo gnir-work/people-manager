@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddButton from "../actions/AddButton";
-import { Modal, Button, Form, Input, Radio, Checkbox } from "antd";
+import { Modal, Form, Input, Radio, Checkbox } from "antd";
 import {
   PERSON_STATUSES,
   AVAILABILITY,
@@ -38,18 +38,22 @@ const AddPersonModal: React.FC = () => {
     <>
       <AddButton onClick={showModal} />
       <Modal
+        onOk={() => {
+          form
+            .validateFields()
+            .then((values: any) => {
+              form.resetFields();
+              console.log(values);
+            })
+            .catch(info => {
+              console.log("Validate Failed:", info);
+            });
+        }}
         title="הוספת איש חוץ"
         visible={visible}
         onCancel={hideModal}
-        onOk={addPerson}
-        footer={[
-          <Button key="back" onClick={hideModal}>
-            ביטול
-          </Button>,
-          <Button key="submit" type="primary" onClick={addPerson}>
-            הוספה
-          </Button>
-        ]}
+        okText="הוספה"
+        cancelText="ביטול"
       >
         <Form
           {...layout}
@@ -57,53 +61,53 @@ const AddPersonModal: React.FC = () => {
           name="form_in_modal"
           initialValues={{ modifier: "public" }}
         >
-          <Form.Item label="שם מלא">
+          <Form.Item name="fullName" label="שם מלא">
             <Input />
           </Form.Item>
-          <Form.Item label="מ.א">
+          <Form.Item name="personId" label="מ.א">
             <Input />
           </Form.Item>
-          <Form.Item label="פלאפון">
+          <Form.Item name="phone" label="פלאפון">
             <Input />
           </Form.Item>
-          <Form.Item label="צוות">
+          <Form.Item name="team" label="צוות">
             <Input />
           </Form.Item>
-          <Form.Item label="מצב שירות">
+          <Form.Item name="status" label="מצב שירות">
             <Radio.Group>
               {PERSON_STATUSES.map(status => (
                 <Radio value={status}>{status}</Radio>
               ))}
             </Radio.Group>
           </Form.Item>
-          <Form.Item label="זמינות">
+          <Form.Item name="availability" label="זמינות">
             <Radio.Group>
               {AVAILABILITY.map(availability => (
                 <Radio value={availability}>{availability}</Radio>
               ))}
             </Radio.Group>
           </Form.Item>
-          <Form.Item label="סגל עבר">
+          <Form.Item name="wasSegel" label="סגל עבר">
             <Checkbox />
           </Form.Item>
-          <Form.Item label="העדפות" name="preferences">
+          <Form.Item name="preferences" label="העדפות">
             <TagList
               possibleTags={PERSON_PREFERENCES}
               colors={PREFERENCE_TO_COLOR}
               additionText="הוספת העדפה"
             />
           </Form.Item>
-          <Form.Item label="מגמות" name="megamut">
+          <Form.Item name="megamut" label="מגמות">
             <TagList
               possibleTags={MEGAMUT}
               colors={MEGAMUT_TO_COLOR}
               additionText="הוספת מגמה"
             />
           </Form.Item>
-          <Form.Item label="מערכים" name="subjects">
+          <Form.Item name="subjects" label="מערכים">
             <TagList possibleTags={SUBJECTS} additionText="הוספת מערך" />
           </Form.Item>
-          <Form.Item label="הערות נוספות">
+          <Form.Item name="remarks" label="הערות נוספות">
             <TextArea />
           </Form.Item>
         </Form>
