@@ -18,6 +18,20 @@ const layout = {
   wrapperCol: { span: 19 }
 };
 
+const initialValues = {
+  fullName: "",
+  personId: "",
+  phone: "",
+  status: PERSON_STATUSES[0],
+  team: "",
+  preferences: [],
+  megamut: [],
+  subjects: [],
+  availability: AVAILABILITY[0],
+  wasSegel: false,
+  remarks: ""
+};
+
 const AddPersonModal: React.FC = () => {
   const [visible, setVisible] = useState(true);
   const [form] = Form.useForm();
@@ -55,7 +69,7 @@ const AddPersonModal: React.FC = () => {
           {...layout}
           form={form}
           name="form_in_modal"
-          initialValues={{ modifier: "public" }}
+          initialValues={initialValues}
         >
           <Form.Item name="fullName" label="שם מלא">
             <Input />
