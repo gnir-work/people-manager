@@ -71,13 +71,25 @@ const AddPersonModal: React.FC = () => {
           name="form_in_modal"
           initialValues={initialValues}
         >
-          <Form.Item name="fullName" label="שם מלא">
+          <Form.Item
+            name="fullName"
+            label="שם מלא"
+            rules={[{ required: true, message: "בבקשה הכנס שם מלא" }]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item name="personId" label="מ.א">
+          <Form.Item
+            name="personId"
+            label="מ.א"
+            rules={[{ required: true, message: "בבקשה הכנס מספר אישי" }]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item name="phone" label="פלאפון">
+          <Form.Item
+            name="phone"
+            label="פלאפון"
+            rules={[{ required: true, message: "בבקשה הכנס מספר פלאפון" }]}
+          >
             <Input />
           </Form.Item>
           <Form.Item name="team" label="צוות">

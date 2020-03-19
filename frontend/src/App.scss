@@ -25,6 +25,10 @@
   .ant-modal-footer div {
     text-align: left;
   }
+
+  .ant-form-item-label > label.ant-form-item-required::before {
+    margin: 0 0 0 4px;
+  }
 }
 
 .clickable {
