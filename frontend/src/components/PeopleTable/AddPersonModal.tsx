@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext, KeyboardEvent } from "react";
 import AddButton from "../actions/AddButton";
-import { Modal, Form, Input, Radio, Checkbox } from "antd";
+import { Modal, Form, Input, Radio, Checkbox, message } from "antd";
 import {
   PERSON_STATUSES,
   AVAILABILITY,
@@ -12,6 +12,7 @@ import {
 } from "../../consts";
 import TextArea from "antd/lib/input/TextArea";
 import TagList from "../tags/TagList";
+import { PeopleContext } from "../../contexts/PeopleContext";
 
 const layout = {
   labelCol: { span: 5 },
@@ -35,6 +36,7 @@ const initialValues = {
 const AddPersonModal: React.FC = () => {
   const [visible, setVisible] = useState(true);
   const [form] = Form.useForm();
+  const { addPerson } = useContext(PeopleContext);
 
   const showModal = () => {
     setVisible(true);
@@ -44,21 +46,26 @@ const AddPersonModal: React.FC = () => {
     setVisible(false);
   };
 
+  const handleEnter = (event: KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === "Enter") {
+      submitModal();
+    }
+  };
+
+  const submitModal = () => {
+    form.validateFields().then(values => {
+      form.resetFields();
+      addPerson(values as any);
+      hideModal();
+      message.success(`${values.fullName} נוצר בהצלחה`);
+    });
+  };
+
   return (
     <>
       <AddButton onClick={showModal} />
       <Modal
-        onOk={() => {
-          form
-            .validateFields()
-            .then((values: any) => {
-              form.resetFields();
-              console.log(values);
-            })
-            .catch(info => {
-              console.log("Validate Failed:", info);
-            });
-        }}
+        onOk={submitModal}
         title="הוספת איש חוץ"
         visible={visible}
         onCancel={hideModal}
@@ -70,6 +77,7 @@ const AddPersonModal: React.FC = () => {
           form={form}
           name="form_in_modal"
           initialValues={initialValues}
+          onKeyDown={handleEnter}
         >
           <Form.Item
             name="fullName"

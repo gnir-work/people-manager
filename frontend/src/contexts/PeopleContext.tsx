@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getPeople } from "../api/people";
-import { Person } from "../types/person";
+import { Person, PersonFields } from "../types/person";
 import _ from "lodash";
 
 const defaultData: {
@@ -8,11 +8,13 @@ const defaultData: {
   deletePerson: (personToDelete: Person) => boolean;
   getFieldDataSet: (field: keyof Person) => any[];
   updatePerson: (newPerson: Person) => void;
+  addPerson: (newPersonFields: PersonFields) => void;
 } = {
   people: [],
   deletePerson: (personToDelete: Person) => true,
   getFieldDataSet: (field: keyof Person) => [],
-  updatePerson: (newPerson: Person) => {}
+  updatePerson: (newPerson: Person) => {},
+  addPerson: (newPersonFields: PersonFields) => {}
 };
 
 export const PeopleContext = createContext(defaultData);
@@ -65,9 +67,17 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
     setPeople(newPeople);
   };
 
+  /**
+   * Create new Person
+   */
+  const addPerson = (newPersonFields: PersonFields) => {
+    setPeople([...people, new Person(newPersonFields)]);
+  };
+
   return (
     <PeopleContext.Provider
       value={{
+        addPerson,
         people,
         deletePerson,
         getFieldDataSet,

@@ -1,4 +1,4 @@
-interface PersonArguments {
+export interface PersonFields {
   fullName: string;
   personalId: string;
   phone: string;
@@ -26,7 +26,7 @@ export class Person {
   availability: string;
   wasSegel: boolean;
 
-  constructor(args: PersonArguments) {
+  constructor(args: PersonFields) {
     this.id = args.personalId;
     this.fullName = args.fullName;
     this.personalId = args.personalId;
