@@ -38,7 +38,7 @@ const PersonTags: React.FC<PersonPreferenceTagsProps> = ({
 
   return (
     <TagList
-      value={person[field]}
+      tags={person[field]}
       colors={colors}
       possibleTags={possibleTags}
       onChange={handleTagsChange}

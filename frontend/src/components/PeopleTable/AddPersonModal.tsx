@@ -128,21 +128,21 @@ const AddPersonModal: React.FC = () => {
           <Form.Item name="wasSegel" label="סגל עבר" valuePropName="checked">
             <Checkbox />
           </Form.Item>
-          <Form.Item name="preferences" label="העדפות">
+          <Form.Item name="preferences" label="העדפות" valuePropName="tags">
             <TagList
               possibleTags={PERSON_PREFERENCES}
               colors={PREFERENCE_TO_COLOR}
               additionText="הוספת העדפה"
             />
           </Form.Item>
-          <Form.Item name="megamut" label="מגמות">
+          <Form.Item name="megamut" label="מגמות" valuePropName="tags">
             <TagList
               possibleTags={MEGAMUT}
               colors={MEGAMUT_TO_COLOR}
               additionText="הוספת מגמה"
             />
           </Form.Item>
-          <Form.Item name="subjects" label="מערכים">
+          <Form.Item name="subjects" label="מערכים" valuePropName="tags">
             <TagList possibleTags={SUBJECTS} additionText="הוספת מערך" />
           </Form.Item>
           <Form.Item name="remarks" label="הערות נוספות">
