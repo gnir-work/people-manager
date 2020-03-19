@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { Icon, message } from "antd";
+import { message } from "antd";
+import { DeleteFilled } from "@ant-design/icons";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { Person } from "../../types/person";
 
@@ -29,7 +30,7 @@ const PeopleTableDeleteButton: React.FC<PeopleTableDeleteButtonProps> = ({
     }
   };
 
-  return <Icon type="delete" onClick={handleClick} />;
+  return <DeleteFilled onClick={handleClick} />;
 };
 
 export default PeopleTableDeleteButton;

@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Icon } from "antd";
+import { Button } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
 import "./AddButton.scss";
 
@@ -15,7 +16,7 @@ const AddButton: React.FC<AddButtonProps> = ({ onClick }) => (
     size="large"
     className="add-button"
   >
-    <Icon type="plus" />
+    <PlusOutlined />
   </Button>
 );
 

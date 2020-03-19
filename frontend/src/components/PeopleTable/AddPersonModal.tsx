@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import AddButton from "../actions/AddButton";
-import { Modal, Button } from "antd";
+import { Modal, Button, Form } from "antd";
 
 const AddPersonModal: React.FC = () => {
   const [visible, setVisible] = useState(false);
+  const [form] = Form.useForm();
 
   const showModal = () => {
     setVisible(true);
@@ -34,7 +35,12 @@ const AddPersonModal: React.FC = () => {
           </Button>
         ]}
       >
-        <h1>אני יפהפה</h1>
+        <Form
+          form={form}
+          layout="vertical"
+          name="form_in_modal"
+          initialValues={{ modifier: "public" }}
+        ></Form>
       </Modal>
     </>
   );
