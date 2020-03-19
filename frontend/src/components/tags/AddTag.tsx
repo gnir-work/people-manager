@@ -45,7 +45,7 @@ const AddTag: React.FC<AddTagProps> = ({ possibleTags, onSubmit, text }) => {
       onChange={handleChange}
       autoFocus
       defaultOpen
-      dataSource={filteredTags}
+      options={filteredTags.map(tag => ({ value: tag }))}
       onSelect={handleSelection}
       onBlur={toggleEditing}
     />

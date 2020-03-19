@@ -30,10 +30,6 @@ const AddPersonModal: React.FC = () => {
     setVisible(false);
   };
 
-  const addPerson = () => {
-    hideModal();
-  };
-
   return (
     <>
       <AddButton onClick={showModal} />
@@ -76,14 +72,18 @@ const AddPersonModal: React.FC = () => {
           <Form.Item name="status" label="מצב שירות">
             <Radio.Group>
               {PERSON_STATUSES.map(status => (
-                <Radio value={status}>{status}</Radio>
+                <Radio key={status} value={status}>
+                  {status}
+                </Radio>
               ))}
             </Radio.Group>
           </Form.Item>
           <Form.Item name="availability" label="זמינות">
             <Radio.Group>
               {AVAILABILITY.map(availability => (
-                <Radio value={availability}>{availability}</Radio>
+                <Radio key={availability} value={availability}>
+                  {availability}
+                </Radio>
               ))}
             </Radio.Group>
           </Form.Item>
