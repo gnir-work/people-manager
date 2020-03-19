@@ -6,7 +6,7 @@ import _ from "lodash";
 import EditableTag from "./EditableTag";
 
 interface TagListProps {
-  tags: string[];
+  tags?: string[];
   additionalPossibleTags: string[];
   colors?: {
     [color: string]: string;
@@ -16,7 +16,7 @@ interface TagListProps {
 }
 
 const TagList: React.FC<TagListProps> = ({
-  tags,
+  tags = [],
   additionalPossibleTags,
   colors = {},
   onTagsChange,
