@@ -4,6 +4,7 @@ import { useForm } from "antd/lib/form/Form";
 import { Rule, FormItemProps } from "antd/lib/form";
 
 import "./EditableTextForm.scss";
+import _ from "lodash";
 
 interface EditableTextFormProps {
   rules: Rule[];
@@ -50,7 +51,7 @@ const EditableTextForm: React.FC<EditableTextFormProps> = ({
   };
 
   return editing ? (
-    <Form name="editable_text_form" form={form}>
+    <Form name={_.uniqueId("editable_text_form_")} form={form}>
       <Form.Item name="text" rules={rules}>
         {children(handleSubmit, toggleEditing)}
       </Form.Item>

@@ -31,6 +31,7 @@ import {
   GET_PHONE_NUMBER_RULES
 } from "../validators/validators";
 import { PeopleContextInterface } from "../../contexts/PeopleContext";
+import EditableTextAutoComplete from "../text/EditableTextAutoComplete";
 
 export const PeopleTableColumns = ({
   doesPersonExist
@@ -132,7 +133,11 @@ export const PeopleTableColumns = ({
       stringsFilterByField(record, value, "team"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <EditableText field="team" person={record} initialValue={value} />
+      <EditableTextAutoComplete
+        field="team"
+        person={record}
+        initialValue={value}
+      />
     ),
     width: "12em"
   },

@@ -1,6 +1,14 @@
 import React, { useState, useContext, KeyboardEvent } from "react";
 import AddButton from "../actions/AddButton";
-import { Modal, Form, Input, Radio, Checkbox, message } from "antd";
+import {
+  Modal,
+  Form,
+  Input,
+  Radio,
+  Checkbox,
+  message,
+  AutoComplete
+} from "antd";
 import {
   PERSON_STATUSES,
   AVAILABILITY,
@@ -41,7 +49,10 @@ const initialValues = {
 const AddPersonModal: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
-  const { addPerson, doesPersonExist } = useContext(PeopleContext);
+  const { addPerson, doesPersonExist, getFieldDataSet } = useContext(
+    PeopleContext
+  );
+  const possibleTeams = getFieldDataSet("team");
 
   const showModal = () => {
     setVisible(true);
@@ -110,7 +121,9 @@ const AddPersonModal: React.FC = () => {
             <Input />
           </Form.Item>
           <Form.Item name="team" label="צוות">
-            <Input />
+            <AutoComplete
+              options={possibleTeams.map(team => ({ value: team }))}
+            />
           </Form.Item>
           <Form.Item name="status" label="מצב שירות">
             <Radio.Group>
