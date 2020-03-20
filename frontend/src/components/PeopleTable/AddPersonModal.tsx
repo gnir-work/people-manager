@@ -13,6 +13,8 @@ import {
 import TextArea from "antd/lib/input/TextArea";
 import TagList from "../tags/TagList";
 import { PeopleContext } from "../../contexts/PeopleContext";
+import _ from "lodash";
+import { MIN_PHONE_LENGTH } from "../validators/consts";
 
 const layout = {
   labelCol: { span: 5 },
@@ -100,7 +102,21 @@ const AddPersonModal: React.FC = () => {
           <Form.Item
             name="phone"
             label="פלאפון"
-            rules={[{ required: true, message: "בבקשה הכנס מספר פלאפון" }]}
+            rules={[
+              {
+                required: true,
+                message: "בבקשה הכנס מספר פלאפון"
+              },
+              {
+                message: "המספר פלאפון חייב להכיל רק מספרים",
+                transform: value => _.toNumber(value),
+                type: "number"
+              },
+              {
+                message: `המספר פלאפון חייב להכין לפחות ${MIN_PHONE_LENGTH} תוים`,
+                min: MIN_PHONE_LENGTH
+              }
+            ]}
           >
             <Input />
           </Form.Item>
