@@ -1,4 +1,4 @@
-import React, { useContext, useState, KeyboardEvent, ChangeEvent } from "react";
+import React, { useContext, useState } from "react";
 import { message, Input, Form } from "antd";
 import { Person } from "../../types/person";
 import { PeopleContext } from "../../contexts/PeopleContext";

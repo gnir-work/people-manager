@@ -13,13 +13,11 @@ import {
 import TextArea from "antd/lib/input/TextArea";
 import TagList from "../tags/TagList";
 import { PeopleContext } from "../../contexts/PeopleContext";
-import _ from "lodash";
 import {
   GET_PERSONAL_ID_RULES,
   GET_BASIC_TEXT_RULES,
   GET_PHONE_NUMBER_RULES
 } from "../validators/validators";
-import { onlyHebrewCharacters } from "../validators/validators";
 
 const layout = {
   labelCol: { span: 5 },

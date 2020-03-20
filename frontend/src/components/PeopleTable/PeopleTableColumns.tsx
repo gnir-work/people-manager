@@ -25,7 +25,6 @@ import {
   ANTD_BOOLEAN_FILTERS
 } from "../../consts";
 import BooleanField from "../fields/BooleanField";
-import _ from "lodash";
 import {
   GET_PERSONAL_ID_RULES,
   GET_BASIC_TEXT_RULES,
