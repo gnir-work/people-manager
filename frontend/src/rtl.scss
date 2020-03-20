@@ -3,7 +3,7 @@ body {
 }
 
 body * {
-  text-align: right !important;
+  text-align: right;
   .ant-table-thead > tr > th {
     text-align: right;
   }
@@ -16,6 +16,10 @@ body * {
   .ant-calendar-header > div {
     text-align: center;
   }
+}
+
+.ant-table thead > tr > th {
+  text-align: right;
 }
 
 .ant-pagination.ant-table-pagination {
