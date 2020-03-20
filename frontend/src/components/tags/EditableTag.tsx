@@ -61,6 +61,7 @@ const EditableTag: React.FC<EditableTagProps> = ({
 
   return editing ? (
     <AutoComplete
+      autoFocus
       onChange={handleChange}
       options={filteredTags.map(tag => ({ value: tag }))}
       onSelect={handleSelection}
