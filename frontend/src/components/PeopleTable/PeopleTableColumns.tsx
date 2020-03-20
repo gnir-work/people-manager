@@ -208,6 +208,7 @@ export const PeopleTableColumns = ({
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
       <EditableText
+        textClassName="remarks-text"
         InputType={Input.TextArea}
         field="remarks"
         person={record}

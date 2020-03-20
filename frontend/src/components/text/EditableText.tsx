@@ -15,6 +15,7 @@ interface PeopleTableEditableTextProps {
   person: Person;
   rules?: Rule[];
   InputType?: typeof Input | typeof TextArea;
+  textClassName?: string;
 }
 
 const EditableText: React.FC<PeopleTableEditableTextProps> = ({
@@ -22,7 +23,8 @@ const EditableText: React.FC<PeopleTableEditableTextProps> = ({
   person,
   initialValue,
   rules = [],
-  InputType = Input
+  InputType = Input,
+  textClassName = ""
 }) => {
   const { updatePerson } = useContext(PeopleContext);
 
@@ -36,10 +38,10 @@ const EditableText: React.FC<PeopleTableEditableTextProps> = ({
       rules={rules}
       currentValue={initialValue}
       onSubmit={handleTextChange}
+      textClassName={textClassName}
     >
       {(validateForm, toggleEditing) => (
         <InputType
-          defaultValue={initialValue}
           onDoubleClick={toggleEditing}
           autoFocus
           onBlur={toggleEditing}

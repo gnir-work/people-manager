@@ -5,6 +5,7 @@ import { Rule, FormItemProps } from "antd/lib/form";
 
 import "./EditableTextForm.scss";
 import _ from "lodash";
+import classNames from "classnames";
 
 interface EditableTextFormProps {
   rules: Rule[];
@@ -14,6 +15,7 @@ interface EditableTextFormProps {
     toggleEditing: () => void
   ) => FormItemProps["children"];
   onSubmit: (newValue: string) => void;
+  textClassName?: string;
 }
 
 /**
@@ -31,7 +33,8 @@ const EditableTextForm: React.FC<EditableTextFormProps> = ({
   children,
   rules,
   currentValue,
-  onSubmit
+  onSubmit,
+  textClassName
 }) => {
   const [editing, setEditing] = useState(false);
   const [form] = useForm();
@@ -51,13 +54,20 @@ const EditableTextForm: React.FC<EditableTextFormProps> = ({
   };
 
   return editing ? (
-    <Form name={_.uniqueId("editable_text_form_")} form={form}>
+    <Form
+      initialValues={{ text: currentValue }}
+      name={_.uniqueId("editable_text_form_")}
+      form={form}
+    >
       <Form.Item name="text" rules={rules}>
         {children(handleSubmit, toggleEditing)}
       </Form.Item>
     </Form>
   ) : (
-    <span className="editable-field clickable" onClick={toggleEditing}>
+    <span
+      className={classNames(textClassName, "editable-field clickable")}
+      onClick={toggleEditing}
+    >
       {currentValue}
     </span>
   );
