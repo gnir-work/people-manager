@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { message } from "antd";
+import { message, Popconfirm } from "antd";
 import { DeleteFilled } from "@ant-design/icons";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { Person } from "../../types/person";
@@ -18,11 +18,7 @@ const PeopleTableDeleteButton: React.FC<PeopleTableDeleteButtonProps> = ({
 }) => {
   const { deletePerson } = useContext(PeopleContext);
 
-  /**
-   * Delete the person passed as a props to this component and show a toaster with
-   * the result of the deletion (Success or Failure).
-   */
-  const handleClick = () => {
+  const handlePersonDeletion = () => {
     if (deletePerson(person)) {
       message.success(`${person.fullName} נמחק בהצלחה!`);
     } else {
@@ -30,7 +26,17 @@ const PeopleTableDeleteButton: React.FC<PeopleTableDeleteButtonProps> = ({
     }
   };
 
-  return <DeleteFilled onClick={handleClick} />;
+  return (
+    <Popconfirm
+      title={`האם למחוק את ${person.fullName}?`}
+      onConfirm={handlePersonDeletion}
+      okText="כן"
+      cancelText="לא"
+      placement="right"
+    >
+      <DeleteFilled />
+    </Popconfirm>
+  );
 };
 
 export default PeopleTableDeleteButton;
