@@ -13,6 +13,11 @@ import {
 import TextArea from "antd/lib/input/TextArea";
 import TagList from "../tags/TagList";
 import { PeopleContext } from "../../contexts/PeopleContext";
+import {
+  GET_PERSONAL_ID_RULES,
+  GET_BASIC_TEXT_RULES,
+  GET_PHONE_NUMBER_RULES
+} from "../validators/validators";
 
 const layout = {
   labelCol: { span: 5 },
@@ -36,7 +41,7 @@ const initialValues = {
 const AddPersonModal: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
-  const { addPerson } = useContext(PeopleContext);
+  const { addPerson, doesPersonExist } = useContext(PeopleContext);
 
   const showModal = () => {
     setVisible(true);
@@ -79,28 +84,28 @@ const AddPersonModal: React.FC = () => {
           {...layout}
           size="small"
           form={form}
-          name="form_in_modal"
+          name="add_person_form"
           initialValues={initialValues}
           onKeyDown={handleEnter}
         >
           <Form.Item
             name="fullName"
             label="שם מלא"
-            rules={[{ required: true, message: "בבקשה הכנס שם מלא" }]}
+            rules={GET_BASIC_TEXT_RULES()}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="personalId"
             label="מ.א"
-            rules={[{ required: true, message: "בבקשה הכנס מספר אישי" }]}
+            rules={GET_PERSONAL_ID_RULES(doesPersonExist)}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="phone"
             label="פלאפון"
-            rules={[{ required: true, message: "בבקשה הכנס מספר פלאפון" }]}
+            rules={GET_PHONE_NUMBER_RULES()}
           >
             <Input />
           </Form.Item>

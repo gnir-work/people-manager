@@ -3,18 +3,22 @@ import { getPeople } from "../api/people";
 import { Person, PersonFields } from "../types/person";
 import _ from "lodash";
 
-const defaultData: {
+export interface PeopleContextInterface {
   people: Person[];
   deletePerson: (personToDelete: Person) => boolean;
   getFieldDataSet: (field: keyof Person) => any[];
   updatePerson: (newPerson: Person) => void;
   addPerson: (newPersonFields: PersonFields) => void;
-} = {
+  doesPersonExist: (personId: string) => boolean;
+}
+
+const defaultData: PeopleContextInterface = {
   people: [],
   deletePerson: (personToDelete: Person) => true,
   getFieldDataSet: (field: keyof Person) => [],
   updatePerson: (newPerson: Person) => {},
-  addPerson: (newPersonFields: PersonFields) => {}
+  addPerson: (newPersonFields: PersonFields) => {},
+  doesPersonExist: (personId: string) => false
 };
 
 export const PeopleContext = createContext(defaultData);
@@ -31,13 +35,20 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
   }, []);
 
   /**
+   * Check if we already have a person with this id.
+   * @param personId The id of the person.
+   */
+  const doesPersonExist = (personId: string) =>
+    !!_.find(people, ["id", personId]);
+
+  /**
    * Deletes a specific person identified by id.
    *
    * @param personToDelete The person to delete from the dataset.
    * @returns a boolean indicating the success of the operation.
    */
   const deletePerson = (personToDelete: Person): boolean => {
-    if (people.find(person => person.id === personToDelete.id)) {
+    if (doesPersonExist(personToDelete.id)) {
       const filteredPeople = people.filter(
         person => person.id !== personToDelete.id
       );
@@ -77,6 +88,7 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
   return (
     <PeopleContext.Provider
       value={{
+        doesPersonExist,
         addPerson,
         people,
         deletePerson,

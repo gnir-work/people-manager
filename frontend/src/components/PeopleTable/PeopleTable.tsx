@@ -3,7 +3,6 @@ import classNames from "classnames";
 import { Table } from "antd";
 
 import { PeopleTableColumns } from "./PeopleTableColumns";
-import { Person } from "../../types/person";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import "./PeopleTable.scss";
 
@@ -12,13 +11,16 @@ interface PeopleTableProps {
 }
 
 const PeopleTable: React.FC<PeopleTableProps> = ({ className }) => {
-  const { people }: { people: Person[] } = useContext(PeopleContext);
-  const data = people.map(person => ({ ...person, key: person.id }));
+  const peopleContext = useContext(PeopleContext);
+  const data = peopleContext.people.map(person => ({
+    ...person,
+    key: person.id
+  }));
   return (
     <div className={classNames(className, "people-table-container")}>
       <Table
         dataSource={data}
-        columns={PeopleTableColumns}
+        columns={PeopleTableColumns(peopleContext)}
         size="middle"
         pagination={{ pageSize: 30 }}
       />

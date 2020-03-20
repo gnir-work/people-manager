@@ -10,7 +10,7 @@ import {
 import { Person } from "../../types/person";
 import PersonTag from "./PersonTag";
 import PeopleTableDeleteButton from "../actions/DeleteButton";
-import PeopleTableEditableText from "./EditableText";
+import EditableText from "./EditableText";
 import PersonTags from "./PersonTags";
 import {
   PERSON_STATUSES,
@@ -25,8 +25,16 @@ import {
   ANTD_BOOLEAN_FILTERS
 } from "../../consts";
 import BooleanField from "../fields/BooleanField";
+import {
+  GET_PERSONAL_ID_RULES,
+  GET_BASIC_TEXT_RULES,
+  GET_PHONE_NUMBER_RULES
+} from "../validators/validators";
+import { PeopleContextInterface } from "../../contexts/PeopleContext";
 
-export const PeopleTableColumns = [
+export const PeopleTableColumns = ({
+  doesPersonExist
+}: PeopleContextInterface) => [
   {
     title: "שם מלא",
     dataIndex: "fullName",
@@ -37,10 +45,11 @@ export const PeopleTableColumns = [
       stringsFilterByField(record, value, "fullName"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <PeopleTableEditableText
+      <EditableText
         field="fullName"
         person={record}
         initialValue={value}
+        rules={GET_BASIC_TEXT_RULES()}
       />
     ),
     width: "15em"
@@ -55,10 +64,11 @@ export const PeopleTableColumns = [
       stringsFilterByField(record, value, "personalId"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <PeopleTableEditableText
+      <EditableText
         field="personalId"
         person={record}
         initialValue={value}
+        rules={GET_PERSONAL_ID_RULES(doesPersonExist)}
       />
     ),
     width: "15em"
@@ -68,10 +78,11 @@ export const PeopleTableColumns = [
     dataIndex: "phone",
     key: "phone",
     render: (value: string, record: Person) => (
-      <PeopleTableEditableText
+      <EditableText
         field="phone"
         person={record}
         initialValue={value}
+        rules={GET_PHONE_NUMBER_RULES()}
       />
     ),
     width: "12em"
@@ -121,11 +132,7 @@ export const PeopleTableColumns = [
       stringsFilterByField(record, value, "team"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <PeopleTableEditableText
-        field="team"
-        person={record}
-        initialValue={value}
-      />
+      <EditableText field="team" person={record} initialValue={value} />
     ),
     width: "12em"
   },
@@ -194,11 +201,7 @@ export const PeopleTableColumns = [
       stringsFilterByField(record, value, "remarks"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <PeopleTableEditableText
-        field="remarks"
-        person={record}
-        initialValue={value}
-      />
+      <EditableText field="remarks" person={record} initialValue={value} />
     )
   },
   {
