@@ -15,6 +15,7 @@ import TagList from "../tags/TagList";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import _ from "lodash";
 import { MIN_PHONE_LENGTH } from "../validators/consts";
+import { onlyHebrewCharacters } from "../validators/validators";
 
 const layout = {
   labelCol: { span: 5 },
@@ -88,7 +89,19 @@ const AddPersonModal: React.FC = () => {
           <Form.Item
             name="fullName"
             label="שם מלא"
-            rules={[{ required: true, message: "בבקשה הכנס שם מלא" }]}
+            rules={[
+              { required: true, message: "בבקשה הכנס שם מלא" },
+              {
+                validator(rule, value) {
+                  if (onlyHebrewCharacters(value)) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    "השם חייב להכין רק תווים בעברית או רווח"
+                  );
+                }
+              }
+            ]}
           >
             <Input />
           </Form.Item>
