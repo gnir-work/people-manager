@@ -32,6 +32,7 @@ import {
 } from "../validators/validators";
 import { PeopleContextInterface } from "../../contexts/PeopleContext";
 import EditableTextAutoComplete from "../text/EditableTextAutoComplete";
+import { Input } from "antd";
 
 export const PeopleTableColumns = ({
   doesPersonExist
@@ -206,7 +207,12 @@ export const PeopleTableColumns = ({
       stringsFilterByField(record, value, "remarks"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <EditableText field="remarks" person={record} initialValue={value} />
+      <EditableText
+        InputType={Input.TextArea}
+        field="remarks"
+        person={record}
+        initialValue={value}
+      />
     )
   },
   {

@@ -7,19 +7,22 @@ import { ConditionalProps } from "../../utils/types";
 import { EDIT_SUCCESS_MESSAGE } from "../../consts";
 import { Rule } from "antd/lib/form";
 import EditableTextForm from "./EditableTextForm";
+import TextArea from "antd/lib/input/TextArea";
 
 interface PeopleTableEditableTextProps {
   initialValue: string;
   field: ConditionalProps<Person, string>;
   person: Person;
   rules?: Rule[];
+  InputType?: typeof Input | typeof TextArea;
 }
 
 const EditableText: React.FC<PeopleTableEditableTextProps> = ({
   field,
   person,
   initialValue,
-  rules = []
+  rules = [],
+  InputType = Input
 }) => {
   const { updatePerson } = useContext(PeopleContext);
 
@@ -35,7 +38,7 @@ const EditableText: React.FC<PeopleTableEditableTextProps> = ({
       onSubmit={handleTextChange}
     >
       {(validateForm, toggleEditing) => (
-        <Input
+        <InputType
           defaultValue={initialValue}
           onDoubleClick={toggleEditing}
           autoFocus
