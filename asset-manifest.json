@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/people-manager/static/css/main.4145926f.chunk.css",
-    "main.js": "/people-manager/static/js/main.54e9ee87.chunk.js",
-    "main.js.map": "/people-manager/static/js/main.54e9ee87.chunk.js.map",
+    "main.css": "/people-manager/static/css/main.d4fbddf3.chunk.css",
+    "main.js": "/people-manager/static/js/main.58ee8960.chunk.js",
+    "main.js.map": "/people-manager/static/js/main.58ee8960.chunk.js.map",
     "runtime-main.js": "/people-manager/static/js/runtime-main.c0cd3bd8.js",
     "runtime-main.js.map": "/people-manager/static/js/runtime-main.c0cd3bd8.js.map",
-    "static/css/2.2e872fcd.chunk.css": "/people-manager/static/css/2.2e872fcd.chunk.css",
-    "static/js/2.79c56ae5.chunk.js": "/people-manager/static/js/2.79c56ae5.chunk.js",
-    "static/js/2.79c56ae5.chunk.js.map": "/people-manager/static/js/2.79c56ae5.chunk.js.map",
+    "static/css/2.4b6e3ef2.chunk.css": "/people-manager/static/css/2.4b6e3ef2.chunk.css",
+    "static/js/2.0d4e0083.chunk.js": "/people-manager/static/js/2.0d4e0083.chunk.js",
+    "static/js/2.0d4e0083.chunk.js.map": "/people-manager/static/js/2.0d4e0083.chunk.js.map",
     "index.html": "/people-manager/index.html",
-    "precache-manifest.913f43497b70be938322004b80d8e869.js": "/people-manager/precache-manifest.913f43497b70be938322004b80d8e869.js",
+    "precache-manifest.f6580c8cd7f66d1976bac0403bbc07eb.js": "/people-manager/precache-manifest.f6580c8cd7f66d1976bac0403bbc07eb.js",
     "service-worker.js": "/people-manager/service-worker.js",
-    "static/css/2.2e872fcd.chunk.css.map": "/people-manager/static/css/2.2e872fcd.chunk.css.map",
-    "static/css/main.4145926f.chunk.css.map": "/people-manager/static/css/main.4145926f.chunk.css.map",
-    "static/js/2.79c56ae5.chunk.js.LICENSE": "/people-manager/static/js/2.79c56ae5.chunk.js.LICENSE"
+    "static/css/2.4b6e3ef2.chunk.css.map": "/people-manager/static/css/2.4b6e3ef2.chunk.css.map",
+    "static/css/main.d4fbddf3.chunk.css.map": "/people-manager/static/css/main.d4fbddf3.chunk.css.map",
+    "static/js/2.0d4e0083.chunk.js.LICENSE": "/people-manager/static/js/2.0d4e0083.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.c0cd3bd8.js",
-    "static/css/2.2e872fcd.chunk.css",
-    "static/js/2.79c56ae5.chunk.js",
-    "static/css/main.4145926f.chunk.css",
-    "static/js/main.54e9ee87.chunk.js"
+    "static/css/2.4b6e3ef2.chunk.css",
+    "static/js/2.0d4e0083.chunk.js",
+    "static/css/main.d4fbddf3.chunk.css",
+    "static/js/main.58ee8960.chunk.js"
   ]
 }
