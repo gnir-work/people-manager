@@ -37,13 +37,26 @@ const TagList: React.FC<TagListProps> = ({
     onChange([...FilteredTags, newTag]);
   };
 
+  /**
+   * We want the current value of the tag to be a possible tag that the user
+   * can change the current value to because of the following:
+   * In case there are no other options (All of the possibleTags are selected) when a person
+   * clicks a tag to edit it its weird that there are no options, it looks a lot better
+   * if the current value is available.
+   * @param currentTag The current value of the editable tag.
+   */
+  const getEditableTagPossibleTags = (currentTag: string) => [
+    ...unselectedTags,
+    currentTag
+  ];
+
   return (
     <div className="tag-list">
       {tags.map(tag => (
         <EditableTag
           color={_.isEmpty(colors) ? "" : colors[tag]}
           key={tag}
-          possibleTags={unselectedTags}
+          possibleTags={getEditableTagPossibleTags(tag)}
           onDelete={() => handleTagDeletion(tag)}
           onTagChange={(newTag: string) => handleTagChange(tag, newTag)}
           closable
