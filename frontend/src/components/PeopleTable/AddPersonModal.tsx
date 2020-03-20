@@ -39,7 +39,7 @@ const initialValues = {
 const AddPersonModal: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
-  const { addPerson } = useContext(PeopleContext);
+  const { addPerson, doesPersonExist } = useContext(PeopleContext);
 
   const showModal = () => {
     setVisible(true);
@@ -95,10 +95,11 @@ const AddPersonModal: React.FC = () => {
                 validator(rule, value) {
                   if (onlyHebrewCharacters(value)) {
                     return Promise.resolve();
+                  } else {
+                    return Promise.reject(
+                      "השם חייב להכין רק תווים בעברית או רווח"
+                    );
                   }
-                  return Promise.reject(
-                    "השם חייב להכין רק תווים בעברית או רווח"
-                  );
                 }
               }
             ]}
@@ -108,7 +109,23 @@ const AddPersonModal: React.FC = () => {
           <Form.Item
             name="personalId"
             label="מ.א"
-            rules={[{ required: true, message: "בבקשה הכנס מספר אישי" }]}
+            rules={[
+              { required: true, message: "בבקשה הכנס מספר אישי" },
+              {
+                validator(rule, value) {
+                  if (!doesPersonExist(value)) {
+                    return Promise.resolve();
+                  } else {
+                    return Promise.reject("כבר יש איש חוץ עם המספר אישי הזה");
+                  }
+                }
+              },
+              {
+                message: "המספר אישי חייב להכיל רק מספרים",
+                transform: value => _.toNumber(value),
+                type: "number"
+              }
+            ]}
           >
             <Input />
           </Form.Item>
