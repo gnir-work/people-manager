@@ -82,7 +82,7 @@ const AddPersonModal: React.FC = () => {
           {...layout}
           size="small"
           form={form}
-          name="form_in_modal"
+          name="add_person_form"
           initialValues={initialValues}
           onKeyDown={handleEnter}
         >
