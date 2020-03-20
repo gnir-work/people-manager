@@ -14,7 +14,11 @@ import TextArea from "antd/lib/input/TextArea";
 import TagList from "../tags/TagList";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import _ from "lodash";
-import { MIN_PHONE_LENGTH } from "../validators/consts";
+import {
+  GET_PERSONAL_ID_RULES,
+  GET_BASIC_TEXT_RULES,
+  GET_PHONE_NUMBER_RULES
+} from "../validators/validators";
 import { onlyHebrewCharacters } from "../validators/validators";
 
 const layout = {
@@ -89,64 +93,21 @@ const AddPersonModal: React.FC = () => {
           <Form.Item
             name="fullName"
             label="שם מלא"
-            rules={[
-              { required: true, message: "בבקשה הכנס שם מלא" },
-              {
-                validator(rule, value) {
-                  if (onlyHebrewCharacters(value)) {
-                    return Promise.resolve();
-                  } else {
-                    return Promise.reject(
-                      "השם חייב להכין רק תווים בעברית או רווח"
-                    );
-                  }
-                }
-              }
-            ]}
+            rules={GET_BASIC_TEXT_RULES()}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="personalId"
             label="מ.א"
-            rules={[
-              { required: true, message: "בבקשה הכנס מספר אישי" },
-              {
-                validator(rule, value) {
-                  if (!doesPersonExist(value)) {
-                    return Promise.resolve();
-                  } else {
-                    return Promise.reject("כבר יש איש חוץ עם המספר אישי הזה");
-                  }
-                }
-              },
-              {
-                message: "המספר אישי חייב להכיל רק מספרים",
-                transform: value => _.toNumber(value),
-                type: "number"
-              }
-            ]}
+            rules={GET_PERSONAL_ID_RULES(doesPersonExist)}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="phone"
             label="פלאפון"
-            rules={[
-              {
-                required: true,
-                message: "בבקשה הכנס מספר פלאפון"
-              },
-              {
-                message: "המספר פלאפון חייב להכיל רק מספרים",
-                transform: value => _.toNumber(value),
-                type: "number"
-              },
-              {
-                message: `המספר פלאפון חייב להכין לפחות ${MIN_PHONE_LENGTH} תוים`,
-                min: MIN_PHONE_LENGTH
-              }
-            ]}
+            rules={GET_PHONE_NUMBER_RULES()}
           >
             <Input />
           </Form.Item>

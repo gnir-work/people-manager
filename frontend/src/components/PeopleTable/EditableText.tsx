@@ -1,53 +1,55 @@
 import React, { useContext, useState, KeyboardEvent, ChangeEvent } from "react";
-import { message, Input } from "antd";
+import { message, Input, Form } from "antd";
 import { Person } from "../../types/person";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { ConditionalProps } from "../../utils/types";
 
 import "./EditableText.scss";
 import { EDIT_SUCCESS_MESSAGE } from "../../consts";
+import { useForm } from "antd/lib/form/util";
+import { Rule } from "antd/lib/form";
 
 interface PeopleTableEditableTextProps {
   initialValue: string;
   field: ConditionalProps<Person, string>;
   person: Person;
+  rules?: Rule[];
 }
 
-/**
- * A delete button specific for the peoples data table.
- */
-const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
+const EditableText: React.FC<PeopleTableEditableTextProps> = ({
   field,
   person,
-  initialValue
+  initialValue,
+  rules = []
 }) => {
   const [editing, setEditing] = useState(false);
-  const [value, setValue] = useState(initialValue);
   const { updatePerson } = useContext(PeopleContext);
+  const [form] = useForm();
 
   const toggleEditing = () => {
     setEditing(!editing);
   };
 
-  const handleChange = (value: ChangeEvent<HTMLInputElement>) => {
-    setValue(value.target.value);
-  };
-
-  const handleTextChange = (event: KeyboardEvent<HTMLDivElement>) => {
-    updatePerson({ ...person, [field]: value });
-    setEditing(false);
-    message.success(EDIT_SUCCESS_MESSAGE);
+  const handleTextChange = () => {
+    form.validateFields().then(values => {
+      updatePerson({ ...person, [field]: values.text });
+      setEditing(false);
+      message.success(EDIT_SUCCESS_MESSAGE);
+    });
   };
 
   return editing ? (
-    <Input
-      onDoubleClick={toggleEditing}
-      autoFocus
-      onBlur={toggleEditing}
-      value={value}
-      onChange={handleChange}
-      onPressEnter={handleTextChange}
-    />
+    <Form name="editable_text_form" form={form}>
+      <Form.Item name="text" rules={rules}>
+        <Input
+          defaultValue={initialValue}
+          onDoubleClick={toggleEditing}
+          autoFocus
+          onBlur={toggleEditing}
+          onPressEnter={handleTextChange}
+        />
+      </Form.Item>
+    </Form>
   ) : (
     <span className="editable-field clickable" onClick={toggleEditing}>
       {initialValue}
@@ -55,4 +57,4 @@ const PeopleTableEditableText: React.FC<PeopleTableEditableTextProps> = ({
   );
 };
 
-export default PeopleTableEditableText;
+export default EditableText;

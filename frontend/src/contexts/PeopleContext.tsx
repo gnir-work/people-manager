@@ -3,14 +3,16 @@ import { getPeople } from "../api/people";
 import { Person, PersonFields } from "../types/person";
 import _ from "lodash";
 
-const defaultData: {
+export interface PeopleContextInterface {
   people: Person[];
   deletePerson: (personToDelete: Person) => boolean;
   getFieldDataSet: (field: keyof Person) => any[];
   updatePerson: (newPerson: Person) => void;
   addPerson: (newPersonFields: PersonFields) => void;
   doesPersonExist: (personId: string) => boolean;
-} = {
+}
+
+const defaultData: PeopleContextInterface = {
   people: [],
   deletePerson: (personToDelete: Person) => true,
   getFieldDataSet: (field: keyof Person) => [],
