@@ -20,25 +20,6 @@
   width: 100%;
 }
 
-.ant-modal-content {
-  .ant-modal-close {
-    left: 0;
-    right: auto;
-  }
-
-  .ant-modal-footer div {
-    text-align: left;
-  }
-
-  .ant-form-item-label > label.ant-form-item-required::before {
-    margin: 0 0 0 4px;
-  }
-}
-
-.ant-popover-message-title {
-  padding: 0 22px 0 0;
-}
-
 .clickable {
   cursor: pointer;
 }
