@@ -10,7 +10,7 @@ import {
 import { Person } from "../../types/person";
 import PersonTag from "./PersonTag";
 import PeopleTableDeleteButton from "../actions/DeleteButton";
-import EditableText from "./EditableText";
+import EditableText from "../text/EditableText";
 import PersonTags from "./PersonTags";
 import {
   PERSON_STATUSES,
