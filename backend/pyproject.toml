@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "poeple-manager"
+version = "0.1.0"
+description = "A small django backend for managing people information."
+authors = ["gnir <gnir.work@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = "^3.0.4"
+djangorestframework = "^3.11.0"
+
+[tool.poetry.dev-dependencies]
+black = "^19.10b0"
+pytest = "^5.4.1"
+mypy = "^0.770"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
