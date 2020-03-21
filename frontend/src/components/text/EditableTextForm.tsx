@@ -11,7 +11,7 @@ interface EditableTextFormProps {
   rules: Rule[];
   currentValue: string;
   children: (
-    validateFields: () => void,
+    submitForm: () => void,
     toggleEditing: () => void
   ) => FormItemProps["children"];
   onSubmit: (newValue: string) => void;
@@ -23,7 +23,7 @@ interface EditableTextFormProps {
  * Basically you define with what input method the text will be edited when in
  * edited mode.
  * The children will receive two function
- * validateFields: Call this function when you want to validate your fields and submit.
+ * submitForm: Call this function when you want to validate your fields and submit.
  * toggleEditing: Call this function when you want to exit editing mode.
  *
  * Please Notice:

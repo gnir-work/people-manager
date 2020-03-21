@@ -42,12 +42,9 @@ const EditableText: React.FC<PeopleTableEditableTextProps> = ({
    * the insertion of line breaks.
    * Currently you can insert a line break with shift + enter.
    */
-  const handleEnterPress = (
-    event: InputEventType,
-    validateForm: () => void
-  ) => {
+  const handleEnterPress = (event: InputEventType, submitForm: () => void) => {
     if (event.key === "Enter" && !event.shiftKey) {
-      validateForm();
+      submitForm();
     }
   };
 
@@ -58,13 +55,13 @@ const EditableText: React.FC<PeopleTableEditableTextProps> = ({
       onSubmit={handleTextChange}
       textClassName={textClassName}
     >
-      {(validateForm, toggleEditing) => (
+      {(submitForm, toggleEditing) => (
         <InputType
           onDoubleClick={toggleEditing}
           autoFocus
           onBlur={toggleEditing}
           onPressEnter={(event: InputEventType) =>
-            handleEnterPress(event, validateForm)
+            handleEnterPress(event, submitForm)
           }
         />
       )}

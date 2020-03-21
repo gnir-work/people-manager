@@ -31,10 +31,10 @@ const EditableTextAutoComplete: React.FC<EditableTextAutoCompleteProps> = ({
 
   const handleKeyDown = (
     event: KeyboardEvent<HTMLDivElement>,
-    validateForm: () => void
+    submitForm: () => void
   ) => {
     if (event.key === "Enter") {
-      validateForm();
+      submitForm();
     }
   };
 
@@ -44,14 +44,14 @@ const EditableTextAutoComplete: React.FC<EditableTextAutoCompleteProps> = ({
       currentValue={initialValue}
       onSubmit={handleTextChange}
     >
-      {(validateForm, toggleEditing) => (
+      {(submitForm, toggleEditing) => (
         <AutoComplete
           options={dataSet.map(data => ({ value: data }))}
           defaultValue={initialValue}
           autoFocus
           onBlur={toggleEditing}
-          onSelect={validateForm}
-          onKeyDown={event => handleKeyDown(event, validateForm)}
+          onSelect={submitForm}
+          onKeyDown={event => handleKeyDown(event, submitForm)}
         />
       )}
     </EditableTextForm>
