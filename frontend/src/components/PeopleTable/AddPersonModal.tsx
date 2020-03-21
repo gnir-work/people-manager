@@ -122,6 +122,9 @@ const AddPersonModal: React.FC = () => {
           </Form.Item>
           <Form.Item name="team" label="צוות">
             <AutoComplete
+              onKeyDown={event => {
+                event.stopPropagation();
+              }}
               options={possibleTeams.map(team => ({ value: team }))}
             />
           </Form.Item>
