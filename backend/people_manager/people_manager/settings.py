@@ -32,6 +32,7 @@ ALLOWED_HOSTS: List[str] = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'people.apps.PeopleConfig',
     'django.contrib.admin',
     'django.contrib.auth',
