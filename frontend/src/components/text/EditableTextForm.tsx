@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Form } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { Rule, FormItemProps } from "antd/lib/form";
-
-import "./EditableTextForm.scss";
 import _ from "lodash";
 import classNames from "classnames";
+
+import "./EditableTextForm.scss";
 
 interface EditableTextFormProps {
   rules: Rule[];
@@ -19,12 +19,12 @@ interface EditableTextFormProps {
 }
 
 /**
- * A generic editable text form.
- * Basically you define with what input method the text will be edited when in
- * edited mode.
- * The children will receive two function
- * submitForm: Call this function when you want to validate your fields and submit.
- * toggleEditing: Call this function when you want to exit editing mode.
+ * A generic component for editing text.
+ * The component expects to receive the input method (For example <Input> or <AutoComplete>) as
+ * its children (See the props interface).
+ * The children receive two functions in order to allow more control over the form from the inputs element side:
+ * 1. submitForm - When this function is called the form will be validated and submitted.
+ * 2. toggleEditing - Calling this function will toggle the editing state of the form, please note that submitForm already closes the editor.
  *
  * Please Notice:
  * Your input must have the props value and onChange.

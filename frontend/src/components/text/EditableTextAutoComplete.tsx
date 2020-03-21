@@ -24,7 +24,7 @@ const EditableTextAutoComplete: React.FC<EditableTextAutoCompleteProps> = ({
   const { updatePerson, getFieldDataSet } = useContext(PeopleContext);
   const dataSet = getFieldDataSet(field);
 
-  const handleTextChange = (newValue: string) => {
+  const handleTextSelection = (newValue: string) => {
     updatePerson({ ...person, [field]: newValue });
     message.success(EDIT_SUCCESS_MESSAGE);
   };
@@ -42,7 +42,7 @@ const EditableTextAutoComplete: React.FC<EditableTextAutoCompleteProps> = ({
     <EditableTextForm
       rules={rules}
       currentValue={initialValue}
-      onSubmit={handleTextChange}
+      onSubmit={handleTextSelection}
     >
       {(submitForm, toggleEditing) => (
         <AutoComplete
