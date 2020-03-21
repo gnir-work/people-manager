@@ -22,16 +22,11 @@ class PossiblePreferenceSerializer(serializers.ModelSerializer):
         model = PossiblePreference
         fields = POSSIBLE_STRING_ARRAY_FIELDS
 
-class PossibleStatusSerializer(serializers.ModelSerializer):
-    class Meta:
-      model = PossibleStatus
-      fields = ['name']
-
 class PersonSerializer(serializers.ModelSerializer):
-    subjects = PossibleSubjectSerializer
-    tracks = PossibleTrackSerializer
-    preferences = PossiblePreferenceSerializer
-    status = PossibleStatus
+    subjects = PossibleSubjectSerializer(many=True)
+    tracks = PossibleTrackSerializer(many=True)
+    preferences = PossiblePreferenceSerializer(many=True)
+    status = serializers.StringRelatedField(many=False)
 
     class Meta:
         model = Person
