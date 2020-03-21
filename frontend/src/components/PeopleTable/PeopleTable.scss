@@ -2,7 +2,7 @@
   overflow-y: auto;
   .remarks-text {
     white-space: pre-line;
-    width: 20em;
+    max-width: 20em;
   }
 }
 
