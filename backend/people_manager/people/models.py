@@ -1,11 +1,22 @@
 from django.db import models
 
 
-class PossibleStatus(models.Model):
-    name = models.CharField(max_length=50)
+class PossiblePersonStringField(models.Model):
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        abstract = True
+
+
+class PossibleStatus(PossiblePersonStringField):
+    pass
+
+
+class PossibleAvailability(PossiblePersonStringField):
+    pass
 
 
 class Person(models.Model):
@@ -14,7 +25,7 @@ class Person(models.Model):
     phone = models.CharField(max_length=15)
     status = models.ForeignKey(PossibleStatus, on_delete=models.PROTECT)
     team = models.CharField(max_length=50, default="")
-    availability = models.CharField(max_length=50, default="")
+    availability = models.ForeignKey(PossibleAvailability, on_delete=models.PROTECT)
     wasSegel = models.BooleanField(verbose_name="was segel", default=False)
     remarks = models.CharField(max_length=1000, default="")
 
@@ -26,7 +37,7 @@ class PossiblePersonStringArrayField(models.Model):
     This is an abstract class which the inherit from.
     """
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     # In case this field isn't relevant as in you won't create new people with this
     # value set this field to false.
     # Please note that the field will remain in people that have it already.

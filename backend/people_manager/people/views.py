@@ -4,6 +4,7 @@ from .models import (
     PossibleSubject,
     PossibleTrack,
     PossibleStatus,
+    PossibleAvailability
 )
 from .serializers import (
     PersonSerializer,
@@ -11,6 +12,7 @@ from .serializers import (
     PossibleSubjectSerializer,
     PossibleTrackSerializer,
     PossibleStatusSerializer,
+    PossibleAvailabilitySerializer
 )
 from rest_framework import generics, permissions
 from people_manager import settings
@@ -86,3 +88,17 @@ class PossibleStatusDetail(generics.RetrieveUpdateAPIView):
 
     queryset = PossibleStatus.objects.all()
     serializer_class = PossibleStatusSerializer
+
+
+class PossibleAvailabilityList(generics.ListCreateAPIView):
+    permission_classes = PERMISSIONS
+
+    queryset = PossibleAvailability.objects.all()
+    serializer_class = PossibleAvailabilitySerializer
+
+
+class PossibleAvailabilityDetail(generics.RetrieveUpdateAPIView):
+    permission_classes = PERMISSIONS
+
+    queryset = PossibleAvailability.objects.all()
+    serializer_class = PossibleAvailabilitySerializer

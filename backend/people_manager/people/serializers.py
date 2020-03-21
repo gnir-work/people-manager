@@ -5,6 +5,7 @@ from .models import (
     PossibleSubject,
     PossibleTrack,
     PossibleStatus,
+    PossibleAvailability
 )
 
 
@@ -34,12 +35,18 @@ class PossibleStatusSerializer(serializers.ModelSerializer):
         model = PossibleStatus
         fields = ["name"]
 
+class PossibleAvailabilitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PossibleAvailability
+        fields = ["name"]
+
 
 class PersonSerializer(serializers.ModelSerializer):
     subjects = PossibleSubjectSerializer(many=True)
     tracks = PossibleTrackSerializer(many=True)
     preferences = PossiblePreferenceSerializer(many=True)
     status = serializers.StringRelatedField(many=False)
+    availability = serializers.StringRelatedField(many=False)
 
     class Meta:
         model = Person

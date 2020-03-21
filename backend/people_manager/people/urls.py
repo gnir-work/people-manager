@@ -21,4 +21,8 @@ urlpatterns = [
     path(
         "status/<int:pk>/", views.PossibleStatusDetail.as_view(), name="person_detail"
     ),
+    path("availability/", views.PossibleAvailabilityList.as_view(), name="person_list"),
+    path(
+        "availability/<int:pk>/", views.PossibleAvailabilityDetail.as_view(), name="person_detail"
+    ),
 ]
