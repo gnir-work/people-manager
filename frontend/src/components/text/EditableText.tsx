@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, KeyboardEvent } from "react";
 import { message, Input } from "antd";
 import { Person } from "../../types/person";
 import { PeopleContext } from "../../contexts/PeopleContext";
@@ -18,6 +18,10 @@ interface PeopleTableEditableTextProps {
   textClassName?: string;
 }
 
+type InputEventType =
+  | KeyboardEvent<HTMLInputElement>
+  | KeyboardEvent<HTMLTextAreaElement>;
+
 const EditableText: React.FC<PeopleTableEditableTextProps> = ({
   field,
   person,
@@ -33,6 +37,20 @@ const EditableText: React.FC<PeopleTableEditableTextProps> = ({
     message.success(EDIT_SUCCESS_MESSAGE);
   };
 
+  /**
+   * We want to submit the form only when enter is pressed in order to allow
+   * the insertion of line breaks.
+   * Currently you can insert a line break with shift + enter.
+   */
+  const handleEnterPress = (
+    event: InputEventType,
+    validateForm: () => void
+  ) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      validateForm();
+    }
+  };
+
   return (
     <EditableTextForm
       rules={rules}
@@ -45,7 +63,9 @@ const EditableText: React.FC<PeopleTableEditableTextProps> = ({
           onDoubleClick={toggleEditing}
           autoFocus
           onBlur={toggleEditing}
-          onPressEnter={validateForm}
+          onPressEnter={(event: InputEventType) =>
+            handleEnterPress(event, validateForm)
+          }
         />
       )}
     </EditableTextForm>

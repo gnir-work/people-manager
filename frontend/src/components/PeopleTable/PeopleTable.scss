@@ -1,8 +1,8 @@
 .people-table-container {
   overflow-y: auto;
   .remarks-text {
-    white-space: normal;
-    max-width: 10em;
+    white-space: pre-line;
+    width: 20em;
   }
 }
 
