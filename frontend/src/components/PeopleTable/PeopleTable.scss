@@ -1,5 +1,9 @@
 .people-table-container {
   overflow-y: auto;
+  .remarks-text {
+    white-space: pre-line;
+    max-width: 20em;
+  }
 }
 
 .ant-dropdown-menu-item > span {

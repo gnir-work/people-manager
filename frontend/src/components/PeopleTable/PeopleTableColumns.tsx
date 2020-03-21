@@ -10,7 +10,7 @@ import {
 import { Person } from "../../types/person";
 import PersonTag from "./PersonTag";
 import PeopleTableDeleteButton from "../actions/DeleteButton";
-import EditableText from "./EditableText";
+import EditableText from "../text/EditableText";
 import PersonTags from "./PersonTags";
 import {
   PERSON_STATUSES,
@@ -31,6 +31,8 @@ import {
   GET_PHONE_NUMBER_RULES
 } from "../validators/validators";
 import { PeopleContextInterface } from "../../contexts/PeopleContext";
+import EditableTextAutoComplete from "../text/EditableTextAutoComplete";
+import { Input } from "antd";
 
 export const PeopleTableColumns = ({
   doesPersonExist
@@ -132,7 +134,11 @@ export const PeopleTableColumns = ({
       stringsFilterByField(record, value, "team"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <EditableText field="team" person={record} initialValue={value} />
+      <EditableTextAutoComplete
+        field="team"
+        person={record}
+        initialValue={value}
+      />
     ),
     width: "12em"
   },
@@ -201,7 +207,13 @@ export const PeopleTableColumns = ({
       stringsFilterByField(record, value, "remarks"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <EditableText field="remarks" person={record} initialValue={value} />
+      <EditableText
+        textClassName="remarks-text"
+        InputType={Input.TextArea}
+        field="remarks"
+        person={record}
+        initialValue={value}
+      />
     )
   },
   {
