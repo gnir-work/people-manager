@@ -28,6 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS: List[str] = []
 
+# The page to redirect to when loggin in.
+LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/auth/login'
 
 # Application definition
 
