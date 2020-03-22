@@ -46,9 +46,9 @@ class Person(models.Model):
             "availability": str(self.availability),
             "wasSegel": self.wasSegel,
             "remarks": self.remarks,
-            "subjects": [subject.to_json() for subject in self.subjects.all()],
-            "preferences": [preference.to_json() for preference in self.preferences.all()],
-            "tracks": [track.to_json() for track in self.tracks.all()],
+            "subjects": [str(subject) for subject in self.subjects.all()],
+            "preferences": [str(preference) for preference in self.preferences.all()],
+            "tracks": [str(track) for track in self.tracks.all()],
         }
 
 
