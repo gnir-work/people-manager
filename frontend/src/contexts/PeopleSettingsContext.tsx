@@ -33,7 +33,6 @@ export const PeopleSettingsContextProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     getSettings().then(newSettings => {
-      console.log(newSettings);
       setSettings(newSettings.settings);
     });
   }, []);
