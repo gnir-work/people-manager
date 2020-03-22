@@ -23,11 +23,11 @@ class Person(models.Model):
     personal_id = models.CharField(max_length=20, primary_key=True)
     full_name = models.CharField(max_length=50)
     phone = models.CharField(max_length=15)
-    status = models.ForeignKey(PossibleStatus, on_delete=models.PROTECT)
-    team = models.CharField(max_length=50, default="")
-    availability = models.ForeignKey(PossibleAvailability, on_delete=models.PROTECT)
-    wasSegel = models.BooleanField(verbose_name="was segel", default=False)
-    remarks = models.CharField(max_length=1000, default="")
+    status = models.ForeignKey(PossibleStatus, on_delete=models.PROTECT, null=True, blank=True)
+    team = models.CharField(max_length=50, default="", blank=True)
+    availability = models.ForeignKey(PossibleAvailability, on_delete=models.PROTECT, null=True, blank=True)
+    wasSegel = models.BooleanField(verbose_name="was segel", default=False, blank=True)
+    remarks = models.CharField(max_length=1000, default="", blank=True)
 
 
 class PossiblePersonStringArrayField(models.Model):
