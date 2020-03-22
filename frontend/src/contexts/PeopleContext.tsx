@@ -1,7 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
-import { getPeople } from "../api/people";
+import { getPeople, updatePersonRequest } from "../api/people";
 import { Person, PersonFields } from "../types/person";
 import _ from "lodash";
+import { message } from "antd";
+import { EDIT_SUCCESS_MESSAGE, EDIT_ERROR_MESSAGE } from "../consts";
 
 export interface PeopleContextInterface {
   people: Person[];
@@ -78,15 +80,24 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
    * Update a specific person.
    */
   function updatePerson<K extends keyof Person>(
-    person: Person,
+    personToUpdate: Person,
     field: K,
     value: Person[K]
   ) {
-    const newPerson = new Person({ ...person, [field]: value });
-    const newPeople = [
-      ...people.map(person => (person.id === newPerson.id ? newPerson : person))
-    ];
-    setPeople(newPeople);
+    updatePersonRequest(personToUpdate.id, field, value)
+      .then(response => {
+        const newPerson = new Person({ ...personToUpdate, [field]: value });
+        const newPeople = [
+          ...people.map(person =>
+            person.id === personToUpdate.id ? newPerson : person
+          )
+        ];
+        setPeople(newPeople);
+        message.success(EDIT_SUCCESS_MESSAGE);
+      })
+      .catch(error => {
+        message.error(EDIT_ERROR_MESSAGE);
+      });
   }
 
   /**

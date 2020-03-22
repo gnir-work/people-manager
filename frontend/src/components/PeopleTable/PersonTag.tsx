@@ -3,8 +3,6 @@ import EditableTag from "../tags/EditableTag";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { Person } from "../../types/person";
 import { ConditionalProps } from "../../utils/types";
-import { message } from "antd";
-import { EDIT_SUCCESS_MESSAGE } from "../../consts";
 
 export interface PersonTag {
   person: Person;
@@ -25,7 +23,6 @@ const PersonTag: React.FC<PersonTag> = ({
 
   const handleTagChange = (newTag: string) => {
     updatePerson(person, field, newTag);
-    message.success(EDIT_SUCCESS_MESSAGE);
   };
 
   return (

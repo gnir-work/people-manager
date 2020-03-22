@@ -13,3 +13,5 @@ export const ANTD_BOOLEAN_FILTERS = [
 ];
 
 export const EDIT_SUCCESS_MESSAGE = "שדה עודכן בהצלחה.";
+
+export const EDIT_ERROR_MESSAGE = "לא ניתן לעדכן את השדה.";

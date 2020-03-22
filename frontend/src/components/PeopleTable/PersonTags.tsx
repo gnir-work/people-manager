@@ -3,8 +3,6 @@ import { Person } from "../../types/person";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import TagList from "../tags/TagList";
 import { ConditionalProps } from "../../utils/types";
-import { message } from "antd";
-import { EDIT_SUCCESS_MESSAGE } from "../../consts";
 
 interface PersonPreferenceTagsProps {
   person: Person;
@@ -29,7 +27,6 @@ const PersonTags: React.FC<PersonPreferenceTagsProps> = ({
    */
   const handleTagsChange = (newTags: string[]) => {
     updatePerson(person, field, newTags);
-    message.success(EDIT_SUCCESS_MESSAGE);
   };
 
   return (

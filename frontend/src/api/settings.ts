@@ -1,2 +1,4 @@
+import axios from "axios";
+
 export const getSettings = () =>
-  fetch("/api/people/settings").then(data => data.json());
+  axios.get("/api/people/settings").then(response => response.data);
