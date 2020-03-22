@@ -10,6 +10,7 @@ from people.models import (
 )
 
 # Register your models here.
+admin.site.register(Person)
 admin.site.register(PossiblePreference)
 admin.site.register(PossibleSubject)
 admin.site.register(PossibleTrack)

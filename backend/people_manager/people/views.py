@@ -30,7 +30,7 @@ def get_people_settings(request):
                 "possibleSubjects": relevant_subjects,
                 "possibleTracks": relevant_tracks,
                 "possiblePreferences": relevant_preferences,
-                "possibleStatus": relevant_status,
+                "possibleStatuses": relevant_status,
                 "possibleAvailabilities": relevant_availabilities,
             }
         }

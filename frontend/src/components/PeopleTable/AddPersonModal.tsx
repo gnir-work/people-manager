@@ -26,6 +26,7 @@ import {
   GET_BASIC_TEXT_RULES,
   GET_PHONE_NUMBER_RULES
 } from "../validators/validators";
+import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
 
 const layout = {
   labelCol: { span: 5 },
@@ -52,6 +53,8 @@ const AddPersonModal: React.FC = () => {
   const { addPerson, doesPersonExist, getFieldDataSet } = useContext(
     PeopleContext
   );
+
+  const { settings } = useContext(PeopleSettingsContext);
   const possibleTeams = getFieldDataSet("team");
 
   const showModal = () => {
