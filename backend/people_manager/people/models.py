@@ -76,12 +76,12 @@ class PossiblePersonStringArrayField(models.Model):
 
 
 class PossibleSubject(PossiblePersonStringArrayField):
-    people = models.ManyToManyField(Person, related_name="subjects")
+    people = models.ManyToManyField(Person, related_name="subjects", blank=True, null=True)
 
 
 class PossibleTrack(PossiblePersonStringArrayField):
-    people = models.ManyToManyField(Person, related_name="tracks")
+    people = models.ManyToManyField(Person, related_name="tracks", blank=True, null=True)
 
 
 class PossiblePreference(PossiblePersonStringArrayField):
-    people = models.ManyToManyField(Person, related_name="preferences")
+    people = models.ManyToManyField(Person, related_name="preferences", blank=True, null=True)
