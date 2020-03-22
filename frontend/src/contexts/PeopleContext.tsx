@@ -1,5 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
-import { getPeople, updatePersonRequest } from "../api/people";
+import {
+  getPeople,
+  updatePersonRequest,
+  deletePersonRequest
+} from "../api/people";
 import { Person, PersonFields } from "../types/person";
 import _ from "lodash";
 import { message } from "antd";
@@ -7,7 +11,7 @@ import { EDIT_SUCCESS_MESSAGE, EDIT_ERROR_MESSAGE } from "../consts";
 
 export interface PeopleContextInterface {
   people: Person[];
-  deletePerson: (personToDelete: Person) => boolean;
+  deletePerson: (personToDelete: Person) => void;
   getFieldDataSet: (field: keyof Person) => any[];
   updatePerson: <K extends keyof Person>(
     personToUpdate: Person,
@@ -20,7 +24,7 @@ export interface PeopleContextInterface {
 
 const defaultData: PeopleContextInterface = {
   people: [],
-  deletePerson: (personToDelete: Person) => true,
+  deletePerson: (personToDelete: Person) => {},
   getFieldDataSet: (field: keyof Person) => [],
   updatePerson: (newPerson: Person) => {},
   addPerson: (newPersonFields: PersonFields) => {},
@@ -55,16 +59,18 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
    * @param personToDelete The person to delete from the dataset.
    * @returns a boolean indicating the success of the operation.
    */
-  const deletePerson = (personToDelete: Person): boolean => {
-    if (doesPersonExist(personToDelete.id)) {
-      const filteredPeople = people.filter(
-        person => person.id !== personToDelete.id
-      );
-      setPeople(filteredPeople);
-      return true;
-    } else {
-      return false;
-    }
+  const deletePerson = (personToDelete: Person) => {
+    deletePersonRequest(personToDelete.id)
+      .then(response => {
+        const filteredPeople = people.filter(
+          person => person.id !== personToDelete.id
+        );
+        setPeople(filteredPeople);
+        message.success(`${personToDelete.fullName} נמחק בהצלחה!`);
+      })
+      .catch(() => {
+        message.error(`לא ניתן למחוק את ${personToDelete.fullName}`);
+      });
   };
 
   /**

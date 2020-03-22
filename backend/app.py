@@ -25,6 +25,16 @@ def update_person_field(person_id: str):
         return jsonify({"status": "failed"}), 404
 
 
+@app.route("/api/people/person/<person_id>", methods=["DELETE"])
+def delete_person(person_id: str):
+    db = get_db()
+    result = db.people.delete_one({"personalId": person_id})
+    if result.acknowledged and result.deleted_count == 1:
+        return jsonify({"status": "ok"})
+    else:
+        return jsonify({"status": "failed"}), 404
+
+
 @app.route("/api/people/settings/")
 def get_people_settings():
     db = get_db()

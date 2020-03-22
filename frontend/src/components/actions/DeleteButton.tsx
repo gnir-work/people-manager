@@ -19,11 +19,7 @@ const PeopleTableDeleteButton: React.FC<PeopleTableDeleteButtonProps> = ({
   const { deletePerson } = useContext(PeopleContext);
 
   const handlePersonDeletion = () => {
-    if (deletePerson(person)) {
-      message.success(`${person.fullName} נמחק בהצלחה!`);
-    } else {
-      message.error(`לא ניתן למחוק את ${person.fullName}`);
-    }
+    deletePerson(person);
   };
 
   return (
