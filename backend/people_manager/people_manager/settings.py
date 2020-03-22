@@ -36,7 +36,6 @@ LOGOUT_REDIRECT_URL = '/auth/login'
 # Application definition
 
 INSTALLED_APPS = [
-    'rest_framework',
     'people.apps.PeopleConfig',
     'django.contrib.admin',
     'django.contrib.auth',

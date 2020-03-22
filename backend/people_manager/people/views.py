@@ -4,101 +4,34 @@ from .models import (
     PossibleSubject,
     PossibleTrack,
     PossibleStatus,
-    PossibleAvailability
+    PossibleAvailability,
 )
-from .serializers import (
-    PersonSerializer,
-    PossiblePreferenceSerializer,
-    PossibleSubjectSerializer,
-    PossibleTrackSerializer,
-    PossibleStatusSerializer,
-    PossibleAvailabilitySerializer
-)
-from rest_framework import generics, permissions
-from people_manager import settings
-
-PERMISSIONS = [permissions.IsAuthenticated] if not settings.DEBUG else []
+from django.http import JsonResponse
+from django.core.serializers import serialize
 
 
-class PersonList(generics.ListCreateAPIView):
-    permission_classes = PERMISSIONS
+def get_all_people(request):
+    return JsonResponse(
+        {"people": [person.to_json() for person in Person.objects.all()]}
+    )
 
-    queryset = Person.objects.all()
-    serializer_class = PersonSerializer
+def get_people_settings(request):
+    relevant_subjects = _format_settings(PossibleSubject.objects.filter(relevant=True))
+    relevant_tracks = _format_settings(PossibleTrack.objects.filter(relevant=True))
+    relevant_preferences = _format_settings(PossiblePreference.objects.filter(relevant=True))
+    relevant_status = _format_settings(PossibleStatus.objects.all())
+    relevant_availabilities = _format_settings(PossibleAvailability.objects.all())
+    return JsonResponse(
+        {
+            "settings": {
+                "possibleSubjects": relevant_subjects,
+                "possibleTracks": relevant_tracks,
+                "possiblePreferences": relevant_preferences,
+                "possibleStatus": relevant_status,
+                "possibleAvailabilities": relevant_availabilities,
+            }
+        }
+    )
 
-
-class PersonDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = PERMISSIONS
-
-    queryset = Person.objects.all()
-    serializer_class = PersonSerializer
-
-
-class PossibleSubjectList(generics.ListCreateAPIView):
-    permission_classes = PERMISSIONS
-
-    queryset = PossibleSubject.objects.all()
-    serializer_class = PossibleSubjectSerializer
-
-
-class PossibleSubjectDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = PERMISSIONS
-
-    queryset = PossibleSubject.objects.all()
-    serializer_class = PossibleSubjectSerializer
-
-
-class PossiblePreferenceList(generics.ListCreateAPIView):
-    permission_classes = PERMISSIONS
-
-    queryset = PossiblePreference.objects.all()
-    serializer_class = PossiblePreferenceSerializer
-
-
-class PossiblePreferenceDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = PERMISSIONS
-
-    queryset = PossiblePreference.objects.all()
-    serializer_class = PossiblePreferenceSerializer
-
-
-class PossibleTrackList(generics.ListCreateAPIView):
-    permission_classes = PERMISSIONS
-
-    queryset = PossibleTrack.objects.all()
-    serializer_class = PossibleTrackSerializer
-
-
-class PossibleTrackDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = PERMISSIONS
-
-    queryset = PossibleTrack.objects.all()
-    serializer_class = PossibleTrackSerializer
-
-
-class PossibleStatusList(generics.ListCreateAPIView):
-    permission_classes = PERMISSIONS
-
-    queryset = PossibleStatus.objects.all()
-    serializer_class = PossibleStatusSerializer
-
-
-class PossibleStatusDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = PERMISSIONS
-
-    queryset = PossibleStatus.objects.all()
-    serializer_class = PossibleStatusSerializer
-
-
-class PossibleAvailabilityList(generics.ListCreateAPIView):
-    permission_classes = PERMISSIONS
-
-    queryset = PossibleAvailability.objects.all()
-    serializer_class = PossibleAvailabilitySerializer
-
-
-class PossibleAvailabilityDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = PERMISSIONS
-
-    queryset = PossibleAvailability.objects.all()
-    serializer_class = PossibleAvailabilitySerializer
+def _format_settings(settings):
+    return [str(setting) for setting in settings]
