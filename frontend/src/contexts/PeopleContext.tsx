@@ -31,7 +31,9 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
   const [people, setPeople]: [Person[], Function] = useState([]);
 
   useEffect(() => {
-    setPeople(getPeople());
+    getPeople().then(newPeople => {
+      setPeople(newPeople);
+    });
   }, []);
 
   /**
