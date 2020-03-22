@@ -1,6 +1,5 @@
 import React, { useEffect, useState, createContext } from "react";
 import { getSettings } from "../api/settings";
-import { PeopleContextInterface } from "./PeopleContext";
 
 export interface PeopleSettingsContext {
   settings: {

@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 import { Person } from "../types/person";
 
 export const getPeople = (): Promise<Person[]> =>
