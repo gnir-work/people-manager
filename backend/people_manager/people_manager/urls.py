@@ -20,7 +20,6 @@ from . import views
 
 urlpatterns = [
     path('auth/is_authenticated/', views.is_authenticated, name="is_authenticated"),
-    path('auth/', include('rest_framework.urls')),
     path('api/people/', include('people.urls')),
     path('admin/', admin.site.urls),
 ]

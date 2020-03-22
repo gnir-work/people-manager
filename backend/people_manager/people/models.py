@@ -33,6 +33,9 @@ class Person(models.Model):
     wasSegel = models.BooleanField(verbose_name="was segel", default=False, blank=True)
     remarks = models.CharField(max_length=1000, default="", blank=True)
 
+    def __str__(self):
+        return f"{self.full_name}-{self.personal_id}"
+
     def to_json(self):
         return {
             "personalId": self.personal_id,
