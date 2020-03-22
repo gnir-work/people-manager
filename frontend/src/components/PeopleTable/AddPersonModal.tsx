@@ -9,15 +9,6 @@ import {
   message,
   AutoComplete
 } from "antd";
-import {
-  PERSON_STATUSES,
-  AVAILABILITY,
-  PERSON_PREFERENCES,
-  SUBJECTS,
-  TRACKS,
-  TRACKS_TO_COLOR,
-  PREFERENCE_TO_COLOR
-} from "../../consts";
 import TextArea from "antd/lib/input/TextArea";
 import TagList from "../tags/TagList";
 import { PeopleContext } from "../../contexts/PeopleContext";
@@ -37,12 +28,12 @@ const initialValues = {
   fullName: "",
   personId: "",
   phone: "",
-  status: PERSON_STATUSES[0],
+  status: "",
   team: "",
   preferences: [],
   tracks: [],
   subjects: [],
-  availability: AVAILABILITY[0],
+  availability: "",
   wasSegel: false,
   remarks: ""
 };
@@ -133,7 +124,7 @@ const AddPersonModal: React.FC = () => {
           </Form.Item>
           <Form.Item name="status" label="מצב שירות">
             <Radio.Group>
-              {PERSON_STATUSES.map(status => (
+              {settings.possibleStatuses.map(status => (
                 <Radio key={status} value={status}>
                   {status}
                 </Radio>
@@ -142,7 +133,7 @@ const AddPersonModal: React.FC = () => {
           </Form.Item>
           <Form.Item name="availability" label="זמינות">
             <Radio.Group>
-              {AVAILABILITY.map(availability => (
+              {settings.possibleAvailabilities.map(availability => (
                 <Radio key={availability} value={availability}>
                   {availability}
                 </Radio>
@@ -154,20 +145,21 @@ const AddPersonModal: React.FC = () => {
           </Form.Item>
           <Form.Item name="preferences" label="העדפות" valuePropName="tags">
             <TagList
-              possibleTags={PERSON_PREFERENCES}
-              colors={PREFERENCE_TO_COLOR}
+              possibleTags={settings.possiblePreferences}
               additionText="הוספת העדפה"
             />
           </Form.Item>
           <Form.Item name="tracks" label="מסלולים" valuePropName="tags">
             <TagList
-              possibleTags={TRACKS}
-              colors={TRACKS_TO_COLOR}
+              possibleTags={settings.possibleTracks}
               additionText="הוספת מסלול"
             />
           </Form.Item>
           <Form.Item name="subjects" label="מערכים" valuePropName="tags">
-            <TagList possibleTags={SUBJECTS} additionText="הוספת מערך" />
+            <TagList
+              possibleTags={settings.possibleSubjects}
+              additionText="הוספת מערך"
+            />
           </Form.Item>
           <Form.Item name="remarks" label="הערות נוספות">
             <TextArea />

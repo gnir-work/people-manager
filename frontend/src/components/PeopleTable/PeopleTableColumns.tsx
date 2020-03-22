@@ -12,18 +12,7 @@ import PersonTag from "./PersonTag";
 import PeopleTableDeleteButton from "../actions/DeleteButton";
 import EditableText from "../text/EditableText";
 import PersonTags from "./PersonTags";
-import {
-  PERSON_STATUSES,
-  PERSON_PREFERENCES,
-  TRACKS,
-  PREFERENCE_TO_COLOR,
-  TRACKS_TO_COLOR,
-  SUBJECTS,
-  STATUS_TO_COLOR,
-  AVAILABILITY_TO_COLOR,
-  AVAILABILITY,
-  ANTD_BOOLEAN_FILTERS
-} from "../../consts";
+import { ANTD_BOOLEAN_FILTERS } from "../../consts";
 import BooleanField from "../fields/BooleanField";
 import {
   GET_PERSONAL_ID_RULES,
@@ -33,10 +22,12 @@ import {
 import { PeopleContextInterface } from "../../contexts/PeopleContext";
 import EditableTextAutoComplete from "../text/EditableTextAutoComplete";
 import { Input } from "antd";
+import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
 
-export const PeopleTableColumns = ({
-  doesPersonExist
-}: PeopleContextInterface) => [
+export const PeopleTableColumns = (
+  { doesPersonExist }: PeopleContextInterface,
+  { settings }: PeopleSettingsContext
+) => [
   {
     title: "שם מלא",
     dataIndex: "fullName",
@@ -98,12 +89,11 @@ export const PeopleTableColumns = ({
     render: (status: string, record: Person) => (
       <PersonTag
         field="status"
-        possibleTags={PERSON_STATUSES}
-        colors={STATUS_TO_COLOR}
+        possibleTags={settings.possibleStatuses}
         person={record}
       />
     ),
-    filters: arrayToAntdMappings(PERSON_STATUSES),
+    filters: arrayToAntdMappings(settings.possibleStatuses),
     onFilter: (status: string, record: Person) => record.status === status
   },
   {
@@ -115,12 +105,11 @@ export const PeopleTableColumns = ({
     render: (currentAvailability: string, record: Person) => (
       <PersonTag
         field="availability"
-        possibleTags={AVAILABILITY}
-        colors={AVAILABILITY_TO_COLOR}
+        possibleTags={settings.possibleAvailabilities}
         person={record}
       />
     ),
-    filters: arrayToAntdMappings(AVAILABILITY),
+    filters: arrayToAntdMappings(settings.possibleAvailabilities),
     onFilter: (availability: string, record: Person) =>
       record.availability === availability
   },
@@ -149,12 +138,11 @@ export const PeopleTableColumns = ({
     render: (data: string[], record: Person) => (
       <PersonTags
         field="preferences"
-        possibleTags={PERSON_PREFERENCES}
+        possibleTags={settings.possiblePreferences}
         person={record}
-        colors={PREFERENCE_TO_COLOR}
       />
     ),
-    filters: arrayToAntdMappings(PERSON_PREFERENCES),
+    filters: arrayToAntdMappings(settings.possiblePreferences),
     onFilter: (preference: string, record: Person) =>
       arrayFilterByField(record, preference, "preferences")
   },
@@ -164,13 +152,12 @@ export const PeopleTableColumns = ({
     key: "tracks",
     render: (data: string[], record: Person) => (
       <PersonTags
-        colors={TRACKS_TO_COLOR}
         field="tracks"
-        possibleTags={TRACKS}
+        possibleTags={settings.possibleTracks}
         person={record}
       />
     ),
-    filters: arrayToAntdMappings(TRACKS),
+    filters: arrayToAntdMappings(settings.possibleTracks),
     onFilter: (megama: string, record: Person) =>
       arrayFilterByField(record, megama, "tracks")
   },
@@ -179,9 +166,13 @@ export const PeopleTableColumns = ({
     dataIndex: "subjects",
     key: "subjects",
     render: (data: string[], record: Person) => (
-      <PersonTags field="subjects" possibleTags={SUBJECTS} person={record} />
+      <PersonTags
+        field="subjects"
+        possibleTags={settings.possibleSubjects}
+        person={record}
+      />
     ),
-    filters: arrayToAntdMappings(SUBJECTS),
+    filters: arrayToAntdMappings(settings.possibleSubjects),
     onFilter: (subject: string, record: Person) =>
       arrayFilterByField(record, subject, "subjects")
   },
