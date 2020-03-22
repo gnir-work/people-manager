@@ -33,7 +33,7 @@ const EditableText: React.FC<PeopleTableEditableTextProps> = ({
   const { updatePerson } = useContext(PeopleContext);
 
   const handleTextChange = (newValue: string) => {
-    updatePerson({ ...person, [field]: newValue });
+    updatePerson(person, field, newValue);
     message.success(EDIT_SUCCESS_MESSAGE);
   };
 

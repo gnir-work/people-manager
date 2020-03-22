@@ -7,7 +7,11 @@ export interface PeopleContextInterface {
   people: Person[];
   deletePerson: (personToDelete: Person) => boolean;
   getFieldDataSet: (field: keyof Person) => any[];
-  updatePerson: (newPerson: Person) => void;
+  updatePerson: <K extends keyof Person>(
+    personToUpdate: Person,
+    field: K,
+    value: Person[K]
+  ) => void;
   addPerson: (newPersonFields: PersonFields) => void;
   doesPersonExist: (personId: string) => boolean;
 }
@@ -73,12 +77,17 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
   /**
    * Update a specific person.
    */
-  const updatePerson = (newPerson: Person) => {
+  function updatePerson<K extends keyof Person>(
+    person: Person,
+    field: K,
+    value: Person[K]
+  ) {
+    const newPerson = new Person({ ...person, [field]: value });
     const newPeople = [
       ...people.map(person => (person.id === newPerson.id ? newPerson : person))
     ];
     setPeople(newPeople);
-  };
+  }
 
   /**
    * Create new Person

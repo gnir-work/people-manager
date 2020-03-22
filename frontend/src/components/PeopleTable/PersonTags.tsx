@@ -28,11 +28,7 @@ const PersonTags: React.FC<PersonPreferenceTagsProps> = ({
    * @param value
    */
   const handleTagsChange = (newTags: string[]) => {
-    const newPerson = {
-      ...person,
-      [field]: newTags
-    };
-    updatePerson(newPerson);
+    updatePerson(person, field, newTags);
     message.success(EDIT_SUCCESS_MESSAGE);
   };
 

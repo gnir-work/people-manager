@@ -24,11 +24,7 @@ const PersonTag: React.FC<PersonTag> = ({
   const { updatePerson } = useContext(PeopleContext);
 
   const handleTagChange = (newTag: string) => {
-    const newPerson = {
-      ...person,
-      [field]: newTag
-    };
-    updatePerson(newPerson);
+    updatePerson(person, field, newTag);
     message.success(EDIT_SUCCESS_MESSAGE);
   };
 

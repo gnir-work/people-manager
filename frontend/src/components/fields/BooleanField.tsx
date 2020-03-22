@@ -14,11 +14,7 @@ const BooleanField: React.FC<BooleanFieldProps> = ({ person, field }) => {
   const { updatePerson } = useContext(PeopleContext);
 
   const handleClick = () => {
-    const newPerson = {
-      ...person,
-      [field]: !person[field]
-    };
-    updatePerson(newPerson);
+    updatePerson(person, field, !person[field]);
     message.success(EDIT_SUCCESS_MESSAGE);
   };
 

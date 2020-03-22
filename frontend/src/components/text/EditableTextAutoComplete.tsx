@@ -25,7 +25,7 @@ const EditableTextAutoComplete: React.FC<EditableTextAutoCompleteProps> = ({
   const dataSet = getFieldDataSet(field);
 
   const handleTextSelection = (newValue: string) => {
-    updatePerson({ ...person, [field]: newValue });
+    updatePerson(person, field, newValue);
     message.success(EDIT_SUCCESS_MESSAGE);
   };
 
