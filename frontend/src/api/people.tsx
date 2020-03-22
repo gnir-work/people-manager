@@ -4,7 +4,7 @@ import { Person } from "../types/person";
 import {
   PERSON_PREFERENCES,
   PERSON_STATUSES,
-  MEGAMUT,
+  TRACKS,
   SUBJECTS,
   AVAILABILITY
 } from "../consts";
@@ -23,7 +23,7 @@ export const getPeople = (): Person[] =>
         fullName: "ניר גלר" + _.random(1, 100).toString(),
         remarks: "ששדגדשג",
         preferences: getRandomNumberOfItemsFromList(PERSON_PREFERENCES),
-        megamut: getRandomNumberOfItemsFromList(MEGAMUT),
+        tracks: getRandomNumberOfItemsFromList(TRACKS),
         subjects: getRandomNumberOfItemsFromList(SUBJECTS),
         availability: _.sample(AVAILABILITY) || AVAILABILITY[0],
         wasSegel: _.sample([true, false])

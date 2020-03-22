@@ -2,7 +2,7 @@ export const PERSON_STATUSES = ["אזרח", "חייל"];
 
 export const PERSON_PREFERENCES = ["בדיקת תרגילים", "הרצאות", "להישאר לישון"];
 
-export const MEGAMUT = ["מערכות", "מחקר", "מקורות"];
+export const TRACKS = ["מערכות", "מחקר", "מקורות"];
 
 export const SUBJECTS = ["python", "C", "ביטים"];
 
@@ -23,7 +23,7 @@ export const PREFERENCE_TO_COLOR: {
   "להישאר לישון": "volcano"
 };
 
-export const MEGAMUT_TO_COLOR: {
+export const TRACKS_TO_COLOR: {
   [key: string]: string;
 } = {
   מערכות: "green",

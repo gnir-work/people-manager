@@ -15,9 +15,9 @@ import PersonTags from "./PersonTags";
 import {
   PERSON_STATUSES,
   PERSON_PREFERENCES,
-  MEGAMUT,
+  TRACKS,
   PREFERENCE_TO_COLOR,
-  MEGAMUT_TO_COLOR,
+  TRACKS_TO_COLOR,
   SUBJECTS,
   STATUS_TO_COLOR,
   AVAILABILITY_TO_COLOR,
@@ -159,20 +159,20 @@ export const PeopleTableColumns = ({
       arrayFilterByField(record, preference, "preferences")
   },
   {
-    title: "מגמות רלוונטיות",
-    dataIndex: "megamut",
-    key: "megamut",
+    title: "מסלולים רלוונטיות",
+    dataIndex: "tracks",
+    key: "tracks",
     render: (data: string[], record: Person) => (
       <PersonTags
-        colors={MEGAMUT_TO_COLOR}
-        field="megamut"
-        possibleTags={MEGAMUT}
+        colors={TRACKS_TO_COLOR}
+        field="tracks"
+        possibleTags={TRACKS}
         person={record}
       />
     ),
-    filters: arrayToAntdMappings(MEGAMUT),
+    filters: arrayToAntdMappings(TRACKS),
     onFilter: (megama: string, record: Person) =>
-      arrayFilterByField(record, megama, "megamut")
+      arrayFilterByField(record, megama, "tracks")
   },
   {
     title: "מערכים רלוונטיים",

@@ -14,8 +14,8 @@ import {
   AVAILABILITY,
   PERSON_PREFERENCES,
   SUBJECTS,
-  MEGAMUT,
-  MEGAMUT_TO_COLOR,
+  TRACKS,
+  TRACKS_TO_COLOR,
   PREFERENCE_TO_COLOR
 } from "../../consts";
 import TextArea from "antd/lib/input/TextArea";
@@ -39,7 +39,7 @@ const initialValues = {
   status: PERSON_STATUSES[0],
   team: "",
   preferences: [],
-  megamut: [],
+  tracks: [],
   subjects: [],
   availability: AVAILABILITY[0],
   wasSegel: false,
@@ -156,11 +156,11 @@ const AddPersonModal: React.FC = () => {
               additionText="הוספת העדפה"
             />
           </Form.Item>
-          <Form.Item name="megamut" label="מגמות" valuePropName="tags">
+          <Form.Item name="tracks" label="מסלולים" valuePropName="tags">
             <TagList
-              possibleTags={MEGAMUT}
-              colors={MEGAMUT_TO_COLOR}
-              additionText="הוספת מגמה"
+              possibleTags={TRACKS}
+              colors={TRACKS_TO_COLOR}
+              additionText="הוספת מסלול"
             />
           </Form.Item>
           <Form.Item name="subjects" label="מערכים" valuePropName="tags">
