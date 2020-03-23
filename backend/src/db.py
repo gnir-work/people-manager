@@ -1,8 +1,8 @@
 import pymongo
-
+from consts import HOST
 
 def get_db():
-    return pymongo.MongoClient("localhost", 27017)["people-manager"]
+    return pymongo.MongoClient(HOST, 27017)["people-manager"]
 
 
 def get_people_collection():

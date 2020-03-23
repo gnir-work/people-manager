@@ -1,14 +1,9 @@
 from flask import Flask, jsonify, request
-from flask_cors import CORS
 from people import get_all_people, update_person, delete_person, create_person
 from people_settings import get_all_settings
-
-DEBUG = True
+from consts import DEBUG
 
 app = Flask(__name__)
-
-if DEBUG:
-    CORS(app)
 
 
 @app.route("/api/people/person/")
