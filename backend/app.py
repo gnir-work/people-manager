@@ -27,7 +27,7 @@ def update_person_route(person_id: str):
 
 @app.route("/api/people/person/<person_id>", methods=["DELETE"])
 def delete_person_route(person_id: str):
-    if delete_person:
+    if delete_person(person_id):
         return _get_ok_response()
     else:
         return _get_failed_response(404)
