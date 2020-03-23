@@ -1,11 +1,11 @@
 from flask import Flask, jsonify, request
-from pymongo import MongoClient
+import pymongo
 
 app = Flask(__name__)
 
 
 def get_db():
-    return MongoClient("localhost", 27017)["people-manager"]
+    return pymongo.MongoClient("localhost", 27017)["people-manager"]
 
 
 @app.route("/api/people/person/")
@@ -33,6 +33,23 @@ def delete_person(person_id: str):
         return jsonify({"status": "ok"})
     else:
         return jsonify({"status": "failed"}), 404
+
+
+@app.route("/api/people/person", methods=["POST"])
+def create_person():
+    db = get_db()
+    person = request.get_json()
+    person["_id"] = person["personalId"]
+    try:
+        result = db.people.insert_one(person)
+        if result.acknowledged and result.inserted_id == person["personalId"]:
+            return jsonify({"status": "ok"})
+        else:
+            return jsonify({"status": "failed"}), 500
+    except pymongo.errors.DuplicateKeyError:
+        return jsonify(
+            {"status": f"person with {person['personalId']} ID Already exists"}, 409
+        )
 
 
 @app.route("/api/people/settings/")
