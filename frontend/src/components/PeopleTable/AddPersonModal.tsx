@@ -1,14 +1,6 @@
 import React, { useState, useContext, KeyboardEvent } from "react";
 import AddButton from "../actions/AddButton";
-import {
-  Modal,
-  Form,
-  Input,
-  Radio,
-  Checkbox,
-  message,
-  AutoComplete
-} from "antd";
+import { Modal, Form, Input, Radio, Checkbox, AutoComplete } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import TagList from "../tags/TagList";
 import { PeopleContext } from "../../contexts/PeopleContext";

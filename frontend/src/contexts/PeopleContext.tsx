@@ -9,7 +9,7 @@ import { Person, PersonFields } from "../types/person";
 import _ from "lodash";
 import { message } from "antd";
 import { EDIT_SUCCESS_MESSAGE, EDIT_ERROR_MESSAGE } from "../consts";
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 
 export interface PeopleContextInterface {
   people: Person[];
