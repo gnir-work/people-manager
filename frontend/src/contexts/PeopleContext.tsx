@@ -121,6 +121,8 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
       .catch((error: AxiosError) => {
         if (error && error.response && error.response.status === 409) {
           message.error(`יש כבר איש חוץ עם המ.א ${newPerson.personalId}`);
+        } else {
+          message.error("איש חוץ לא נוסף, היית שגיאה.");
         }
       });
   };
