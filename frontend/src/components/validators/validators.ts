@@ -17,8 +17,13 @@ export const onlyHebrewCharacters = (value: string): boolean => {
 
 // From here down you can find antd rules for validating fields.
 
+export const GET_REQUIRED_RULE = (errorMessage: string) => ({
+  required: true,
+  message: errorMessage
+});
+
 export const GET_PERSONAL_ID_RULES = (doesPersonExist: Function): Rule[] => [
-  { required: true, message: "בבקשה הכנס מספר אישי" },
+  GET_REQUIRED_RULE("בבקשה הכנס מספר אישי"),
   {
     validator(rule: any, value: string) {
       if (!doesPersonExist(value)) {
@@ -36,7 +41,7 @@ export const GET_PERSONAL_ID_RULES = (doesPersonExist: Function): Rule[] => [
 ];
 
 export const GET_BASIC_TEXT_RULES = (): Rule[] => [
-  { required: true, message: "בבקשה הכנס שם מלא" },
+  GET_REQUIRED_RULE("בבקשה הכנס שם מלא"),
   {
     validator(rule, value) {
       if (onlyHebrewCharacters(value)) {
@@ -49,10 +54,7 @@ export const GET_BASIC_TEXT_RULES = (): Rule[] => [
 ];
 
 export const GET_PHONE_NUMBER_RULES = (): Rule[] => [
-  {
-    required: true,
-    message: "בבקשה הכנס מספר פלאפון"
-  },
+  GET_REQUIRED_RULE("בבקשה הכנס מספר פלאפון"),
   {
     message: "המספר פלאפון חייב להכיל רק מספרים",
     transform: value => _.toNumber(value),

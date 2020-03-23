@@ -1,31 +1,16 @@
 import React, { useState, useContext, KeyboardEvent } from "react";
 import AddButton from "../actions/AddButton";
-import {
-  Modal,
-  Form,
-  Input,
-  Radio,
-  Checkbox,
-  message,
-  AutoComplete
-} from "antd";
-import {
-  PERSON_STATUSES,
-  AVAILABILITY,
-  PERSON_PREFERENCES,
-  SUBJECTS,
-  MEGAMUT,
-  MEGAMUT_TO_COLOR,
-  PREFERENCE_TO_COLOR
-} from "../../consts";
+import { Modal, Form, Input, Radio, Checkbox, AutoComplete } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import TagList from "../tags/TagList";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import {
   GET_PERSONAL_ID_RULES,
   GET_BASIC_TEXT_RULES,
-  GET_PHONE_NUMBER_RULES
+  GET_PHONE_NUMBER_RULES,
+  GET_REQUIRED_RULE
 } from "../validators/validators";
+import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
 
 const layout = {
   labelCol: { span: 5 },
@@ -36,12 +21,12 @@ const initialValues = {
   fullName: "",
   personId: "",
   phone: "",
-  status: PERSON_STATUSES[0],
+  status: "",
   team: "",
   preferences: [],
-  megamut: [],
+  tracks: [],
   subjects: [],
-  availability: AVAILABILITY[0],
+  availability: "",
   wasSegel: false,
   remarks: ""
 };
@@ -52,6 +37,7 @@ const AddPersonModal: React.FC = () => {
   const { addPerson, doesPersonExist, getFieldDataSet } = useContext(
     PeopleContext
   );
+  const { settings } = useContext(PeopleSettingsContext);
   const possibleTeams = getFieldDataSet("team");
 
   const showModal = () => {
@@ -75,7 +61,6 @@ const AddPersonModal: React.FC = () => {
         form.resetFields();
         addPerson(values as any);
         hideModal();
-        message.success(`${values.fullName} נוצר בהצלחה`);
       })
       .catch(() => {});
   };
@@ -128,18 +113,26 @@ const AddPersonModal: React.FC = () => {
               options={possibleTeams.map(team => ({ value: team }))}
             />
           </Form.Item>
-          <Form.Item name="status" label="מצב שירות">
+          <Form.Item
+            rules={[GET_REQUIRED_RULE("בבקשה הכנס מצב שירות")]}
+            name="status"
+            label="מצב שירות"
+          >
             <Radio.Group>
-              {PERSON_STATUSES.map(status => (
+              {settings.possibleStatuses.map(status => (
                 <Radio key={status} value={status}>
                   {status}
                 </Radio>
               ))}
             </Radio.Group>
           </Form.Item>
-          <Form.Item name="availability" label="זמינות">
+          <Form.Item
+            rules={[GET_REQUIRED_RULE("בבקשה הכנס זמינות")]}
+            name="availability"
+            label="זמינות"
+          >
             <Radio.Group>
-              {AVAILABILITY.map(availability => (
+              {settings.possibleAvailabilities.map(availability => (
                 <Radio key={availability} value={availability}>
                   {availability}
                 </Radio>
@@ -151,20 +144,21 @@ const AddPersonModal: React.FC = () => {
           </Form.Item>
           <Form.Item name="preferences" label="העדפות" valuePropName="tags">
             <TagList
-              possibleTags={PERSON_PREFERENCES}
-              colors={PREFERENCE_TO_COLOR}
+              possibleTags={settings.possiblePreferences}
               additionText="הוספת העדפה"
             />
           </Form.Item>
-          <Form.Item name="megamut" label="מגמות" valuePropName="tags">
+          <Form.Item name="tracks" label="מסלולים" valuePropName="tags">
             <TagList
-              possibleTags={MEGAMUT}
-              colors={MEGAMUT_TO_COLOR}
-              additionText="הוספת מגמה"
+              possibleTags={settings.possibleTracks}
+              additionText="הוספת מסלול"
             />
           </Form.Item>
           <Form.Item name="subjects" label="מערכים" valuePropName="tags">
-            <TagList possibleTags={SUBJECTS} additionText="הוספת מערך" />
+            <TagList
+              possibleTags={settings.possibleSubjects}
+              additionText="הוספת מערך"
+            />
           </Form.Item>
           <Form.Item name="remarks" label="הערות נוספות">
             <TextArea />

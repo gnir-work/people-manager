@@ -1,20 +1,32 @@
 import React, { createContext, useEffect, useState } from "react";
-import { getPeople } from "../api/people";
+import {
+  getPeople,
+  updatePersonRequest,
+  deletePersonRequest,
+  createPersonRequest
+} from "../api/people";
 import { Person, PersonFields } from "../types/person";
 import _ from "lodash";
+import { message } from "antd";
+import { EDIT_SUCCESS_MESSAGE, EDIT_ERROR_MESSAGE } from "../consts";
+import { AxiosError } from "axios";
 
 export interface PeopleContextInterface {
   people: Person[];
-  deletePerson: (personToDelete: Person) => boolean;
+  deletePerson: (personToDelete: Person) => void;
   getFieldDataSet: (field: keyof Person) => any[];
-  updatePerson: (newPerson: Person) => void;
+  updatePerson: <K extends keyof Person>(
+    personToUpdate: Person,
+    field: K,
+    value: Person[K]
+  ) => void;
   addPerson: (newPersonFields: PersonFields) => void;
   doesPersonExist: (personId: string) => boolean;
 }
 
 const defaultData: PeopleContextInterface = {
   people: [],
-  deletePerson: (personToDelete: Person) => true,
+  deletePerson: (personToDelete: Person) => {},
   getFieldDataSet: (field: keyof Person) => [],
   updatePerson: (newPerson: Person) => {},
   addPerson: (newPersonFields: PersonFields) => {},
@@ -31,7 +43,9 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
   const [people, setPeople]: [Person[], Function] = useState([]);
 
   useEffect(() => {
-    setPeople(getPeople());
+    getPeople().then(newPeople => {
+      setPeople(newPeople);
+    });
   }, []);
 
   /**
@@ -47,16 +61,18 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
    * @param personToDelete The person to delete from the dataset.
    * @returns a boolean indicating the success of the operation.
    */
-  const deletePerson = (personToDelete: Person): boolean => {
-    if (doesPersonExist(personToDelete.id)) {
-      const filteredPeople = people.filter(
-        person => person.id !== personToDelete.id
-      );
-      setPeople(filteredPeople);
-      return true;
-    } else {
-      return false;
-    }
+  const deletePerson = (personToDelete: Person) => {
+    deletePersonRequest(personToDelete.id)
+      .then(response => {
+        const filteredPeople = people.filter(
+          person => person.id !== personToDelete.id
+        );
+        setPeople(filteredPeople);
+        message.success(`${personToDelete.fullName} נמחק בהצלחה!`);
+      })
+      .catch(() => {
+        message.error(`לא ניתן למחוק את ${personToDelete.fullName}`);
+      });
   };
 
   /**
@@ -71,18 +87,44 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
   /**
    * Update a specific person.
    */
-  const updatePerson = (newPerson: Person) => {
-    const newPeople = [
-      ...people.map(person => (person.id === newPerson.id ? newPerson : person))
-    ];
-    setPeople(newPeople);
-  };
+  function updatePerson<K extends keyof Person>(
+    personToUpdate: Person,
+    field: K,
+    value: Person[K]
+  ) {
+    updatePersonRequest(personToUpdate.id, field, value)
+      .then(response => {
+        const newPerson = new Person({ ...personToUpdate, [field]: value });
+        const newPeople = [
+          ...people.map(person =>
+            person.id === personToUpdate.id ? newPerson : person
+          )
+        ];
+        setPeople(newPeople);
+        message.success(EDIT_SUCCESS_MESSAGE);
+      })
+      .catch(error => {
+        message.error(EDIT_ERROR_MESSAGE);
+      });
+  }
 
   /**
    * Create new Person
    */
   const addPerson = (newPersonFields: PersonFields) => {
-    setPeople([...people, new Person(newPersonFields)]);
+    const newPerson = new Person(newPersonFields);
+    createPersonRequest(newPerson)
+      .then(response => {
+        setPeople([...people, newPerson]);
+        message.success(`${newPerson.fullName} נוצר בהצלחה`);
+      })
+      .catch((error: AxiosError) => {
+        if (error && error.response && error.response.status === 409) {
+          message.error(`יש כבר איש חוץ עם המ.א ${newPerson.personalId}`);
+        } else {
+          message.error("איש חוץ לא נוסף, היית שגיאה.");
+        }
+      });
   };
 
   return (

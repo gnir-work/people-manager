@@ -1,10 +1,9 @@
 import React, { useContext, KeyboardEvent } from "react";
-import { message, AutoComplete } from "antd";
+import { AutoComplete } from "antd";
 import { Person } from "../../types/person";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { ConditionalProps } from "../../utils/types";
 
-import { EDIT_SUCCESS_MESSAGE } from "../../consts";
 import { Rule } from "antd/lib/form";
 import EditableTextForm from "./EditableTextForm";
 
@@ -25,8 +24,7 @@ const EditableTextAutoComplete: React.FC<EditableTextAutoCompleteProps> = ({
   const dataSet = getFieldDataSet(field);
 
   const handleTextSelection = (newValue: string) => {
-    updatePerson({ ...person, [field]: newValue });
-    message.success(EDIT_SUCCESS_MESSAGE);
+    updatePerson(person, field, newValue);
   };
 
   const handleKeyDown = (

@@ -4,7 +4,7 @@ export interface PersonFields {
   phone: string;
   status: string;
   team: string;
-  megamut: string[];
+  tracks: string[];
   subjects: string[];
   availability: string;
   wasSegel?: boolean;
@@ -21,7 +21,7 @@ export class Person {
   team: string;
   remarks: string;
   preferences: string[];
-  megamut: string[];
+  tracks: string[];
   subjects: string[];
   availability: string;
   wasSegel: boolean;
@@ -35,7 +35,7 @@ export class Person {
     this.team = args.team;
     this.remarks = args.remarks || "";
     this.preferences = args.preferences || [];
-    this.megamut = args.megamut || [];
+    this.tracks = args.tracks || [];
     this.subjects = args.subjects || [];
     this.availability = args.availability || "";
     this.wasSegel = args.wasSegel || false;

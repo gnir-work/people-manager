@@ -2,5 +2,6 @@
   "cSpell.words": [
     "Popconfirm"
   ],
-  "python.pythonPath": "/home/gnir/.cache/pypoetry/virtualenvs/django-project-TqqI0eFD-py3.8/bin/python"
+  "python.pythonPath": "/home/gnir/.cache/pypoetry/virtualenvs/poeple-manager-FEcXIYeN-py3.8/bin/python",
+  "editor.tabSize": 4
 }

@@ -5,6 +5,7 @@ import { Table } from "antd";
 import { PeopleTableColumns } from "./PeopleTableColumns";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import "./PeopleTable.scss";
+import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
 
 interface PeopleTableProps {
   className?: String;
@@ -12,6 +13,7 @@ interface PeopleTableProps {
 
 const PeopleTable: React.FC<PeopleTableProps> = ({ className }) => {
   const peopleContext = useContext(PeopleContext);
+  const peopleSettingsContext = useContext(PeopleSettingsContext);
   const data = peopleContext.people.map(person => ({
     ...person,
     key: person.id
@@ -20,7 +22,7 @@ const PeopleTable: React.FC<PeopleTableProps> = ({ className }) => {
     <div className={classNames(className, "people-table-container")}>
       <Table
         dataSource={data}
-        columns={PeopleTableColumns(peopleContext)}
+        columns={PeopleTableColumns(peopleContext, peopleSettingsContext)}
         size="middle"
         pagination={{ pageSize: 30 }}
       />
