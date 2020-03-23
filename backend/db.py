@@ -8,5 +8,6 @@ def get_db():
 def get_people_collection():
     return get_db().people
 
+
 def get_people_settings_collection():
     return get_db()["people-settings"]

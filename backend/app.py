@@ -60,5 +60,6 @@ def _get_ok_response():
 def _get_failed_response(status_code: int):
     return jsonify({"status": "failed"}), status_code
 
+
 if __name__ == "__main__":
     app.run("localhost", 8000, debug=DEBUG)

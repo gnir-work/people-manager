@@ -7,7 +7,8 @@ import { PeopleContext } from "../../contexts/PeopleContext";
 import {
   GET_PERSONAL_ID_RULES,
   GET_BASIC_TEXT_RULES,
-  GET_PHONE_NUMBER_RULES
+  GET_PHONE_NUMBER_RULES,
+  GET_REQUIRED_RULE
 } from "../validators/validators";
 import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
 
@@ -36,7 +37,6 @@ const AddPersonModal: React.FC = () => {
   const { addPerson, doesPersonExist, getFieldDataSet } = useContext(
     PeopleContext
   );
-
   const { settings } = useContext(PeopleSettingsContext);
   const possibleTeams = getFieldDataSet("team");
 
@@ -113,7 +113,11 @@ const AddPersonModal: React.FC = () => {
               options={possibleTeams.map(team => ({ value: team }))}
             />
           </Form.Item>
-          <Form.Item name="status" label="מצב שירות">
+          <Form.Item
+            rules={[GET_REQUIRED_RULE("בבקשה הכנס מצב שירות")]}
+            name="status"
+            label="מצב שירות"
+          >
             <Radio.Group>
               {settings.possibleStatuses.map(status => (
                 <Radio key={status} value={status}>
@@ -122,7 +126,11 @@ const AddPersonModal: React.FC = () => {
               ))}
             </Radio.Group>
           </Form.Item>
-          <Form.Item name="availability" label="זמינות">
+          <Form.Item
+            rules={[GET_REQUIRED_RULE("בבקשה הכנס זמינות")]}
+            name="availability"
+            label="זמינות"
+          >
             <Radio.Group>
               {settings.possibleAvailabilities.map(availability => (
                 <Radio key={availability} value={availability}>

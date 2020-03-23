@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createContext } from "react";
-import { getSettings } from "../api/settings";
+import { getSettings } from "../api/people_settings";
 
 export interface PeopleSettingsContext {
   settings: {
@@ -26,7 +26,6 @@ export const PeopleSettingsContext = createContext(defaultData);
 /**
  * A context which handles all of the settings regarding the people dataset.
  * for example all of the possible values for the various fields like preferences, subjects will sit here.
- *
  */
 export const PeopleSettingsContextProvider: React.FC = ({ children }) => {
   const [settings, setSettings] = useState(defaultData.settings);
