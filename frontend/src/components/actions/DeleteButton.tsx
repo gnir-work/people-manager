@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { message, Popconfirm } from "antd";
+import { Popconfirm } from "antd";
 import { DeleteFilled } from "@ant-design/icons";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { Person } from "../../types/person";
