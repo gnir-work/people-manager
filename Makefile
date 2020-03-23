@@ -4,7 +4,7 @@ build-frontend:
 build-nginx: build-frontend
 	docker build -t people-manager-nginx -f frontend/Dockerfile frontend
 
-export-python-requirments:
+export-python-requirements:
 	cd backend && poetry export -f requirements.txt > requirements.txt
 
 build-backend: export-python-requirements
