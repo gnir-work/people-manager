@@ -1,8 +1,13 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import pymongo
+
+DEBUG = True
 
 app = Flask(__name__)
 
+if DEBUG:
+    CORS(app)
 
 def get_db():
     return pymongo.MongoClient("localhost", 27017)["people-manager"]
@@ -18,7 +23,7 @@ def get_all_people():
 def update_person_field(person_id: str):
     db = get_db()
     data = request.get_json()
-    result = db.people.update_one({"personalId": person_id}, {"$set": data})
+    result = db.people.update_one({"_id": person_id}, {"$set": data})
     if result.acknowledged and result.matched_count > 0:
         return jsonify({"status": "ok"})
     else:
@@ -28,7 +33,7 @@ def update_person_field(person_id: str):
 @app.route("/api/people/person/<person_id>", methods=["DELETE"])
 def delete_person(person_id: str):
     db = get_db()
-    result = db.people.delete_one({"personalId": person_id})
+    result = db.people.delete_one({"_id": person_id})
     if result.acknowledged and result.deleted_count == 1:
         return jsonify({"status": "ok"})
     else:
@@ -39,17 +44,18 @@ def delete_person(person_id: str):
 def create_person():
     db = get_db()
     person = request.get_json()
-    person["_id"] = person["personalId"]
+    person["_id"] = person["id"]
+    del person["id"]
     try:
         result = db.people.insert_one(person)
-        if result.acknowledged and result.inserted_id == person["personalId"]:
+        if result.acknowledged and result.inserted_id == person["_id"]:
             return jsonify({"status": "ok"})
         else:
             return jsonify({"status": "failed"}), 500
     except pymongo.errors.DuplicateKeyError:
         return jsonify(
-            {"status": f"person with {person['personalId']} ID Already exists"}, 409
-        )
+            {"status": f"person with {person['_id']} ID Already exists"}
+        ), 409
 
 
 @app.route("/api/people/settings/")
@@ -59,4 +65,4 @@ def get_people_settings():
 
 
 if __name__ == "__main__":
-    app.run("localhost", 8000, debug=True)
+    app.run("localhost", 8000, debug=DEBUG)

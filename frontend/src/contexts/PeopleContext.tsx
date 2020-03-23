@@ -2,12 +2,14 @@ import React, { createContext, useEffect, useState } from "react";
 import {
   getPeople,
   updatePersonRequest,
-  deletePersonRequest
+  deletePersonRequest,
+  createPersonRequest
 } from "../api/people";
 import { Person, PersonFields } from "../types/person";
 import _ from "lodash";
 import { message } from "antd";
 import { EDIT_SUCCESS_MESSAGE, EDIT_ERROR_MESSAGE } from "../consts";
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
 export interface PeopleContextInterface {
   people: Person[];
@@ -110,7 +112,17 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
    * Create new Person
    */
   const addPerson = (newPersonFields: PersonFields) => {
-    setPeople([...people, new Person(newPersonFields)]);
+    const newPerson = new Person(newPersonFields);
+    createPersonRequest(newPerson)
+      .then(response => {
+        setPeople([...people, newPerson]);
+        message.success(`${newPerson.fullName} נוצר בהצלחה`);
+      })
+      .catch((error: AxiosError) => {
+        if (error && error.response && error.response.status === 409) {
+          message.error(`יש כבר איש חוץ עם המ.א ${newPerson.personalId}`);
+        }
+      });
   };
 
   return (

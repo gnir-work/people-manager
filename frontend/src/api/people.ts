@@ -14,3 +14,6 @@ export const updatePersonRequest = <K extends keyof Person>(
 
 export const deletePersonRequest = (personId: string) =>
   axios.delete(`/api/people/person/${personId}`);
+
+export const createPersonRequest = (person: Person) =>
+  axios.post("/api/people/person", person);

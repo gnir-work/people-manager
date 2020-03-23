@@ -69,7 +69,6 @@ const AddPersonModal: React.FC = () => {
         form.resetFields();
         addPerson(values as any);
         hideModal();
-        message.success(`${values.fullName} נוצר בהצלחה`);
       })
       .catch(() => {});
   };
