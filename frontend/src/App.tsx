@@ -1,36 +1,33 @@
 import React from "react";
-import { Layout, Menu } from "antd";
-import { PeopleContextProvider } from "./contexts/PeopleContext";
-import PeopleTable from "./components/PeopleTable/PeopleTable";
+import { Layout } from "antd";
+import PeoplePage from "./PeoplePage/PeoplePage";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "antd/dist/antd.css";
 import "./rtl.scss";
 import "./App.scss";
-import AddPersonModal from "./components/PeopleTable/AddPersonModal";
-import { PeopleSettingsContextProvider } from "./contexts/PeopleSettingsContext";
+import AppHeader from "./AppHeader";
+import { APPOINTMENT_PAGE_URL, PEOPLE_PAGE_URL } from "./consts";
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
-const App: React.FC = () => {
-  return (
+const App: React.FC = () => (
+  <Router>
     <Layout className="layout">
-      <Header>
-        <div className="logo" />
-        <Menu theme="dark" mode="horizontal" style={{ lineHeight: "64px" }}>
-          <Menu.Item> מנהל אנשי חוץ </Menu.Item>
-        </Menu>
-      </Header>
+      <AppHeader />
       <Content>
-        <PeopleContextProvider>
-          <PeopleSettingsContextProvider>
-            <PeopleTable className="people-manager-table" />
-            <AddPersonModal />
-          </PeopleSettingsContextProvider>
-        </PeopleContextProvider>
+        <Switch>
+          <Route exact path={APPOINTMENT_PAGE_URL}>
+            <h1> To be implemented </h1>
+          </Route>
+          <Route path={PEOPLE_PAGE_URL}>
+            <PeoplePage />
+          </Route>
+        </Switch>
       </Content>
       <Footer>Bis Hibur ©2019 Created by Nir Geller</Footer>
     </Layout>
-  );
-};
+  </Router>
+);
 
 export default App;

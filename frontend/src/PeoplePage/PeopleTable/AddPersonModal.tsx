@@ -1,15 +1,15 @@
 import React, { useState, useContext, KeyboardEvent } from "react";
-import AddButton from "../actions/AddButton";
+import AddButton from "../../components/actions/AddButton";
 import { Modal, Form, Input, Radio, Checkbox, AutoComplete } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import TagList from "../tags/TagList";
+import TagList from "../../components/tags/TagList";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import {
   GET_PERSONAL_ID_RULES,
   GET_BASIC_TEXT_RULES,
   GET_PHONE_NUMBER_RULES,
   GET_REQUIRED_RULE
-} from "../validators/validators";
+} from "../../components/validators/validators";
 import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
 
 const layout = {
