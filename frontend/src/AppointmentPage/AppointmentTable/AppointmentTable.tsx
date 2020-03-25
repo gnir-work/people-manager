@@ -34,8 +34,8 @@ const AppointmentTable: React.FC<PeopleTableProps> = ({ className }) => {
     makishur: false,
     makishurInvitor: "gnir",
     track: "pasten",
-    reason: "",
-    remarks: ""
+    reason: "reasons",
+    remarks: "remarkss"
   });
   return (
     <div className={classNames(className, "appointment-table-container")}>
