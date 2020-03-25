@@ -1,4 +1,4 @@
-import { Person } from "../types/person";
+import { Person as K } from "../types/person";
 
 /**
  * Compares between two person objects by a specific field.
@@ -6,10 +6,10 @@ import { Person } from "../types/person";
  * @param secondPerson
  * @param field The field name by which the objects should be compared
  */
-export const sortByField = (
-  firstPerson: Person,
-  secondPerson: Person,
-  field: keyof Person
+export const sortByField = <K>(
+  firstPerson: K,
+  secondPerson: K,
+  field: keyof K
 ): number => {
   if (firstPerson[field] > secondPerson[field]) {
     return 1;

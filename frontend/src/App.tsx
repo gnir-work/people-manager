@@ -8,6 +8,7 @@ import "./rtl.scss";
 import "./App.scss";
 import AppHeader from "./AppHeader";
 import { APPOINTMENT_PAGE_URL, PEOPLE_PAGE_URL } from "./consts";
+import AppointmentPage from "./AppointmentPage/AppointmentPage";
 
 const { Content, Footer } = Layout;
 
@@ -18,7 +19,7 @@ const App: React.FC = () => (
       <Content>
         <Switch>
           <Route exact path={APPOINTMENT_PAGE_URL}>
-            <h1> To be implemented </h1>
+            <AppointmentPage />
           </Route>
           <Route path={PEOPLE_PAGE_URL}>
             <PeoplePage />
