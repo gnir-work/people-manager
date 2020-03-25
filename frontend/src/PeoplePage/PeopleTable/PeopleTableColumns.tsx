@@ -10,7 +10,7 @@ import {
 import { Person } from "../../types/person";
 import PersonTag from "./PersonTag";
 import PeopleTableDeleteButton from "../../components/actions/DeleteButton";
-import EditableText from "../../components/text/EditableText";
+import EditableTextWithPersonContext from "./EditableTextWithPersonContext";
 import PersonTags from "./PersonTags";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
 import BooleanField from "../../components/fields/BooleanField";
@@ -38,7 +38,7 @@ export const PeopleTableColumns = (
       stringsFilterByField(record, value, "fullName"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <EditableText
+      <EditableTextWithPersonContext
         field="fullName"
         person={record}
         initialValue={value}
@@ -57,7 +57,7 @@ export const PeopleTableColumns = (
       stringsFilterByField(record, value, "personalId"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <EditableText
+      <EditableTextWithPersonContext
         field="personalId"
         person={record}
         initialValue={value}
@@ -71,7 +71,7 @@ export const PeopleTableColumns = (
     dataIndex: "phone",
     key: "phone",
     render: (value: string, record: Person) => (
-      <EditableText
+      <EditableTextWithPersonContext
         field="phone"
         person={record}
         initialValue={value}
@@ -198,7 +198,7 @@ export const PeopleTableColumns = (
       stringsFilterByField(record, value, "remarks"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <EditableText
+      <EditableTextWithPersonContext
         textClassName="remarks-text"
         InputType={Input.TextArea}
         field="remarks"

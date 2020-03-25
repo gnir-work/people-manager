@@ -1,17 +1,13 @@
-import React, { useContext, KeyboardEvent } from "react";
+import React, { KeyboardEvent } from "react";
 import { Input } from "antd";
-import { Person } from "../../types/person";
-import { PeopleContext } from "../../contexts/PeopleContext";
-import { ConditionalProps } from "../../utils/types";
 
 import { Rule } from "antd/lib/form";
 import EditableTextForm from "./EditableTextForm";
 import TextArea from "antd/lib/input/TextArea";
 
-interface PeopleTableEditableTextProps {
+export interface EditableTextProps {
   initialValue: string;
-  field: ConditionalProps<Person, string>;
-  person: Person;
+  onChange: (newValue: string) => void;
   rules?: Rule[];
   InputType?: typeof Input | typeof TextArea;
   textClassName?: string;
@@ -21,20 +17,13 @@ type InputEventType =
   | KeyboardEvent<HTMLInputElement>
   | KeyboardEvent<HTMLTextAreaElement>;
 
-const EditableText: React.FC<PeopleTableEditableTextProps> = ({
-  field,
-  person,
+const EditableText: React.FC<EditableTextProps> = ({
+  onChange,
   initialValue,
   rules = [],
   InputType = Input,
   textClassName = ""
 }) => {
-  const { updatePerson } = useContext(PeopleContext);
-
-  const handleTextChange = (newValue: string) => {
-    updatePerson(person, field, newValue);
-  };
-
   /**
    * We want to submit the form only when enter is pressed in order to allow
    * the insertion of line breaks.
@@ -50,7 +39,7 @@ const EditableText: React.FC<PeopleTableEditableTextProps> = ({
     <EditableTextForm
       rules={rules}
       currentValue={initialValue}
-      onSubmit={handleTextChange}
+      onSubmit={onChange}
       textClassName={textClassName}
     >
       {(submitForm, toggleEditing) => (
