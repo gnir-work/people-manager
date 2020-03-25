@@ -4,18 +4,29 @@ import { stringsFilterByField } from "../../utils/filters";
 import TableTextFilter from "../../components/filters/TableTextFilter";
 import { Appointment } from "../../types/appointment";
 import { Checkbox } from "antd";
+import { ANTD_BOOLEAN_FILTERS } from "../../consts";
 
 const _get_column_fields = (
   field: keyof Appointment,
-  filterFunction: Function = () => {}
-) => ({
-  dataIndex: field,
-  key: field,
-  sorter: (firstAppointment: Appointment, secondAppointment: Appointment) =>
-    sortByField(firstAppointment, secondAppointment, field),
-  onFilter: (value: string, record: Appointment) =>
-    filterFunction(record, value, field)
-});
+  filterFunction?: Function
+) => {
+  const fields = {
+    dataIndex: field,
+    key: field,
+    sorter: (firstAppointment: Appointment, secondAppointment: Appointment) =>
+      sortByField(firstAppointment, secondAppointment, field)
+  };
+
+  if (filterFunction) {
+    return {
+      ...fields,
+      onFilter: (value: string, record: Appointment) =>
+        filterFunction(record, value, field)
+    };
+  } else {
+    return fields;
+  }
+};
 
 export const AppointmentColumns = [
   {
@@ -38,8 +49,10 @@ export const AppointmentColumns = [
     filterDropdown: TableTextFilter
   },
   {
-    title: "תקופה",
-    ..._get_column_fields("week", stringsFilterByField),
+    title: "שבוע",
+    ..._get_column_fields("week"),
+    onFilter: (value: string, record: Appointment) =>
+      record.week === parseInt(value),
     filterDropdown: TableTextFilter
   },
   {
@@ -60,7 +73,9 @@ export const AppointmentColumns = [
   {
     title: "מצב מהקישור",
     ..._get_column_fields("makishur", stringsFilterByField),
-    filterDropdown: TableTextFilter,
+    filters: ANTD_BOOLEAN_FILTERS,
+    onFilter: (makishur: string, record: Appointment) =>
+      String(record.makishur) === makishur,
     render: (value: string, record: Appointment) => (
       <Checkbox value={record.makishur} />
     )
