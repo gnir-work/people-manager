@@ -1,6 +1,6 @@
 import React from "react";
 import { sortByField } from "../../utils/sorters";
-import { stringsFilterByField } from "../../utils/filters";
+import { stringsFilterByField, simpleFilterByField } from "../../utils/filters";
 import TableTextFilter from "../../components/filters/TableTextFilter";
 import { Appointment } from "../../types/appointment";
 import { Checkbox } from "antd";
@@ -50,9 +50,7 @@ export const AppointmentColumns = [
   },
   {
     title: "שבוע",
-    ..._get_column_fields("week"),
-    onFilter: (value: string, record: Appointment) =>
-      record.week === parseInt(value),
+    ..._get_column_fields("week", simpleFilterByField),
     filterDropdown: TableTextFilter
   },
   {
@@ -72,10 +70,8 @@ export const AppointmentColumns = [
   },
   {
     title: "מצב מהקישור",
-    ..._get_column_fields("makishur", stringsFilterByField),
+    ..._get_column_fields("makishur", simpleFilterByField),
     filters: ANTD_BOOLEAN_FILTERS,
-    onFilter: (makishur: string, record: Appointment) =>
-      String(record.makishur) === makishur,
     render: (value: string, record: Appointment) => (
       <Checkbox value={record.makishur} />
     )

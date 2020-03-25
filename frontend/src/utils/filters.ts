@@ -6,6 +6,21 @@ interface test {
 }
 
 /**
+ * Run a simple comparison.
+ * This function helps simplify the configuration of antd columns.
+ * @param person
+ * @param text
+ * @param field
+ */
+export const simpleFilterByField = <K extends { [key: string]: any }>(
+  person: K,
+  value: boolean | number,
+  field: ConditionalProps<K, boolean | number>
+  // This is on purpose in order to allow string to number comparison.
+  // eslint-disable-next-line eqeqeq
+) => person[field] == value;
+
+/**
  * Checks if the person value of the property key contains the given value.
  * Please notice: the check ignores case.
  * @param person The person that should be filtered.
