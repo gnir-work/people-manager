@@ -10,7 +10,7 @@ export-python-requirements:
 build-backend: export-python-requirements
 	docker build -t people-manager-backend -f backend/Dockerfile backend
 
-start-app:
+start-app: build-frontend export-python-requirements
 	docker-compose up --build --force-recreate -d
 
 populate-db:

@@ -5,6 +5,11 @@ from consts import DEBUG
 
 app = Flask(__name__)
 
+if DEBUG:
+    # We need only in dev mode so there is no reason to install it in production.
+    # Therefor the local import.
+    from flask_cors import CORS
+    CORS(app)
 
 @app.route("/api/people/person/")
 def get_all_people_route():
