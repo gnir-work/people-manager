@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Person } from "../../types/person";
 import { PeopleContext } from "../../contexts/PeopleContext";
-import TagList from "../tags/TagList";
+import TagList from "../../components/tags/TagList";
 import { ConditionalProps } from "../../utils/types";
 
 interface PersonPreferenceTagsProps {

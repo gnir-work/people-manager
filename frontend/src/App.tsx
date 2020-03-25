@@ -1,13 +1,10 @@
 import React from "react";
 import { Layout, Menu } from "antd";
-import { PeopleContextProvider } from "./contexts/PeopleContext";
-import PeopleTable from "./components/PeopleTable/PeopleTable";
+import PeoplePage from "./PeoplePage/PeoplePage";
 
 import "antd/dist/antd.css";
 import "./rtl.scss";
 import "./App.scss";
-import AddPersonModal from "./components/PeopleTable/AddPersonModal";
-import { PeopleSettingsContextProvider } from "./contexts/PeopleSettingsContext";
 
 const { Header, Content, Footer } = Layout;
 
@@ -21,12 +18,7 @@ const App: React.FC = () => {
         </Menu>
       </Header>
       <Content>
-        <PeopleContextProvider>
-          <PeopleSettingsContextProvider>
-            <PeopleTable className="people-manager-table" />
-            <AddPersonModal />
-          </PeopleSettingsContextProvider>
-        </PeopleContextProvider>
+        <PeoplePage />
       </Content>
       <Footer>Bis Hibur ©2019 Created by Nir Geller</Footer>
     </Layout>

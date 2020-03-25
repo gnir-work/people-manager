@@ -1,6 +1,6 @@
 import React from "react";
 
-import TableTextFilter from "../filters/TableTextFilter";
+import TableTextFilter from "../../components/filters/TableTextFilter";
 import { sortByField } from "../../utils/sorters";
 import {
   stringsFilterByField,
@@ -9,18 +9,18 @@ import {
 } from "../../utils/filters";
 import { Person } from "../../types/person";
 import PersonTag from "./PersonTag";
-import PeopleTableDeleteButton from "../actions/DeleteButton";
-import EditableText from "../text/EditableText";
+import PeopleTableDeleteButton from "../../components/actions/DeleteButton";
+import EditableText from "../../components/text/EditableText";
 import PersonTags from "./PersonTags";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
-import BooleanField from "../fields/BooleanField";
+import BooleanField from "../../components/fields/BooleanField";
 import {
   GET_PERSONAL_ID_RULES,
   GET_BASIC_TEXT_RULES,
   GET_PHONE_NUMBER_RULES
-} from "../validators/validators";
+} from "../../components/validators/validators";
 import { PeopleContextInterface } from "../../contexts/PeopleContext";
-import EditableTextAutoComplete from "../text/EditableTextAutoComplete";
+import EditableTextAutoComplete from "../../components/text/EditableTextAutoComplete";
 import { Input } from "antd";
 import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
 
