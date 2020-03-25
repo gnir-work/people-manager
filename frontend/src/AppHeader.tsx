@@ -8,9 +8,7 @@ import {
 } from "./consts";
 const { Header } = Layout;
 
-interface AppHeaderProps {}
-
-const AppHeader: React.FC<AppHeaderProps> = () => {
+const AppHeader: React.FC = () => {
   const location = useLocation();
   const selectedKey = LOCATION_TO_ITEM[location.pathname];
 

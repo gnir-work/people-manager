@@ -66,7 +66,7 @@ const AddPersonModal: React.FC = () => {
   };
 
   return (
-    <div>
+    <>
       <AddButton onClick={showModal} />
       <Modal
         onOk={submitModal}
@@ -165,7 +165,7 @@ const AddPersonModal: React.FC = () => {
           </Form.Item>
         </Form>
       </Modal>
-    </div>
+    </>
   );
 };
 
