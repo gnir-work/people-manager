@@ -2,6 +2,7 @@ import { Person } from "./person";
 import { Moment } from "moment";
 
 export class Appointment {
+  readonly id: string;
   person: Person;
   phase: string;
   week: number;
@@ -16,7 +17,12 @@ export class Appointment {
   reason: string;
   remarks: string;
 
-  constructor(newAppointment: Appointment) {
+  constructor(newAppointment: Omit<Appointment, "id">) {
+    this.id = [
+      newAppointment.person.personalId,
+      newAppointment.from.utc().toString(),
+      newAppointment.to.utc().toString()
+    ].join("-");
     this.person = newAppointment.person;
     this.phase = newAppointment.phase;
     this.week = newAppointment.week;
