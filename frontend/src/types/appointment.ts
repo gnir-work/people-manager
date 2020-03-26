@@ -20,8 +20,8 @@ export class Appointment {
   constructor(newAppointment: Omit<Appointment, "id">) {
     this.id = [
       newAppointment.person.personalId,
-      newAppointment.from.utc().toString(),
-      newAppointment.to.utc().toString()
+      newAppointment.from.valueOf(),
+      newAppointment.to.valueOf()
     ].join("-");
     this.person = newAppointment.person;
     this.phase = newAppointment.phase;

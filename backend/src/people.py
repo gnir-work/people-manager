@@ -5,6 +5,8 @@ def get_all_people():
     people = get_people_collection()
     return list(people.find({}, {"_id": False}))
 
+def get_person_by_id(person_id: str):
+    return get_people_collection().find_one({"_id": person_id})
 
 def update_person(person_id: str, new_values: dict):
     people = get_people_collection()

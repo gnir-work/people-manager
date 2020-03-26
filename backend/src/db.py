@@ -9,5 +9,8 @@ def get_people_collection():
     return get_db().people
 
 
+def get_appointments_collection():
+    return get_db().appointments
+
 def get_people_settings_collection():
     return get_db()["people-settings"]

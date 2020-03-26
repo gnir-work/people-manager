@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from people import get_all_people, update_person, delete_person, create_person
+from appointments import get_all_appointments
 from people_settings import get_all_settings
 from consts import DEBUG
 
@@ -52,6 +53,10 @@ def create_person_route():
 def get_people_settings():
     return jsonify(get_all_settings())
 
+
+@app.route("/api/appointments/appointment")
+def get_all_appointments_route():
+    return jsonify(get_all_appointments())
 
 def _get_ok_response():
     return jsonify({"status": "ok"})
