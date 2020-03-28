@@ -90,7 +90,10 @@ export const AppointmentColumns = (
     ..._get_column_fields("makishur", simpleFilterByField),
     filters: ANTD_BOOLEAN_FILTERS,
     render: (value: string, record: Appointment) => (
-      <Checkbox checked={record.makishur} />
+      <Checkbox
+        onClick={() => updateAppointment(record, "makishur", !record.makishur)}
+        checked={record.makishur}
+      />
     )
   },
   {
