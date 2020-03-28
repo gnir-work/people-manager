@@ -1,14 +1,14 @@
 import axios from "axios";
 import { Appointment } from "../types/appointment";
+import { Person } from "../types/person";
 
 export const getAppointments = (): Promise<Appointment[]> =>
-  axios
-    .get("/api/appointments/appointment")
-    .then(appointments =>
-      appointments.data.map(
-        (appointment: Appointment) => new Appointment(appointment)
-      )
-    );
+  axios.get("/api/appointments/appointment").then(appointments =>
+    appointments.data.map((appointment: Appointment) => {
+      const person = new Person(appointment.person);
+      return new Appointment({ ...appointment, person });
+    })
+  );
 
 export const updateAppointmentRequest = <K extends keyof Appointment>(
   appointmentId: string,

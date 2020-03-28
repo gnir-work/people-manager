@@ -2,15 +2,14 @@ import React, { createContext, useEffect, useState } from "react";
 import {
   updateAppointmentRequest,
   deleteAppointmentRequest,
-  createAppointmentRequest
+  createAppointmentRequest,
+  getAppointments
 } from "../api/appointment";
 import _ from "lodash";
 import { message } from "antd";
 import { EDIT_SUCCESS_MESSAGE, EDIT_ERROR_MESSAGE } from "../consts";
 import { AxiosError } from "axios";
 import { Appointment } from "../types/appointment";
-import moment from "moment";
-import { Person } from "../types/person";
 
 export interface PeopleContextInterface {
   appointments: Appointment[];
@@ -46,35 +45,9 @@ export const AppointmentContextProvider: React.FC = ({ children }) => {
   );
 
   useEffect(() => {
-    // getAppointments().then(newAppointments => {
-    //   setAppointment(newAppointments);
-    // });
-    const person = new Person({
-      fullName: "Nir",
-      personalId: "123213123",
-      status: "חייל",
-      phone: "0547404737",
-      team: "team",
-      tracks: [],
-      subjects: [],
-      availability: "לא זמין"
+    getAppointments().then(newAppointments => {
+      setAppointments(newAppointments);
     });
-    const appointment = new Appointment({
-      person: person,
-      phase: "אחוד",
-      week: 1,
-      from: moment(),
-      to: moment(),
-      bedStatus: "לא צריך",
-      entryStatus: "יש",
-      invitor: "gnir",
-      makishur: false,
-      makishurInvitor: "gnir",
-      track: "pasten",
-      reason: "reasons",
-      remarks: "remarkss"
-    });
-    setAppointments([appointment]);
   }, []);
 
   /**
