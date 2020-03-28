@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from .people import get_all_people, update_person, delete_person, create_person
-from .appointments import get_all_appointments
+from .appointments import get_all_appointments, delete_appointment
 from .people_settings import get_all_settings
 from .const import DEBUG
 from .exceptions import PersonExists
@@ -60,6 +60,14 @@ def get_people_settings():
 @app.route("/api/appointments/appointment")
 def get_all_appointments_route():
     return jsonify(get_all_appointments())
+
+@app.route("/api/appointments/appointment/<appointment_id>", methods=["DELETE"])
+def delete_appointment_route(appointment_id: str):
+    if delete_appointment(appointment_id):
+        return _get_ok_response()
+    else:
+        return _get_failed_response(404)
+
 
 def _get_ok_response():
     return jsonify({"status": "ok"})
