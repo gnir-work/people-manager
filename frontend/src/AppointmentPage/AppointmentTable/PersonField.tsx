@@ -35,6 +35,13 @@ const PersonField: React.FC<PersonFieldProps> = ({ person, onChange }) => {
     setFilter(newFilter);
   };
 
+  const renderPersonView = (person: Person) => (
+    <div className="person-field clickable" onClick={toggleEditing}>
+      <span className="person-name">{person.fullName}</span>
+      <span className="person-id">{person.personalId}</span>
+    </div>
+  );
+
   return editing ? (
     <AutoComplete
       onChange={handleFilterChange}
@@ -43,15 +50,12 @@ const PersonField: React.FC<PersonFieldProps> = ({ person, onChange }) => {
     >
       {dataSet.map(person => (
         <AutoComplete.Option key={person.id} value={person.id}>
-          {person.fullName}
+          {renderPersonView(person)}
         </AutoComplete.Option>
       ))}
     </AutoComplete>
   ) : (
-    <div className="person-field clickable" onClick={toggleEditing}>
-      <span className="person-name">{person.fullName}</span>
-      <span className="person-id">{person.personalId}</span>
-    </div>
+    renderPersonView(person)
   );
 };
 
