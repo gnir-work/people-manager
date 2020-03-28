@@ -6,8 +6,7 @@ export class Appointment {
   person: Person;
   phase: string;
   week: number;
-  from: Moment;
-  to: Moment;
+  dates: [Moment, Moment];
   invitor: string;
   bedStatus: string;
   entryStatus: string;
@@ -22,8 +21,7 @@ export class Appointment {
     this.person = newAppointment.person;
     this.phase = newAppointment.phase;
     this.week = newAppointment.week;
-    this.from = newAppointment.from;
-    this.to = newAppointment.to;
+    this.dates = newAppointment.dates;
     this.invitor = newAppointment.invitor;
     this.bedStatus = newAppointment.bedStatus;
     this.entryStatus = newAppointment.entryStatus;

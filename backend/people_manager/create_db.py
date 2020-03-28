@@ -25,8 +25,7 @@ APPOINTMENTS = [
     {
         "phase": "אחוד",
         "week": 1,
-        "from": 1585249896000,
-        "to": 1585349996000,
+        "dates": [1585249896000, 1585349996000],
         "bedStatus": "לא צריך",
         "entryStatus": "יש",
         "invitor": "gnir",

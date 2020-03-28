@@ -16,6 +16,7 @@ import TextArea from "antd/lib/input/TextArea";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
 import EditableTag from "../../components/tags/EditableTag";
 import PersonField from "./PersonField";
+import AppointmentDateRage from "./AppointmentDateRange";
 
 const _get_column_fields = (
   field: keyof Appointment,
@@ -92,6 +93,18 @@ export const AppointmentColumns = (
     ..._get_column_fields("week", simpleFilterByField),
     filterDropdown: TableTextFilter
   },
+  {
+    title: "תאריכים",
+    render: (value: string, record: Appointment) => (
+      <AppointmentDateRage
+        dates={record.dates}
+        onChange={newDates => {
+          updateAppointment(record, "dates", newDates);
+        }}
+      />
+    )
+  },
+
   {
     title: "מזמין",
     ..._get_column_fields("invitor", stringsFilterByField),

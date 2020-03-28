@@ -18,7 +18,13 @@ const AppointmentTable: React.FC<PeopleTableProps> = ({ className }) => {
     key: appointment.id
   }));
   return (
-    <div className={classNames(className, "appointment-table-container")}>
+    <div
+      className={classNames(
+        className,
+        "appointment-table-container",
+        "data-table"
+      )}
+    >
       <Table
         dataSource={data}
         columns={AppointmentColumns(appointmentContext, peopleSettings)}
