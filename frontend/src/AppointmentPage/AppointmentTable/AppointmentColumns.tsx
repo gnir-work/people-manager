@@ -15,6 +15,7 @@ import EditableText from "../../components/text/EditableText";
 import TextArea from "antd/lib/input/TextArea";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
 import EditableTag from "../../components/tags/EditableTag";
+import PersonField from "./PersonField";
 
 const _get_column_fields = (
   field: keyof Appointment,
@@ -72,7 +73,9 @@ export const AppointmentColumns = (
     onFilter: (value: string, record: Appointment) =>
       stringsFilterByField(record.person, value, "fullName"),
     filterDropdown: TableTextFilter,
-    render: (value: string, record: Appointment) => record.person.fullName
+    render: (value: string, record: Appointment) => (
+      <PersonField person={record.person} />
+    )
   },
   {
     title: "תקופה",
