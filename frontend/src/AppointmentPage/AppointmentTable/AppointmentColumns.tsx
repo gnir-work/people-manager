@@ -116,7 +116,17 @@ export const AppointmentColumns = (
   {
     title: "סיבה",
     ..._get_column_fields("reason", stringsFilterByField),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: Appointment) => (
+      <EditableTag
+        possibleTags={settings.possibleAppointmentReasons}
+        onTagChange={(newValue: string) =>
+          updateAppointment(record, "reason", newValue)
+        }
+      >
+        {value}
+      </EditableTag>
+    )
   },
   {
     title: "הערות",

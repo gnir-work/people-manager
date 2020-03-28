@@ -12,5 +12,6 @@ DEFAULT_PEOPLE_SETTINGS = {
         "possiblePreferences": ["להישאר לישון", "לבדוק תרגילים"],
         "possibleSubjects": ["TPY", "C"],
         "possibleAvailabilities": ["לא זמין", "זמין"],
+        "possibleAppointmentReasons": ["מרצה", "בודק תרגילים"]
     }
 }
