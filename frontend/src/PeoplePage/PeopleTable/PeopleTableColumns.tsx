@@ -9,7 +9,6 @@ import {
 } from "../../utils/filters";
 import { Person } from "../../types/person";
 import PersonTag from "./PersonTag";
-import PeopleTableDeleteButton from "../../components/actions/DeleteButton";
 import EditableTextWithPersonContext from "./EditableTextWithPersonContext";
 import PersonTags from "./PersonTags";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
@@ -23,6 +22,7 @@ import { PeopleContextInterface } from "../../contexts/PeopleContext";
 import EditableTextAutoComplete from "../../components/text/EditableTextAutoComplete";
 import { Input } from "antd";
 import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
+import PersonDeleteButton from "./PersonDeleteButton";
 
 export const PeopleTableColumns = (
   { doesPersonExist }: PeopleContextInterface,
@@ -212,7 +212,7 @@ export const PeopleTableColumns = (
     dataIndex: "",
     key: "actions",
     render: (text: string, record: Person) => (
-      <PeopleTableDeleteButton person={record} />
+      <PersonDeleteButton person={record} />
     )
   }
 ];

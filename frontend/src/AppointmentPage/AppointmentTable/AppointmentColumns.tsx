@@ -5,6 +5,7 @@ import TableTextFilter from "../../components/filters/TableTextFilter";
 import { Appointment } from "../../types/appointment";
 import { Checkbox } from "antd";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
+import AppointmentDeleteButton from "./AppointmentDeleteButton";
 
 const _get_column_fields = (
   field: keyof Appointment,
@@ -95,5 +96,13 @@ export const AppointmentColumns = [
     title: "הערות",
     ..._get_column_fields("remarks", stringsFilterByField),
     filterDropdown: TableTextFilter
+  },
+  {
+    title: "",
+    dataIndex: "",
+    key: "actions",
+    render: (text: string, record: Appointment) => (
+      <AppointmentDeleteButton appointment={record} />
+    )
   }
 ];
