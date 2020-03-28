@@ -9,6 +9,8 @@ import AppointmentDeleteButton from "./AppointmentDeleteButton";
 import { AppointmentsContextInterface } from "../../contexts/AppointmentContext";
 import EditableText from "../../components/text/EditableText";
 import TextArea from "antd/lib/input/TextArea";
+import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
+import EditableTag from "../../components/tags/EditableTag";
 
 const _get_column_fields = (
   field: keyof Appointment,
@@ -32,9 +34,10 @@ const _get_column_fields = (
   }
 };
 
-export const AppointmentColumns = ({
-  updateAppointment
-}: AppointmentsContextInterface) => [
+export const AppointmentColumns = (
+  { updateAppointment }: AppointmentsContextInterface,
+  { settings }: PeopleSettingsContextInterface
+) => [
   {
     title: "איש חוץ",
     ..._get_column_fields("person"),
@@ -98,7 +101,17 @@ export const AppointmentColumns = ({
   {
     title: "מסלול",
     ..._get_column_fields("track", stringsFilterByField),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: Appointment) => (
+      <EditableTag
+        possibleTags={settings.possibleTracks}
+        onTagChange={(newValue: string) =>
+          updateAppointment(record, "track", newValue)
+        }
+      >
+        {value}
+      </EditableTag>
+    )
   },
   {
     title: "סיבה",

@@ -21,12 +21,12 @@ import {
 import { PeopleContextInterface } from "../../contexts/PeopleContext";
 import EditableTextAutoComplete from "../../components/text/EditableTextAutoComplete";
 import { Input } from "antd";
-import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
+import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
 import PersonDeleteButton from "./PersonDeleteButton";
 
 export const PeopleTableColumns = (
   { doesPersonExist }: PeopleContextInterface,
-  { settings }: PeopleSettingsContext
+  { settings }: PeopleSettingsContextInterface
 ) => [
   {
     title: "שם מלא",

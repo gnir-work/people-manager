@@ -4,6 +4,7 @@ import { Table } from "antd";
 
 import { AppointmentColumns } from "./AppointmentColumns";
 import { AppointmentContext } from "../../contexts/AppointmentContext";
+import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
 
 interface PeopleTableProps {
   className?: String;
@@ -11,6 +12,7 @@ interface PeopleTableProps {
 
 const AppointmentTable: React.FC<PeopleTableProps> = ({ className }) => {
   const appointmentContext = useContext(AppointmentContext);
+  const peopleSettings = useContext(PeopleSettingsContext);
   const data = appointmentContext.appointments.map(appointment => ({
     ...appointment,
     key: appointment.id
@@ -19,7 +21,7 @@ const AppointmentTable: React.FC<PeopleTableProps> = ({ className }) => {
     <div className={classNames(className, "appointment-table-container")}>
       <Table
         dataSource={data}
-        columns={AppointmentColumns(appointmentContext)}
+        columns={AppointmentColumns(appointmentContext, peopleSettings)}
         size="middle"
         pagination={{ pageSize: 30 }}
       />
