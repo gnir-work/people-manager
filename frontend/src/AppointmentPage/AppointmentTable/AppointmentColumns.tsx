@@ -96,7 +96,15 @@ export const AppointmentColumns = (
   {
     title: "מזמין מה קישור",
     ..._get_column_fields("makishurInvitor", stringsFilterByField),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: Appointment) => (
+      <EditableText
+        initialValue={value}
+        onChange={(newValue: string) => {
+          updateAppointment(record, "makishurInvitor", newValue);
+        }}
+      />
+    )
   },
   {
     title: "מסלול",
