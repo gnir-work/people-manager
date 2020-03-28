@@ -1,13 +1,12 @@
-from db import (
+from .db import (
     get_people_settings_collection,
     get_people_collection,
     get_appointments_collection,
 )
-from consts import DEFAULT_PEOPLE_SETTINGS
+from .const import DEFAULT_PEOPLE_SETTINGS
 
 PEOPLE = [
     {
-        "_id": "12345678",
         "fullName": "ניר",
         "personalId": "12345678",
         "phone": "123456789",
@@ -24,8 +23,6 @@ PEOPLE = [
 
 APPOINTMENTS = [
     {
-        "_id": "12345678-1585249896000-1585349996000",
-        "person": PEOPLE[0]["_id"],
         "phase": "אחוד",
         "week": 1,
         "from": 1585249896000,
@@ -56,7 +53,10 @@ def create_default_people():
 
 def create_default_appointments():
     appointments = get_appointments_collection()
+    people = get_people_collection()
+    person = people.find({})[0]
     for appointment in APPOINTMENTS:
+        appointment["person"] = str(person["_id"])
         appointments.insert_one(appointment)
 
 

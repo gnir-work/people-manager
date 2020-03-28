@@ -112,15 +112,18 @@ export const PeopleContextProvider: React.FC = ({ children }) => {
    * Create new Person
    */
   const addPerson = (newPersonFields: PersonFields) => {
-    const newPerson = new Person(newPersonFields);
-    createPersonRequest(newPerson)
+    createPersonRequest(newPersonFields)
       .then(response => {
+        const newPerson = new Person({
+          ...newPersonFields,
+          id: response.data.id
+        });
         setPeople([...people, newPerson]);
         message.success(`${newPerson.fullName} נוצר בהצלחה`);
       })
       .catch((error: AxiosError) => {
         if (error && error.response && error.response.status === 409) {
-          message.error(`יש כבר איש חוץ עם המ.א ${newPerson.personalId}`);
+          message.error(`יש כבר איש חוץ עם המ.א ${newPersonFields.personalId}`);
         } else {
           message.error("איש חוץ לא נוסף, היית שגיאה.");
         }

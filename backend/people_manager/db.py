@@ -1,5 +1,5 @@
 import pymongo
-from consts import HOST
+from .const import HOST
 
 def get_db():
     return pymongo.MongoClient(HOST, 27017)["people-manager"]

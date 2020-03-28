@@ -1,0 +1,2 @@
+class PersonExists(Exception):
+    pass

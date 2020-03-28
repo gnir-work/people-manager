@@ -3,5 +3,8 @@
     "Popconfirm"
   ],
   "python.pythonPath": "/home/gnir/.cache/pypoetry/virtualenvs/poeple-manager-FEcXIYeN-py3.8/bin/python",
-  "editor.tabSize": 4
+  "editor.tabSize": 4,
+  "python.linting.pylintEnabled": false,
+  "python.linting.mypyEnabled": true,
+  "python.linting.enabled": true
 }

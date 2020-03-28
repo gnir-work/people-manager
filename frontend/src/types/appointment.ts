@@ -17,12 +17,8 @@ export class Appointment {
   reason: string;
   remarks: string;
 
-  constructor(newAppointment: Omit<Appointment, "id">) {
-    this.id = [
-      newAppointment.person.personalId,
-      newAppointment.from.valueOf(),
-      newAppointment.to.valueOf()
-    ].join("-");
+  constructor(newAppointment: Appointment) {
+    this.id = newAppointment.id;
     this.person = newAppointment.person;
     this.phase = newAppointment.phase;
     this.week = newAppointment.week;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Person } from "../types/person";
+import { Person, PersonFields } from "../types/person";
 
 export const getPeople = (): Promise<Person[]> =>
   axios
@@ -15,5 +15,5 @@ export const updatePersonRequest = <K extends keyof Person>(
 export const deletePersonRequest = (personId: string) =>
   axios.delete(`/api/people/person/${personId}`);
 
-export const createPersonRequest = (person: Person) =>
+export const createPersonRequest = (person: PersonFields) =>
   axios.post("/api/people/person", person);

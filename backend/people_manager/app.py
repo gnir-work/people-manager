@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
-from people import get_all_people, update_person, delete_person, create_person
-from appointments import get_all_appointments
-from people_settings import get_all_settings
-from consts import DEBUG
+from .people import get_all_people, update_person, delete_person, create_person
+from .appointments import get_all_appointments
+from .people_settings import get_all_settings
+from .const import DEBUG
+from .exceptions import PersonExists
+import pymongo
 
 app = Flask(__name__)
 
@@ -38,13 +40,14 @@ def delete_person_route(person_id: str):
 def create_person_route():
     person = request.get_json()
     try:
-        if create_person(person):
-            return _get_ok_response()
+        person_id = create_person(person)
+        if id:
+            return jsonify({"id": person_id})
         else:
             return _get_failed_response(500)
-    except pymongo.errors.DuplicateKeyError:
+    except PersonExists:
         return (
-            jsonify({"status": f"person with {person['_id']} ID Already exists"}),
+            jsonify({"status": f"person with {person['personalId']} ID Already exists"}),
             409,
         )
 

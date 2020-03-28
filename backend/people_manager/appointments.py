@@ -1,11 +1,13 @@
-from db import get_appointments_collection, get_people_collection
-from people import get_person_by_id
+from .db import get_appointments_collection, get_people_collection
+from .people import get_person_by_id
+from .utils import format_document_id
 
 def get_all_appointments():
     appointments_collection = get_appointments_collection()
-    appointments = list(appointments_collection.find({}, {"_id": False}))
+    appointments = list(appointments_collection.find({}))
     for appointment in appointments:
         appointment["person"] = get_person_by_id(appointment["person"])
+        appointment = format_document_id(appointment)
     return appointments
 
 
