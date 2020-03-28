@@ -6,6 +6,9 @@ import { Appointment } from "../../types/appointment";
 import { Checkbox } from "antd";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
 import AppointmentDeleteButton from "./AppointmentDeleteButton";
+import { AppointmentsContextInterface } from "../../contexts/AppointmentContext";
+import EditableText from "../../components/text/EditableText";
+import TextArea from "antd/lib/input/TextArea";
 
 const _get_column_fields = (
   field: keyof Appointment,
@@ -29,7 +32,9 @@ const _get_column_fields = (
   }
 };
 
-export const AppointmentColumns = [
+export const AppointmentColumns = ({
+  updateAppointment
+}: AppointmentsContextInterface) => [
   {
     title: "איש חוץ",
     ..._get_column_fields("person"),
@@ -57,7 +62,15 @@ export const AppointmentColumns = [
   {
     title: "מזמין",
     ..._get_column_fields("invitor", stringsFilterByField),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: Appointment) => (
+      <EditableText
+        initialValue={value}
+        onChange={(newValue: string) => {
+          updateAppointment(record, "invitor", newValue);
+        }}
+      />
+    )
   },
   {
     title: "מיטה",
@@ -95,7 +108,16 @@ export const AppointmentColumns = [
   {
     title: "הערות",
     ..._get_column_fields("remarks", stringsFilterByField),
-    filterDropdown: TableTextFilter
+    filterDropdown: TableTextFilter,
+    render: (value: string, record: Appointment) => (
+      <EditableText
+        InputType={TextArea}
+        initialValue={value}
+        onChange={newValue => {
+          updateAppointment(record, "remarks", newValue);
+        }}
+      />
+    )
   },
   {
     title: "",

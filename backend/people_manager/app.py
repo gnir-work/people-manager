@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from .people import get_all_people, update_person, delete_person, create_person
-from .appointments import get_all_appointments, delete_appointment
+from .appointments import get_all_appointments, delete_appointment, update_appointment
 from .people_settings import get_all_settings
 from .const import DEBUG
 from .exceptions import PersonExists
@@ -12,7 +12,9 @@ if DEBUG:
     # We need only in dev mode so there is no reason to install it in production.
     # Therefor the local import.
     from flask_cors import CORS
+
     CORS(app)
+
 
 @app.route("/api/people/person/")
 def get_all_people_route():
@@ -47,7 +49,9 @@ def create_person_route():
             return _get_failed_response(500)
     except PersonExists:
         return (
-            jsonify({"status": f"person with {person['personalId']} ID Already exists"}),
+            jsonify(
+                {"status": f"person with {person['personalId']} ID Already exists"}
+            ),
             409,
         )
 
@@ -61,9 +65,19 @@ def get_people_settings():
 def get_all_appointments_route():
     return jsonify(get_all_appointments())
 
+
 @app.route("/api/appointments/appointment/<appointment_id>", methods=["DELETE"])
 def delete_appointment_route(appointment_id: str):
     if delete_appointment(appointment_id):
+        return _get_ok_response()
+    else:
+        return _get_failed_response(404)
+
+
+@app.route("/api/appointments/appointment/<appointment_id>", methods=["PUT"])
+def update_appointment_route(appointment_id: str):
+    data = request.get_json()
+    if update_appointment(appointment_id, data):
         return _get_ok_response()
     else:
         return _get_failed_response(404)

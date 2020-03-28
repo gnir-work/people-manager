@@ -11,7 +11,7 @@ import { EDIT_SUCCESS_MESSAGE, EDIT_ERROR_MESSAGE } from "../consts";
 import { AxiosError } from "axios";
 import { Appointment } from "../types/appointment";
 
-export interface PeopleContextInterface {
+export interface AppointmentsContextInterface {
   appointments: Appointment[];
   deleteAppointment: (appointmentToDelete: Appointment) => void;
   getFieldDataSet: (field: keyof Appointment) => any[];
@@ -24,7 +24,7 @@ export interface PeopleContextInterface {
   doesAppointmentExist: (appointmentId: string) => boolean;
 }
 
-const defaultData: PeopleContextInterface = {
+const defaultData: AppointmentsContextInterface = {
   appointments: [],
   deleteAppointment: (appointmentToDelete: Appointment) => {},
   getFieldDataSet: (field: keyof Appointment) => [],
@@ -36,8 +36,8 @@ const defaultData: PeopleContextInterface = {
 export const AppointmentContext = createContext(defaultData);
 
 /**
- * A context which handles all of the manipulation on the people dataset.
- * From fetching the data set to deleting or adding people.
+ * A context which handles all of the manipulation on the appointment dataset.
+ * From fetching the data set to deleting or adding appointment.
  */
 export const AppointmentContextProvider: React.FC = ({ children }) => {
   const [appointments, setAppointments]: [Appointment[], Function] = useState(

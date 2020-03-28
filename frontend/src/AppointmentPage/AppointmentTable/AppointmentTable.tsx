@@ -10,8 +10,8 @@ interface PeopleTableProps {
 }
 
 const AppointmentTable: React.FC<PeopleTableProps> = ({ className }) => {
-  const { appointments } = useContext(AppointmentContext);
-  const data = appointments.map(appointment => ({
+  const appointmentContext = useContext(AppointmentContext);
+  const data = appointmentContext.appointments.map(appointment => ({
     ...appointment,
     key: appointment.id
   }));
@@ -19,7 +19,7 @@ const AppointmentTable: React.FC<PeopleTableProps> = ({ className }) => {
     <div className={classNames(className, "appointment-table-container")}>
       <Table
         dataSource={data}
-        columns={AppointmentColumns}
+        columns={AppointmentColumns(appointmentContext)}
         size="middle"
         pagination={{ pageSize: 30 }}
       />
