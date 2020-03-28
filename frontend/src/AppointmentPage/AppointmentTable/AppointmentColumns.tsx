@@ -74,7 +74,12 @@ export const AppointmentColumns = (
       stringsFilterByField(record.person, value, "fullName"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Appointment) => (
-      <PersonField person={record.person} />
+      <PersonField
+        person={record.person}
+        onChange={newPerson => {
+          updateAppointment(record, "person", newPerson);
+        }}
+      />
     )
   },
   {

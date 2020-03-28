@@ -14,10 +14,15 @@ export const updateAppointmentRequest = <K extends keyof Appointment>(
   appointmentId: string,
   field: K,
   value: Appointment[K]
-) =>
-  axios.put(`/api/appointments/appointment/${appointmentId}`, {
-    [field]: value
+) => {
+  let serializedValue = value;
+  if (field === "person") {
+    serializedValue = (value as any).id;
+  }
+  return axios.put(`/api/appointments/appointment/${appointmentId}`, {
+    [field]: serializedValue
   });
+};
 
 export const deleteAppointmentRequest = (appointmentId: string) =>
   axios.delete(`/api/appointments/appointment/${appointmentId}`);
