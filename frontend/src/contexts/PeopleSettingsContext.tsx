@@ -9,6 +9,9 @@ export interface PeopleSettingsContextInterface {
     possibleStatuses: string[];
     possibleAvailabilities: string[];
     possibleAppointmentReasons: string[];
+    possibleEntryStates: string[];
+    possibleBedStatus: string[];
+    possiblePhases: string[];
   };
 }
 
@@ -19,7 +22,10 @@ const defaultData: PeopleSettingsContextInterface = {
     possibleStatuses: [],
     possibleSubjects: [],
     possibleTracks: [],
-    possibleAppointmentReasons: []
+    possibleAppointmentReasons: [],
+    possibleEntryStates: [],
+    possibleBedStatus: [],
+    possiblePhases: []
   }
 };
 
