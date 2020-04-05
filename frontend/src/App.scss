@@ -20,3 +20,7 @@
 .clickable {
   cursor: pointer;
 }
+
+div.ant-table-content {
+  overflow-x: auto;
+}

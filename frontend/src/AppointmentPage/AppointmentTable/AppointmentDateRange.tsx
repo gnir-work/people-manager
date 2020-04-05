@@ -24,6 +24,7 @@ const AppointmentDateRage: React.FC<AppointmentDateRageProps> = ({
   return (
     <div className="appointment-date-range">
       <DatePicker.RangePicker
+        size="small"
         value={dates}
         onChange={handleChange}
         disabledDate={validatedDay}
