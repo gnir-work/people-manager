@@ -1,16 +1,16 @@
 import React, { useState, useContext, KeyboardEvent } from "react";
-import AddButton from "../../components/actions/AddButton";
+import AddButton from "../components/actions/AddButton";
 import { Modal, Form, Input, Radio, Checkbox, AutoComplete } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import TagList from "../../components/tags/TagList";
-import { PeopleContext } from "../../contexts/PeopleContext";
+import TagList from "../components/tags/TagList";
+import { PeopleContext } from "../contexts/PeopleContext";
 import {
   GET_PERSONAL_ID_RULES,
   GET_BASIC_TEXT_RULES,
   GET_PHONE_NUMBER_RULES,
   GET_REQUIRED_RULE
-} from "../../components/validators/validators";
-import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
+} from "../components/validators/validators";
+import { PeopleSettingsContext } from "../contexts/PeopleSettingsContext";
 
 const layout = {
   labelCol: { span: 5 },
