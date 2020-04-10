@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Person } from "../../types/person";
 
-import "./PersonField.scss";
+import "./PersonAutoComplete.scss";
 import { PeopleContext } from "../../contexts/PeopleContext";
 import { AutoComplete } from "antd";
 

@@ -15,7 +15,7 @@ import EditableText from "../../components/text/EditableText";
 import TextArea from "antd/lib/input/TextArea";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
 import EditableTag from "../../components/tags/EditableTag";
-import PersonField from "./PersonField";
+import PersonField from "./PersonAutoComplete";
 import AppointmentDateRage from "./AppointmentDateRange";
 
 const _get_column_fields = (
