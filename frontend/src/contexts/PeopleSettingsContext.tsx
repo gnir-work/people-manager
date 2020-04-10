@@ -1,23 +1,31 @@
 import React, { useEffect, useState, createContext } from "react";
 import { getSettings } from "../api/people_settings";
 
-export interface PeopleSettingsContext {
+export interface PeopleSettingsContextInterface {
   settings: {
     possibleSubjects: string[];
     possibleTracks: string[];
     possiblePreferences: string[];
     possibleStatuses: string[];
     possibleAvailabilities: string[];
+    possibleAppointmentReasons: string[];
+    possibleEntryStates: string[];
+    possibleBedStatus: string[];
+    possiblePhases: string[];
   };
 }
 
-const defaultData: PeopleSettingsContext = {
+const defaultData: PeopleSettingsContextInterface = {
   settings: {
     possibleAvailabilities: [],
     possiblePreferences: [],
     possibleStatuses: [],
     possibleSubjects: [],
-    possibleTracks: []
+    possibleTracks: [],
+    possibleAppointmentReasons: [],
+    possibleEntryStates: [],
+    possibleBedStatus: [],
+    possiblePhases: []
   }
 };
 

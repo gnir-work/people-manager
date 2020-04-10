@@ -8,10 +8,10 @@ COPY ./requirements.txt /people_manager
 
 RUN pip install -r /people_manager/requirements.txt
 
-COPY ./src/* /people_manager/
+COPY people_manager/ /people_manager/
 
 WORKDIR /people_manager
 
-CMD ["gunicorn", "-c", "app_gunicorn.py", "app:app" ]
+CMD ["gunicorn", "-c", "app_gunicorn.py", "src.app:app" ]
 
 

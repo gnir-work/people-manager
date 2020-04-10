@@ -1,6 +1,24 @@
-import { Person } from "../types/person";
 import { ConditionalProps, getElementType } from "./types";
 import moment, { Moment } from "moment";
+
+interface test {
+  a: number;
+}
+
+/**
+ * Run a simple comparison.
+ * This function helps simplify the configuration of antd columns.
+ * @param person
+ * @param text
+ * @param field
+ */
+export const simpleFilterByField = <K extends { [key: string]: any }>(
+  person: K,
+  value: boolean | number,
+  field: ConditionalProps<K, boolean | number>
+  // This is on purpose in order to allow string to number comparison.
+  // eslint-disable-next-line eqeqeq
+) => person[field] == value;
 
 /**
  * Checks if the person value of the property key contains the given value.
@@ -9,10 +27,10 @@ import moment, { Moment } from "moment";
  * @param text The value that should be part of the fields value.
  * @param field The field to check against
  */
-export const stringsFilterByField = (
-  person: Person,
+export const stringsFilterByField = <K extends { [key: string]: any }>(
+  person: K,
   text: string,
-  field: ConditionalProps<Person, string>
+  field: ConditionalProps<K, string>
 ) => person[field].toLowerCase().includes(text.toLowerCase());
 
 /**
@@ -22,18 +40,20 @@ export const stringsFilterByField = (
  * @param datesRange The dates range by which we will filter
  * @param field The date field that will be filtered.
  */
-export const datesFilterByField = (
-  person: Person,
+export const datesFilterByField = <K extends { [key: string]: any }>(
+  person: K,
   datesRange: { since: Moment; until: Moment },
-  field: ConditionalProps<Person, moment.Moment>
+  field: ConditionalProps<K, moment.Moment>
 ) =>
   datesRange.since.startOf("day") <= person[field] &&
   person[field] <= datesRange.until.endOf("day");
 
-export function arrayFilterByField<
-  K extends ConditionalProps<Person, Array<any>>
->(person: Person, value: getElementType<Person[K]>, field: K) {
-  return (person[field] as any).includes(value);
+export function arrayFilterByField<K extends { [key: string]: any }>(
+  person: K,
+  value: getElementType<K[ConditionalProps<K, Array<any>>]>,
+  field: ConditionalProps<K, Array<any>>
+) {
+  return person[field].includes(value);
 }
 
 /**

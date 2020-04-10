@@ -1,31 +1,25 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Popconfirm } from "antd";
 import { DeleteFilled } from "@ant-design/icons";
-import { PeopleContext } from "../../contexts/PeopleContext";
-import { Person } from "../../types/person";
 
 import "./DeleteButton.scss";
 
-interface PeopleTableDeleteButtonProps {
-  person: Person;
+interface DeleteButton {
+  onDelete: () => void;
+  confirmationMessage: string;
 }
 
 /**
- * A delete button specific for the peoples data table.
+ * A general delete button.
  */
-const PeopleTableDeleteButton: React.FC<PeopleTableDeleteButtonProps> = ({
-  person
+const DeleteButton: React.FC<DeleteButton> = ({
+  onDelete,
+  confirmationMessage
 }) => {
-  const { deletePerson } = useContext(PeopleContext);
-
-  const handlePersonDeletion = () => {
-    deletePerson(person);
-  };
-
   return (
     <Popconfirm
-      title={`האם למחוק את ${person.fullName}?`}
-      onConfirm={handlePersonDeletion}
+      title={confirmationMessage}
+      onConfirm={onDelete}
       okText="כן"
       cancelText="לא"
       placement="right"
@@ -35,4 +29,4 @@ const PeopleTableDeleteButton: React.FC<PeopleTableDeleteButtonProps> = ({
   );
 };
 
-export default PeopleTableDeleteButton;
+export default DeleteButton;
