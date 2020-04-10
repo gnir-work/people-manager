@@ -5,6 +5,7 @@ import FormModal, {
   ChildrenFunction as FormModalChildren
 } from "../components/modals/FormModal";
 import { AppointmentContext } from "../contexts/AppointmentContext";
+import AddAppointmentForm from "./AddAppointmentForm";
 
 const AddAppointmentModal: React.FC = () => {
   const { addAppointment } = useContext(AppointmentContext);
@@ -13,7 +14,7 @@ const AddAppointmentModal: React.FC = () => {
   };
 
   const renderForm = useCallback(
-    (formProps: FormModalChildren) => <div> hello </div>,
+    (formProps: FormModalChildren) => <AddAppointmentForm {...formProps} />,
     []
   );
 

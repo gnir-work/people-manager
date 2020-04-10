@@ -6,16 +6,16 @@ import { AutoComplete } from "antd";
 import PersonView from "./PersonView";
 
 interface PersonAutoCompleteProps {
-  value: Person;
-  onChange: (newPerson: Person) => void;
+  value?: Person;
+  onChange?: (newPerson: Person) => void;
 }
 
 const PersonAutoComplete: React.FC<PersonAutoCompleteProps> = ({
   value,
-  onChange
+  onChange = () => {}
 }) => {
   const { people } = useContext(PeopleContext);
-  const [filter, setFilter] = useState(value.fullName);
+  const [filter, setFilter] = useState((value && value.fullName) || "");
 
   const dataSet = people.filter((person: Person) =>
     person.fullName.includes(filter)
