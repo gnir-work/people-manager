@@ -2,8 +2,8 @@ version: "3.7"
 services:
     mongo:
         image: "mongo:4.2.3"
-        ports: 
-            - "27017:27017"
+        expose: 
+            - "27017"
         volumes: 
             - "/tmp/mongo_data:/data/db"
     frontend:
@@ -12,5 +12,5 @@ services:
             - "80:80"
     backend:
         build: backend
-        ports: 
-            - "8000:8000"
+        expose: 
+            - "8000"
