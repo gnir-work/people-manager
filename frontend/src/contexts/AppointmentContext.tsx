@@ -127,7 +127,9 @@ export const AppointmentContextProvider: React.FC = ({ children }) => {
     createAppointmentRequest(newAppointmentInstance)
       .then(response => {
         setAppointments([...appointments, newAppointmentInstance]);
-        message.success(`${newAppointment.person.fullName} נוצר בהצלחה`);
+        message.success(
+          `הזימון של ${newAppointment.person.fullName} נוצר בהצלחה`
+        );
       })
       .catch((error: AxiosError) => {
         if (error && error.response && error.response.status === 409) {
