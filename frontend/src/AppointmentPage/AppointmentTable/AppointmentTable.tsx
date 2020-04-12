@@ -17,6 +17,7 @@ const AppointmentTable: React.FC<PeopleTableProps> = ({ className }) => {
     ...appointment,
     key: appointment.id
   }));
+
   return (
     <div
       className={classNames(
