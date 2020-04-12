@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, request
 from .people import get_all_people, update_person, delete_person, create_person
-from .appointments import get_all_appointments, delete_appointment, update_appointment
+from .appointments import get_all_appointments, delete_appointment, update_appointment, create_appointment
 from .people_settings import get_all_settings
 from .const import DEBUG
-from .exceptions import PersonExists
+from .exceptions import PersonExists, AppointmentExists
 import pymongo
 
 app = Flask(__name__)
@@ -82,6 +82,23 @@ def update_appointment_route(appointment_id: str):
     else:
         return _get_failed_response(404)
 
+
+@app.route("/api/appointments/appointment", methods=['POST'])
+def create_appointment_route():
+    appointment = request.get_json()
+    try:
+        appointment_id = create_appointment(appointment)
+        if id:
+            return jsonify({"id": appointment_id})
+        else:
+            return _get_failed_response(500)
+    except AppointmentExists:
+        return (
+            jsonify(
+                {"status": f"Appointment already exists"}
+            ),
+            409,
+        )
 
 def _get_ok_response():
     return jsonify({"status": "ok"})

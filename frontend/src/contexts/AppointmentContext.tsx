@@ -123,9 +123,12 @@ export const AppointmentContextProvider: React.FC = ({ children }) => {
    * Create new Appointment
    */
   const addAppointment = (newAppointment: Appointment) => {
-    const newAppointmentInstance = new Appointment(newAppointment);
-    createAppointmentRequest(newAppointmentInstance)
+    createAppointmentRequest(newAppointment)
       .then(response => {
+        const newAppointmentInstance = new Appointment({
+          id: response.data.id,
+          ...newAppointment
+        });
         setAppointments([...appointments, newAppointmentInstance]);
         message.success(
           `הזימון של ${newAppointment.person.fullName} נוצר בהצלחה`
@@ -133,11 +136,9 @@ export const AppointmentContextProvider: React.FC = ({ children }) => {
       })
       .catch((error: AxiosError) => {
         if (error && error.response && error.response.status === 409) {
-          message.error(
-            `יש כבר איש חוץ עם המ.א ${newAppointmentInstance.person.personalId}`
-          );
+          message.error(`יש כבר זימון לאיש חוץ זה באותם התאריכים`);
         } else {
-          message.error("איש חוץ לא נוסף, היית שגיאה.");
+          message.error("זימון לא נוסף, היית שגיאה.");
         }
       });
   };
