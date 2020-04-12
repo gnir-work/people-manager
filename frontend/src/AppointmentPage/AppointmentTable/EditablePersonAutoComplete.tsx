@@ -4,12 +4,12 @@ import { Person } from "../../types/person";
 import PersonAutoComplete from "../../components/fields/PersonAutoComplete/PersonAutoComplete";
 import PersonView from "../../components/fields/PersonAutoComplete/PersonView";
 
-interface EditablePersonFieldProps {
+interface EditablePersonAutoCompleteProps {
   currentPerson: Person;
   onChange: (newPerson: Person) => void;
 }
 
-const EditablePersonField: React.FC<EditablePersonFieldProps> = ({
+const EditablePersonAutoComplete: React.FC<EditablePersonAutoCompleteProps> = ({
   currentPerson,
   onChange
 }) => {
@@ -34,4 +34,4 @@ const EditablePersonField: React.FC<EditablePersonFieldProps> = ({
   );
 };
 
-export default EditablePersonField;
+export default EditablePersonAutoComplete;
