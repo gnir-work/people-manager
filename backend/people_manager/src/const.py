@@ -1,12 +1,10 @@
-try:
-    from .dev_settings import DEBUG
-except ModuleNotFoundError:
-    DEBUG = False
+DEBUG = False
+MONGO_HOST = "mongo"
 
-if DEBUG:
-    HOST = "localhost"
-else:
-    HOST = "mongo"
+try:
+    from .dev_settings import DEBUG, MONGO_HOST
+except ModuleNotFoundError:
+    pass
 
 DEFAULT_PEOPLE_SETTINGS = {
     "settings": {
