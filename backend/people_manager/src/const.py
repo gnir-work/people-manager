@@ -1,4 +1,4 @@
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     HOST = "localhost"

@@ -3,6 +3,13 @@ import { Appointment } from "../types/appointment";
 import { Person } from "../types/person";
 import moment, { Moment } from "moment";
 
+const serializeDates = ([from, to]: [Moment, Moment]) => [
+  from.valueOf(),
+  to.valueOf()
+];
+
+const serializePerson = (person: Person) => person.id;
+
 export const getAppointments = (): Promise<Appointment[]> =>
   axios.get("/api/appointments/appointment").then(appointments =>
     appointments.data.map((appointment: Appointment) => {
@@ -22,12 +29,9 @@ export const updateAppointmentRequest = <K extends keyof Appointment>(
 ) => {
   let serializedValue = undefined;
   if (field === "person") {
-    serializedValue = (value as any).id;
+    serializedValue = serializePerson(value as any);
   } else if (field === "dates") {
-    serializedValue = [
-      (value as any)[0].valueOf(),
-      (value as any)[1].valueOf()
-    ];
+    serializedValue = serializeDates(value as any);
   } else {
     serializedValue = value;
   }
@@ -39,5 +43,11 @@ export const updateAppointmentRequest = <K extends keyof Appointment>(
 export const deleteAppointmentRequest = (appointmentId: string) =>
   axios.delete(`/api/appointments/appointment/${appointmentId}`);
 
-export const createAppointmentRequest = (appointment: Appointment) =>
-  axios.post("/api/appointments/appointment", appointment);
+export const createAppointmentRequest = (appointment: Appointment) => {
+  const serializedAppointment = {
+    ...appointment,
+    dates: serializeDates(appointment.dates),
+    person: serializePerson(appointment.person)
+  };
+  return axios.post("/api/appointments/appointment", serializedAppointment);
+};

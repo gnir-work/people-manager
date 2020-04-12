@@ -1,6 +1,7 @@
 from .db import get_appointments_collection, get_people_collection
 from .people import get_person_by_id
 from .utils import format_document_id
+from .exceptions import AppointmentExists
 from bson import ObjectId
 
 def get_all_appointments():
@@ -25,4 +26,12 @@ def delete_appointment(appointment_id: str):
 
 
 def create_appointment(appointment: dict):
-    pass
+    appointments = get_appointments_collection()
+    if appointments.find_one({"person": appointment["person"], "dates": appointment["dates"]}):
+        raise AppointmentExists()
+
+    result = appointments.insert_one(appointment)
+    if result.acknowledged and result.inserted_id:
+        return str(result.inserted_id)
+    else:
+        return None
