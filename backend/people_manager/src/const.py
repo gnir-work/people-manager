@@ -1,4 +1,7 @@
-DEBUG = True
+try:
+    from .dev_settings import DEBUG
+except ModuleNotFoundError:
+    DEBUG = False
 
 if DEBUG:
     HOST = "localhost"
