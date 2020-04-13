@@ -1,32 +1,25 @@
-import React, { createContext, useEffect, useState } from "react";
-import {
-  updateAppointmentRequest,
-  deleteAppointmentRequest,
-  createAppointmentRequest,
-  getAppointments
-} from "../api/appointment";
+import React from "react";
 import _ from "lodash";
-import { message } from "antd";
-import { EDIT_SUCCESS_MESSAGE, EDIT_ERROR_MESSAGE } from "../consts";
-import { AxiosError } from "axios";
 import { Appointment } from "../types/appointment";
 import {
   DataListContextInterface,
   getDataListContext,
   DataListContextProvider
 } from "./DataListContext";
+import { createCrudApi } from "../api/crud";
+import { parseAppointment } from "../utils/parsers";
+import { serializeAppointment } from "../utils/serializers";
 
 export interface AppointmentsContextInterface
   extends DataListContextInterface<Appointment> {}
 
 export const AppointmentContext = getDataListContext<Appointment>();
 
-const api = {
-  get: getAppointments,
-  add: createAppointmentRequest,
-  update: updateAppointmentRequest,
-  delete: deleteAppointmentRequest
-};
+const appointmentCrudApi = createCrudApi<Appointment>({
+  url: "/api/appointments/appointment",
+  parser: parseAppointment,
+  serializer: serializeAppointment
+});
 
 /**
  * A context which handles all of the manipulation on the appointment dataset.
@@ -34,7 +27,10 @@ const api = {
  */
 export const AppointmentContextProvider: React.FC = ({ children }) => {
   return (
-    <DataListContextProvider api={api} DataListContext={AppointmentContext}>
+    <DataListContextProvider
+      api={appointmentCrudApi}
+      DataListContext={AppointmentContext}
+    >
       {children}
     </DataListContextProvider>
   );
