@@ -1,27 +1,18 @@
-import React, { useContext } from "react";
-import { Person } from "../../types/person";
-import { ConditionalProps } from "../../utils/types";
-import { PeopleContext } from "../../contexts/PeopleContext";
+import React from "react";
 import { Checkbox } from "antd";
 
 interface BooleanFieldProps {
-  person: Person;
-  field: ConditionalProps<Person, boolean>;
+  checked: boolean;
+  onChange: (newValue: boolean) => void;
 }
 
-const BooleanField: React.FC<BooleanFieldProps> = ({ person, field }) => {
-  const { updatePerson } = useContext(PeopleContext);
-
+const BooleanField: React.FC<BooleanFieldProps> = ({ checked, onChange }) => {
   const handleClick = () => {
-    updatePerson(person, field, !person[field]);
+    onChange(!checked);
   };
 
   return (
-    <Checkbox
-      checked={person[field]}
-      className="clickable"
-      onClick={handleClick}
-    />
+    <Checkbox checked={checked} className="clickable" onClick={handleClick} />
   );
 };
 

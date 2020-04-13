@@ -142,7 +142,12 @@ export const PeopleTableColumns = (
     title: "סגל עבר",
     ...get_column_fields<Person>("wasSegel"),
     render: (wasSegel: string, record: Person) => (
-      <BooleanField field="wasSegel" person={record} />
+      <BooleanField
+        checked={record.wasSegel}
+        onChange={newValue => {
+          updatePerson(record, "wasSegel", newValue);
+        }}
+      />
     ),
     filters: ANTD_BOOLEAN_FILTERS,
     onFilter: (wasSegel: string, record: Person) =>

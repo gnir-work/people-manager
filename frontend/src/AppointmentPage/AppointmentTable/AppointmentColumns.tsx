@@ -13,6 +13,7 @@ import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsCon
 import EditablePersonAutoComplete from "./EditablePersonAutoComplete";
 import AppointmentDateRage from "./AppointmentDateRange";
 import { get_column_fields, get_tag_fields } from "../../utils/column_helpers";
+import BooleanField from "../../components/fields/BooleanField";
 
 export const AppointmentColumns = (
   { updateAppointment }: AppointmentsContextInterface,
@@ -97,8 +98,8 @@ export const AppointmentColumns = (
     ...get_column_fields("makishur", simpleFilterByField),
     filters: ANTD_BOOLEAN_FILTERS,
     render: (value: string, record: Appointment) => (
-      <Checkbox
-        onClick={() => updateAppointment(record, "makishur", !record.makishur)}
+      <BooleanField
+        onChange={newValue => updateAppointment(record, "makishur", newValue)}
         checked={record.makishur}
       />
     )
