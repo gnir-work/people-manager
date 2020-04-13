@@ -19,7 +19,11 @@ import { PeopleContextInterface } from "../../contexts/PeopleContext";
 import EditableTextAutoComplete from "../../components/text/EditableTextAutoComplete";
 import { Input } from "antd";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
-import { get_column_fields, get_tag_fields } from "../../utils/column_helpers";
+import {
+  get_column_fields,
+  get_tag_fields,
+  get_tag_list_fields
+} from "../../utils/column_helpers";
 import DeleteButton from "../../components/actions/DeleteButton";
 import EditableText from "../../components/text/EditableText";
 import TagList from "../../components/tags/TagList";
@@ -96,47 +100,32 @@ export const PeopleTableColumns = (
   {
     title: "העדפות",
     ...get_column_fields<Person>("preferences", arrayFilterByField),
-    render: (data: string[], record: Person) => (
-      <TagList
-        tags={data}
-        additionText="הוספת העדפה"
-        possibleTags={settings.possiblePreferences}
-        onChange={newTags => {
-          updatePerson(record, "preferences", newTags);
-        }}
-      />
-    ),
-    filters: arrayToAntdMappings(settings.possiblePreferences)
+    ...get_tag_list_fields<Person>(
+      settings.possiblePreferences,
+      "preferences",
+      "הוספת העדפה",
+      updatePerson
+    )
   },
   {
     title: "מסלולים רלוונטיות",
     ...get_column_fields<Person>("tracks", arrayFilterByField),
-    render: (data: string[], record: Person) => (
-      <TagList
-        tags={data}
-        additionText="הוספת מסלול"
-        possibleTags={settings.possibleTracks}
-        onChange={newTags => {
-          updatePerson(record, "tracks", newTags);
-        }}
-      />
-    ),
-    filters: arrayToAntdMappings(settings.possibleTracks)
+    ...get_tag_list_fields<Person>(
+      settings.possibleTracks,
+      "tracks",
+      "הוספת מסלול",
+      updatePerson
+    )
   },
   {
     title: "מערכים רלוונטיים",
     ...get_column_fields<Person>("subjects", arrayFilterByField),
-    render: (data: string[], record: Person) => (
-      <TagList
-        tags={data}
-        additionText="הוספת מערך"
-        possibleTags={settings.possibleSubjects}
-        onChange={newTags => {
-          updatePerson(record, "subjects", newTags);
-        }}
-      />
-    ),
-    filters: arrayToAntdMappings(settings.possibleSubjects)
+    ...get_tag_list_fields<Person>(
+      settings.possibleSubjects,
+      "subjects",
+      "הוספת מערך",
+      updatePerson
+    )
   },
   {
     title: "סגל עבר",

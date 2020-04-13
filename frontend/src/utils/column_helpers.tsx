@@ -2,6 +2,7 @@ import React from "react";
 import { sortByField } from "./sorters";
 import EditableTag from "../components/tags/EditableTag";
 import { arrayToAntdMappings } from "./filters";
+import TagList from "../components/tags/TagList";
 
 export function get_column_fields<K extends { [key: string]: any }>(
   field: keyof K,
@@ -42,5 +43,26 @@ export function get_tag_fields<K extends { [key: string]: any }>(
         {value}
       </EditableTag>
     )
+  };
+}
+
+export function get_tag_list_fields<K extends { [key: string]: any }>(
+  possibleValues: string[],
+  field: keyof K,
+  additionText: string,
+  updateData: Function
+) {
+  return {
+    render: (data: string[], record: K) => (
+      <TagList
+        tags={data}
+        additionText={additionText}
+        possibleTags={possibleValues}
+        onChange={(newTags: string[]) => {
+          updateData(record, field, newTags);
+        }}
+      />
+    ),
+    filters: arrayToAntdMappings(possibleValues)
   };
 }
