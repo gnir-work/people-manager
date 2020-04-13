@@ -1,70 +1,30 @@
 import React from "react";
 import { sortByField } from "../../utils/sorters";
-import {
-  stringsFilterByField,
-  simpleFilterByField,
-  arrayToAntdMappings
-} from "../../utils/filters";
+import { stringsFilterByField, simpleFilterByField } from "../../utils/filters";
 import TableTextFilter from "../../components/filters/TableTextFilter";
 import { Appointment } from "../../types/appointment";
-import { Checkbox } from "antd";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
-import AppointmentDeleteButton from "./AppointmentDeleteButton";
 import { AppointmentsContextInterface } from "../../contexts/AppointmentContext";
 import EditableText from "../../components/text/EditableText";
 import TextArea from "antd/lib/input/TextArea";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
-import EditableTag from "../../components/tags/EditableTag";
-import EditablePersonAutoComplete from "./EditablePersonAutoComplete";
-import AppointmentDateRage from "./AppointmentDateRange";
-
-const _get_column_fields = (
-  field: keyof Appointment,
-  filterFunction?: Function
-) => {
-  const fields = {
-    dataIndex: field,
-    key: field,
-    sorter: (firstAppointment: Appointment, secondAppointment: Appointment) =>
-      sortByField(firstAppointment, secondAppointment, field)
-  };
-
-  if (filterFunction) {
-    return {
-      ...fields,
-      onFilter: (value: string, record: Appointment) =>
-        filterFunction(record, value, field)
-    };
-  } else {
-    return fields;
-  }
-};
-
-const _get_tag_fields = (
-  possibleValues: string[],
-  field: string,
-  updateAppointment: Function
-) => ({
-  filters: arrayToAntdMappings(possibleValues),
-  render: (value: string, record: Appointment) => (
-    <EditableTag
-      possibleTags={possibleValues}
-      onTagChange={(newValue: string) =>
-        updateAppointment(record, field, newValue)
-      }
-    >
-      {value}
-    </EditableTag>
-  )
-});
+import EditablePersonAutoComplete from "../../components/fields/PersonAutoComplete/EditablePersonAutoComplete";
+import DateRangeField from "../../components/fields/DateRangeField";
+import {
+  get_column_fields,
+  get_tag_fields,
+  get_text_fields
+} from "../../utils/column_helpers";
+import BooleanField from "../../components/fields/BooleanField";
+import DeleteButton from "../../components/actions/DeleteButton";
 
 export const AppointmentColumns = (
-  { updateAppointment }: AppointmentsContextInterface,
+  { updateAppointment, deleteAppointment }: AppointmentsContextInterface,
   { settings }: PeopleSettingsContextInterface
 ) => [
   {
     title: "איש חוץ",
-    ..._get_column_fields("person"),
+    ...get_column_fields<Appointment>("person"),
     sorter: (firstAppointment: Appointment, secondAppointment: Appointment) =>
       sortByField(
         firstAppointment.person,
@@ -85,18 +45,22 @@ export const AppointmentColumns = (
   },
   {
     title: "תקופה",
-    ..._get_column_fields("phase", stringsFilterByField),
-    ..._get_tag_fields(settings.possiblePhases, "phase", updateAppointment)
+    ...get_column_fields<Appointment>("phase", stringsFilterByField),
+    ...get_tag_fields<Appointment>(
+      settings.possiblePhases,
+      "phase",
+      updateAppointment
+    )
   },
   {
     title: "שבוע",
-    ..._get_column_fields("week", simpleFilterByField),
+    ...get_column_fields<Appointment>("week", simpleFilterByField),
     filterDropdown: TableTextFilter
   },
   {
     title: "תאריכים",
     render: (value: string, record: Appointment) => (
-      <AppointmentDateRage
+      <DateRangeField
         dates={record.dates}
         onChange={newDates => {
           updateAppointment(record, "dates", newDates);
@@ -107,21 +71,13 @@ export const AppointmentColumns = (
 
   {
     title: "מזמין",
-    ..._get_column_fields("invitor", stringsFilterByField),
-    filterDropdown: TableTextFilter,
-    render: (value: string, record: Appointment) => (
-      <EditableText
-        initialValue={value}
-        onChange={(newValue: string) => {
-          updateAppointment(record, "invitor", newValue);
-        }}
-      />
-    )
+    ...get_column_fields<Appointment>("invitor", stringsFilterByField),
+    ...get_text_fields<Appointment>("invitor", [], updateAppointment)
   },
   {
     title: "מיטה",
-    ..._get_column_fields("bedStatus", stringsFilterByField),
-    ..._get_tag_fields(
+    ...get_column_fields<Appointment>("bedStatus", stringsFilterByField),
+    ...get_tag_fields<Appointment>(
       settings.possibleBedStatus,
       "bedStatus",
       updateAppointment
@@ -129,8 +85,8 @@ export const AppointmentColumns = (
   },
   {
     title: "אישור כניסה",
-    ..._get_column_fields("entryStatus", stringsFilterByField),
-    ..._get_tag_fields(
+    ...get_column_fields<Appointment>("entryStatus", stringsFilterByField),
+    ...get_tag_fields<Appointment>(
       settings.possibleEntryStates,
       "entryStatus",
       updateAppointment
@@ -138,37 +94,33 @@ export const AppointmentColumns = (
   },
   {
     title: "מצב מהקישור",
-    ..._get_column_fields("makishur", simpleFilterByField),
+    ...get_column_fields<Appointment>("makishur", simpleFilterByField),
     filters: ANTD_BOOLEAN_FILTERS,
     render: (value: string, record: Appointment) => (
-      <Checkbox
-        onClick={() => updateAppointment(record, "makishur", !record.makishur)}
+      <BooleanField
+        onChange={newValue => updateAppointment(record, "makishur", newValue)}
         checked={record.makishur}
       />
     )
   },
   {
     title: "מזמין מה קישור",
-    ..._get_column_fields("makishurInvitor", stringsFilterByField),
-    filterDropdown: TableTextFilter,
-    render: (value: string, record: Appointment) => (
-      <EditableText
-        initialValue={value}
-        onChange={(newValue: string) => {
-          updateAppointment(record, "makishurInvitor", newValue);
-        }}
-      />
-    )
+    ...get_column_fields<Appointment>("makishurInvitor", stringsFilterByField),
+    ...get_text_fields<Appointment>("makishurInvitor", [], updateAppointment)
   },
   {
     title: "מסלול",
-    ..._get_column_fields("track", stringsFilterByField),
-    ..._get_tag_fields(settings.possibleTracks, "track", updateAppointment)
+    ...get_column_fields<Appointment>("track", stringsFilterByField),
+    ...get_tag_fields<Appointment>(
+      settings.possibleTracks,
+      "track",
+      updateAppointment
+    )
   },
   {
     title: "סיבה",
-    ..._get_column_fields("reason", stringsFilterByField),
-    ..._get_tag_fields(
+    ...get_column_fields<Appointment>("reason", stringsFilterByField),
+    ...get_tag_fields<Appointment>(
       settings.possibleAppointmentReasons,
       "reason",
       updateAppointment
@@ -176,7 +128,7 @@ export const AppointmentColumns = (
   },
   {
     title: "הערות",
-    ..._get_column_fields("remarks", stringsFilterByField),
+    ...get_column_fields<Appointment>("remarks", stringsFilterByField),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Appointment) => (
       <EditableText
@@ -193,7 +145,10 @@ export const AppointmentColumns = (
     dataIndex: "",
     key: "actions",
     render: (text: string, record: Appointment) => (
-      <AppointmentDeleteButton appointment={record} />
+      <DeleteButton
+        confirmationMessage={`למחוק את הזימון של ${record.person.fullName}?`}
+        onDelete={() => deleteAppointment(record)}
+      />
     )
   }
 ];
