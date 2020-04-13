@@ -8,7 +8,6 @@ import {
   simpleFilterByField
 } from "../../utils/filters";
 import { Person } from "../../types/person";
-import PersonTags from "./PersonTags";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
 import BooleanField from "../../components/fields/BooleanField";
 import {
@@ -23,6 +22,7 @@ import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsCon
 import { get_column_fields, get_tag_fields } from "../../utils/column_helpers";
 import DeleteButton from "../../components/actions/DeleteButton";
 import EditableText from "../../components/text/EditableText";
+import TagList from "../../components/tags/TagList";
 
 export const PeopleTableColumns = (
   { doesPersonExist, updatePerson, deletePerson }: PeopleContextInterface,
@@ -97,10 +97,13 @@ export const PeopleTableColumns = (
     title: "העדפות",
     ...get_column_fields<Person>("preferences", arrayFilterByField),
     render: (data: string[], record: Person) => (
-      <PersonTags
-        field="preferences"
+      <TagList
+        tags={data}
+        additionText="הוספת העדפה"
         possibleTags={settings.possiblePreferences}
-        person={record}
+        onChange={newTags => {
+          updatePerson(record, "preferences", newTags);
+        }}
       />
     ),
     filters: arrayToAntdMappings(settings.possiblePreferences)
@@ -109,10 +112,13 @@ export const PeopleTableColumns = (
     title: "מסלולים רלוונטיות",
     ...get_column_fields<Person>("tracks", arrayFilterByField),
     render: (data: string[], record: Person) => (
-      <PersonTags
-        field="tracks"
+      <TagList
+        tags={data}
+        additionText="הוספת מסלול"
         possibleTags={settings.possibleTracks}
-        person={record}
+        onChange={newTags => {
+          updatePerson(record, "tracks", newTags);
+        }}
       />
     ),
     filters: arrayToAntdMappings(settings.possibleTracks)
@@ -121,10 +127,13 @@ export const PeopleTableColumns = (
     title: "מערכים רלוונטיים",
     ...get_column_fields<Person>("subjects", arrayFilterByField),
     render: (data: string[], record: Person) => (
-      <PersonTags
-        field="subjects"
+      <TagList
+        tags={data}
+        additionText="הוספת מערך"
         possibleTags={settings.possibleSubjects}
-        person={record}
+        onChange={newTags => {
+          updatePerson(record, "subjects", newTags);
+        }}
       />
     ),
     filters: arrayToAntdMappings(settings.possibleSubjects)
