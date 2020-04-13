@@ -20,7 +20,7 @@ export const AppointmentColumns = (
 ) => [
   {
     title: "איש חוץ",
-    ...get_column_fields("person"),
+    ...get_column_fields<Appointment>("person"),
     sorter: (firstAppointment: Appointment, secondAppointment: Appointment) =>
       sortByField(
         firstAppointment.person,
@@ -41,12 +41,16 @@ export const AppointmentColumns = (
   },
   {
     title: "תקופה",
-    ...get_column_fields("phase", stringsFilterByField),
-    ...get_tag_fields(settings.possiblePhases, "phase", updateAppointment)
+    ...get_column_fields<Appointment>("phase", stringsFilterByField),
+    ...get_tag_fields<Appointment>(
+      settings.possiblePhases,
+      "phase",
+      updateAppointment
+    )
   },
   {
     title: "שבוע",
-    ...get_column_fields("week", simpleFilterByField),
+    ...get_column_fields<Appointment>("week", simpleFilterByField),
     filterDropdown: TableTextFilter
   },
   {
@@ -63,7 +67,7 @@ export const AppointmentColumns = (
 
   {
     title: "מזמין",
-    ...get_column_fields("invitor", stringsFilterByField),
+    ...get_column_fields<Appointment>("invitor", stringsFilterByField),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Appointment) => (
       <EditableText
@@ -76,8 +80,8 @@ export const AppointmentColumns = (
   },
   {
     title: "מיטה",
-    ...get_column_fields("bedStatus", stringsFilterByField),
-    ...get_tag_fields(
+    ...get_column_fields<Appointment>("bedStatus", stringsFilterByField),
+    ...get_tag_fields<Appointment>(
       settings.possibleBedStatus,
       "bedStatus",
       updateAppointment
@@ -85,8 +89,8 @@ export const AppointmentColumns = (
   },
   {
     title: "אישור כניסה",
-    ...get_column_fields("entryStatus", stringsFilterByField),
-    ...get_tag_fields(
+    ...get_column_fields<Appointment>("entryStatus", stringsFilterByField),
+    ...get_tag_fields<Appointment>(
       settings.possibleEntryStates,
       "entryStatus",
       updateAppointment
@@ -94,7 +98,7 @@ export const AppointmentColumns = (
   },
   {
     title: "מצב מהקישור",
-    ...get_column_fields("makishur", simpleFilterByField),
+    ...get_column_fields<Appointment>("makishur", simpleFilterByField),
     filters: ANTD_BOOLEAN_FILTERS,
     render: (value: string, record: Appointment) => (
       <BooleanField
@@ -105,7 +109,7 @@ export const AppointmentColumns = (
   },
   {
     title: "מזמין מה קישור",
-    ...get_column_fields("makishurInvitor", stringsFilterByField),
+    ...get_column_fields<Appointment>("makishurInvitor", stringsFilterByField),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Appointment) => (
       <EditableText
@@ -118,13 +122,17 @@ export const AppointmentColumns = (
   },
   {
     title: "מסלול",
-    ...get_column_fields("track", stringsFilterByField),
-    ...get_tag_fields(settings.possibleTracks, "track", updateAppointment)
+    ...get_column_fields<Appointment>("track", stringsFilterByField),
+    ...get_tag_fields<Appointment>(
+      settings.possibleTracks,
+      "track",
+      updateAppointment
+    )
   },
   {
     title: "סיבה",
-    ...get_column_fields("reason", stringsFilterByField),
-    ...get_tag_fields(
+    ...get_column_fields<Appointment>("reason", stringsFilterByField),
+    ...get_tag_fields<Appointment>(
       settings.possibleAppointmentReasons,
       "reason",
       updateAppointment
@@ -132,7 +140,7 @@ export const AppointmentColumns = (
   },
   {
     title: "הערות",
-    ...get_column_fields("remarks", stringsFilterByField),
+    ...get_column_fields<Appointment>("remarks", stringsFilterByField),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Appointment) => (
       <EditableText
