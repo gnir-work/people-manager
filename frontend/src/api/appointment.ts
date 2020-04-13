@@ -43,7 +43,9 @@ export const updateAppointmentRequest = <K extends keyof Appointment>(
 export const deleteAppointmentRequest = (appointmentId: string) =>
   axios.delete(`/api/appointments/appointment/${appointmentId}`);
 
-export const createAppointmentRequest = (appointment: Appointment) => {
+export const createAppointmentRequest = (
+  appointment: Omit<Appointment, "id">
+) => {
   const serializedAppointment = {
     ...appointment,
     dates: serializeDates(appointment.dates),

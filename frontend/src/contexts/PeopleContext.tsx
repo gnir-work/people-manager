@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React from "react";
 import {
   getPeople,
   updatePersonRequest,
@@ -29,10 +29,8 @@ const api = {
  * A context which handles all of the manipulation on the people dataset.
  * From fetching the data set to deleting or adding people.
  */
-export const PeopleContextProvider: React.FC = ({ children }) => {
-  return (
-    <DataListContextProvider DataListContext={PeopleContext} api={api}>
-      {children}
-    </DataListContextProvider>
-  );
-};
+export const PeopleContextProvider: React.FC = ({ children }) => (
+  <DataListContextProvider DataListContext={PeopleContext} api={api}>
+    {children}
+  </DataListContextProvider>
+);

@@ -19,7 +19,10 @@ import BooleanField from "../../components/fields/BooleanField";
 import DeleteButton from "../../components/actions/DeleteButton";
 
 export const AppointmentColumns = (
-  { updateAppointment, deleteAppointment }: AppointmentsContextInterface,
+  {
+    updateData: updateAppointment,
+    deleteData: deleteAppointment
+  }: AppointmentsContextInterface,
   { settings }: PeopleSettingsContextInterface
 ) => [
   {

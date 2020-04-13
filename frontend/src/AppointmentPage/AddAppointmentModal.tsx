@@ -7,7 +7,7 @@ import { AppointmentContext } from "../contexts/AppointmentContext";
 import AddAppointmentForm from "./AddAppointmentForm";
 
 const AddAppointmentModal: React.FC = () => {
-  const { addAppointment } = useContext(AppointmentContext);
+  const { addData: addAppointment } = useContext(AppointmentContext);
   const peopleSettings = useContext(PeopleSettingsContext);
 
   const handleSubmit = (values: Object) => {

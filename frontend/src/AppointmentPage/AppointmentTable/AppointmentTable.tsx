@@ -13,7 +13,7 @@ interface PeopleTableProps {
 const AppointmentTable: React.FC<PeopleTableProps> = ({ className }) => {
   const appointmentContext = useContext(AppointmentContext);
   const peopleSettings = useContext(PeopleSettingsContext);
-  const data = appointmentContext.appointments.map(appointment => ({
+  const data = appointmentContext.data.map(appointment => ({
     ...appointment,
     key: appointment.id
   }));
