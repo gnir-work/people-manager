@@ -5,7 +5,7 @@ import { GET_REQUIRED_RULE } from "../components/validators/validators";
 import { FormInstance } from "antd/lib/form";
 import { PeopleSettingsContextInterface } from "../contexts/PeopleSettingsContext";
 import PersonAutoComplete from "../components/fields/PersonAutoComplete/PersonAutoComplete";
-import AppointmentDateRage from "./AppointmentTable/AppointmentDateRange";
+import DateRangeField from "../components/fields/DateRangeField";
 
 const layout = {
   labelCol: { span: 6 },
@@ -78,7 +78,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
         valuePropName="dates"
         rules={[GET_REQUIRED_RULE("בבקש הכנס תאריכים")]}
       >
-        <AppointmentDateRage />
+        <DateRangeField />
       </Form.Item>
       <Form.Item
         name="invitor"

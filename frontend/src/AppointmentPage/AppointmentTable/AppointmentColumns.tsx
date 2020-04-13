@@ -3,20 +3,19 @@ import { sortByField } from "../../utils/sorters";
 import { stringsFilterByField, simpleFilterByField } from "../../utils/filters";
 import TableTextFilter from "../../components/filters/TableTextFilter";
 import { Appointment } from "../../types/appointment";
-import { Checkbox } from "antd";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
-import AppointmentDeleteButton from "./AppointmentDeleteButton";
 import { AppointmentsContextInterface } from "../../contexts/AppointmentContext";
 import EditableText from "../../components/text/EditableText";
 import TextArea from "antd/lib/input/TextArea";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
-import EditablePersonAutoComplete from "./EditablePersonAutoComplete";
-import AppointmentDateRage from "./AppointmentDateRange";
+import EditablePersonAutoComplete from "../../components/fields/PersonAutoComplete/EditablePersonAutoComplete";
+import DateRangeField from "../../components/fields/DateRangeField";
 import { get_column_fields, get_tag_fields } from "../../utils/column_helpers";
 import BooleanField from "../../components/fields/BooleanField";
+import DeleteButton from "../../components/actions/DeleteButton";
 
 export const AppointmentColumns = (
-  { updateAppointment }: AppointmentsContextInterface,
+  { updateAppointment, deleteAppointment }: AppointmentsContextInterface,
   { settings }: PeopleSettingsContextInterface
 ) => [
   {
@@ -53,7 +52,7 @@ export const AppointmentColumns = (
   {
     title: "תאריכים",
     render: (value: string, record: Appointment) => (
-      <AppointmentDateRage
+      <DateRangeField
         dates={record.dates}
         onChange={newDates => {
           updateAppointment(record, "dates", newDates);
@@ -150,7 +149,10 @@ export const AppointmentColumns = (
     dataIndex: "",
     key: "actions",
     render: (text: string, record: Appointment) => (
-      <AppointmentDeleteButton appointment={record} />
+      <DeleteButton
+        confirmationMessage={`למחוק את הזימון של ${record.person.fullName}?`}
+        onDelete={() => deleteAppointment(record)}
+      />
     )
   }
 ];
