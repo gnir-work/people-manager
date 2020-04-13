@@ -1,9 +1,9 @@
 import React from "react";
-import moment, { Moment } from "moment";
+import { Moment } from "moment";
 import { DatePicker } from "antd";
 
 import "./DateRangeField.scss";
-import { beforeToday } from "../../utils/time";
+import { beforeToday, getStartOfDay } from "../../utils/time";
 
 interface AppointmentDateRageProps {
   dates?: [Moment, Moment];
@@ -14,8 +14,8 @@ const DateRangeField: React.FC<AppointmentDateRageProps> = ({
   dates,
   onChange = () => {}
 }) => {
-  const handleChange = ([from, to]: any) => {
-    onChange([from.startOf("day"), to.startOf("day")]);
+  const handleChange = (newDates: any) => {
+    onChange(newDates.map(getStartOfDay));
   };
 
   return (
