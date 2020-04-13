@@ -3,7 +3,6 @@ import React from "react";
 import TableTextFilter from "../../components/filters/TableTextFilter";
 import {
   stringsFilterByField,
-  arrayToAntdMappings,
   arrayFilterByField,
   simpleFilterByField
 } from "../../utils/filters";
@@ -26,7 +25,6 @@ import {
 } from "../../utils/column_helpers";
 import DeleteButton from "../../components/actions/DeleteButton";
 import EditableText from "../../components/text/EditableText";
-import TagList from "../../components/tags/TagList";
 
 export const PeopleTableColumns = (
   { doesPersonExist, updatePerson, deletePerson }: PeopleContextInterface,
