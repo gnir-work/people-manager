@@ -4,8 +4,6 @@ import { PeopleSettingsContextProvider } from "../contexts/PeopleSettingsContext
 import PeopleTable from "./PeopleTable/PeopleTable";
 import AddPersonModal from "./AddPersonModal";
 
-import "./PeoplePage.scss";
-
 const PeoplePage: React.FC = () => (
   <PeopleContextProvider>
     <PeopleSettingsContextProvider>
