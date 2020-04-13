@@ -17,8 +17,8 @@ export const simpleFilterByField = <K extends { [key: string]: any }>(
   value: boolean | number,
   field: ConditionalProps<K, boolean | number>
   // This is on purpose in order to allow string to number comparison.
-  // eslint-disable-next-line eqeqeq
-) => person[field] == value;
+  // eslint-disable-next-line
+) => person[field] === value;
 
 /**
  * Checks if the person value of the property key contains the given value.

@@ -1,14 +1,13 @@
 import React from "react";
 
 import TableTextFilter from "../../components/filters/TableTextFilter";
-import { sortByField } from "../../utils/sorters";
 import {
   stringsFilterByField,
   arrayToAntdMappings,
-  arrayFilterByField
+  arrayFilterByField,
+  simpleFilterByField
 } from "../../utils/filters";
 import { Person } from "../../types/person";
-import PersonTag from "./PersonTag";
 import EditableTextWithPersonContext from "./EditableTextWithPersonContext";
 import PersonTags from "./PersonTags";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
@@ -23,19 +22,15 @@ import EditableTextAutoComplete from "../../components/text/EditableTextAutoComp
 import { Input } from "antd";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
 import PersonDeleteButton from "./PersonDeleteButton";
+import { get_column_fields, get_tag_fields } from "../../utils/column_helpers";
 
 export const PeopleTableColumns = (
-  { doesPersonExist }: PeopleContextInterface,
+  { doesPersonExist, updatePerson }: PeopleContextInterface,
   { settings }: PeopleSettingsContextInterface
 ) => [
   {
     title: "שם מלא",
-    dataIndex: "fullName",
-    key: "fullName",
-    sorter: (firstPerson: Person, secondPerson: Person) =>
-      sortByField(firstPerson, secondPerson, "fullName"),
-    onFilter: (value: string, record: Person) =>
-      stringsFilterByField(record, value, "fullName"),
+    ...get_column_fields<Person>("fullName", stringsFilterByField),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
       <EditableTextWithPersonContext
@@ -49,12 +44,7 @@ export const PeopleTableColumns = (
   },
   {
     title: "מ.א",
-    dataIndex: "personalId",
-    key: "personalId",
-    sorter: (firstPerson: Person, secondPerson: Person) =>
-      sortByField(firstPerson, secondPerson, "personalId"),
-    onFilter: (value: string, record: Person) =>
-      stringsFilterByField(record, value, "personalId"),
+    ...get_column_fields<Person>("personalId", stringsFilterByField),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
       <EditableTextWithPersonContext
@@ -68,8 +58,7 @@ export const PeopleTableColumns = (
   },
   {
     title: "פלאפון",
-    dataIndex: "phone",
-    key: "phone",
+    ...get_column_fields<Person>("phone"),
     render: (value: string, record: Person) => (
       <EditableTextWithPersonContext
         field="phone"
@@ -82,45 +71,21 @@ export const PeopleTableColumns = (
   },
   {
     title: "מצב שירות",
-    dataIndex: "status",
-    sorter: (firstPerson: Person, secondPerson: Person) =>
-      sortByField(firstPerson, secondPerson, "status"),
-    key: "status",
-    render: (status: string, record: Person) => (
-      <PersonTag
-        field="status"
-        possibleTags={settings.possibleStatuses}
-        person={record}
-      />
-    ),
-    filters: arrayToAntdMappings(settings.possibleStatuses),
-    onFilter: (status: string, record: Person) => record.status === status
+    ...get_column_fields<Person>("status", simpleFilterByField),
+    ...get_tag_fields<Person>(settings.possibleStatuses, "status", updatePerson)
   },
   {
     title: "זמינות",
-    dataIndex: "availability",
-    key: "availability",
-    sorter: (firstPerson: Person, secondPerson: Person) =>
-      sortByField(firstPerson, secondPerson, "availability"),
-    render: (currentAvailability: string, record: Person) => (
-      <PersonTag
-        field="availability"
-        possibleTags={settings.possibleAvailabilities}
-        person={record}
-      />
-    ),
-    filters: arrayToAntdMappings(settings.possibleAvailabilities),
-    onFilter: (availability: string, record: Person) =>
-      record.availability === availability
+    ...get_column_fields<Person>("availability", simpleFilterByField),
+    ...get_tag_fields<Person>(
+      settings.possibleAvailabilities,
+      "availability",
+      updatePerson
+    )
   },
   {
     title: "צוות",
-    dataIndex: "team",
-    key: "team",
-    sorter: (firstPerson: Person, secondPerson: Person) =>
-      sortByField(firstPerson, secondPerson, "team"),
-    onFilter: (value: string, record: Person) =>
-      stringsFilterByField(record, value, "team"),
+    ...get_column_fields<Person>("team", stringsFilterByField),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
       <EditableTextAutoComplete
@@ -133,8 +98,7 @@ export const PeopleTableColumns = (
   },
   {
     title: "העדפות",
-    dataIndex: "preferences",
-    key: "preferences",
+    ...get_column_fields<Person>("preferences", arrayFilterByField),
     render: (data: string[], record: Person) => (
       <PersonTags
         field="preferences"
@@ -142,14 +106,11 @@ export const PeopleTableColumns = (
         person={record}
       />
     ),
-    filters: arrayToAntdMappings(settings.possiblePreferences),
-    onFilter: (preference: string, record: Person) =>
-      arrayFilterByField(record, preference, "preferences")
+    filters: arrayToAntdMappings(settings.possiblePreferences)
   },
   {
     title: "מסלולים רלוונטיות",
-    dataIndex: "tracks",
-    key: "tracks",
+    ...get_column_fields<Person>("tracks", arrayFilterByField),
     render: (data: string[], record: Person) => (
       <PersonTags
         field="tracks"
@@ -157,14 +118,11 @@ export const PeopleTableColumns = (
         person={record}
       />
     ),
-    filters: arrayToAntdMappings(settings.possibleTracks),
-    onFilter: (megama: string, record: Person) =>
-      arrayFilterByField(record, megama, "tracks")
+    filters: arrayToAntdMappings(settings.possibleTracks)
   },
   {
     title: "מערכים רלוונטיים",
-    dataIndex: "subjects",
-    key: "subjects",
+    ...get_column_fields<Person>("subjects", arrayFilterByField),
     render: (data: string[], record: Person) => (
       <PersonTags
         field="subjects"
@@ -172,16 +130,11 @@ export const PeopleTableColumns = (
         person={record}
       />
     ),
-    filters: arrayToAntdMappings(settings.possibleSubjects),
-    onFilter: (subject: string, record: Person) =>
-      arrayFilterByField(record, subject, "subjects")
+    filters: arrayToAntdMappings(settings.possibleSubjects)
   },
   {
     title: "סגל עבר",
-    dataIndex: "wasSegel",
-    key: "wasSegel",
-    sorter: (firstPerson: Person, secondPerson: Person) =>
-      sortByField(firstPerson, secondPerson, "wasSegel"),
+    ...get_column_fields<Person>("wasSegel"),
     render: (wasSegel: string, record: Person) => (
       <BooleanField field="wasSegel" person={record} />
     ),
@@ -191,11 +144,8 @@ export const PeopleTableColumns = (
   },
   {
     title: "הערות נוספות",
-    dataIndex: "remarks",
-    key: "remarks",
+    ...get_column_fields<Person>("remarks", stringsFilterByField),
     width: "30em",
-    onFilter: (value: string, record: Person) =>
-      stringsFilterByField(record, value, "remarks"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
       <EditableTextWithPersonContext
