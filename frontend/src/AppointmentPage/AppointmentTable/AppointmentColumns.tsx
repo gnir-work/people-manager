@@ -10,7 +10,11 @@ import TextArea from "antd/lib/input/TextArea";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
 import EditablePersonAutoComplete from "../../components/fields/PersonAutoComplete/EditablePersonAutoComplete";
 import DateRangeField from "../../components/fields/DateRangeField";
-import { get_column_fields, get_tag_fields } from "../../utils/column_helpers";
+import {
+  get_column_fields,
+  get_tag_fields,
+  get_text_fields
+} from "../../utils/column_helpers";
 import BooleanField from "../../components/fields/BooleanField";
 import DeleteButton from "../../components/actions/DeleteButton";
 
@@ -68,15 +72,7 @@ export const AppointmentColumns = (
   {
     title: "מזמין",
     ...get_column_fields<Appointment>("invitor", stringsFilterByField),
-    filterDropdown: TableTextFilter,
-    render: (value: string, record: Appointment) => (
-      <EditableText
-        initialValue={value}
-        onChange={(newValue: string) => {
-          updateAppointment(record, "invitor", newValue);
-        }}
-      />
-    )
+    ...get_text_fields<Appointment>("invitor", [], updateAppointment)
   },
   {
     title: "מיטה",
@@ -110,15 +106,7 @@ export const AppointmentColumns = (
   {
     title: "מזמין מה קישור",
     ...get_column_fields<Appointment>("makishurInvitor", stringsFilterByField),
-    filterDropdown: TableTextFilter,
-    render: (value: string, record: Appointment) => (
-      <EditableText
-        initialValue={value}
-        onChange={(newValue: string) => {
-          updateAppointment(record, "makishurInvitor", newValue);
-        }}
-      />
-    )
+    ...get_text_fields<Appointment>("makishurInvitor", [], updateAppointment)
   },
   {
     title: "מסלול",

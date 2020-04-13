@@ -3,6 +3,9 @@ import { sortByField } from "./sorters";
 import EditableTag from "../components/tags/EditableTag";
 import { arrayToAntdMappings } from "./filters";
 import TagList from "../components/tags/TagList";
+import EditableText from "../components/text/EditableText";
+import { Rule } from "antd/lib/form";
+import TableTextFilter from "../components/filters/TableTextFilter";
 
 export function get_column_fields<K extends { [key: string]: any }>(
   field: keyof K,
@@ -64,5 +67,22 @@ export function get_tag_list_fields<K extends { [key: string]: any }>(
       />
     ),
     filters: arrayToAntdMappings(possibleValues)
+  };
+}
+
+export function get_text_fields<K extends { [key: string]: any }>(
+  field: keyof K,
+  rules: Rule[],
+  updateData: Function
+) {
+  return {
+    render: (value: string, record: K) => (
+      <EditableText
+        onChange={newValue => updateData(record, field, newValue)}
+        rules={rules}
+        initialValue={value}
+      />
+    ),
+    filterDropdown: TableTextFilter
   };
 }

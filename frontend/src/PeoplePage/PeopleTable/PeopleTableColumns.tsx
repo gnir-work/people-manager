@@ -21,7 +21,8 @@ import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsCon
 import {
   get_column_fields,
   get_tag_fields,
-  get_tag_list_fields
+  get_tag_list_fields,
+  get_text_fields
 } from "../../utils/column_helpers";
 import DeleteButton from "../../components/actions/DeleteButton";
 import EditableText from "../../components/text/EditableText";
@@ -33,39 +34,27 @@ export const PeopleTableColumns = (
   {
     title: "שם מלא",
     ...get_column_fields<Person>("fullName", stringsFilterByField),
-    filterDropdown: TableTextFilter,
-    render: (value: string, record: Person) => (
-      <EditableText
-        onChange={newValue => updatePerson(record, "fullName", newValue)}
-        rules={GET_BASIC_TEXT_RULES()}
-        initialValue={value}
-      />
+    ...get_text_fields<Person>(
+      "fullName",
+      GET_BASIC_TEXT_RULES(),
+      updatePerson
     ),
     width: "15em"
   },
   {
     title: "מ.א",
     ...get_column_fields<Person>("personalId", stringsFilterByField),
-    filterDropdown: TableTextFilter,
-    render: (value: string, record: Person) => (
-      <EditableText
-        onChange={newValue => updatePerson(record, "personalId", newValue)}
-        rules={GET_PERSONAL_ID_RULES(doesPersonExist)}
-        initialValue={value}
-      />
+    ...get_text_fields<Person>(
+      "personalId",
+      GET_PERSONAL_ID_RULES(doesPersonExist),
+      updatePerson
     ),
     width: "15em"
   },
   {
     title: "פלאפון",
-    ...get_column_fields<Person>("phone"),
-    render: (value: string, record: Person) => (
-      <EditableText
-        onChange={newValue => updatePerson(record, "phone", newValue)}
-        rules={GET_PHONE_NUMBER_RULES()}
-        initialValue={value}
-      />
-    ),
+    ...get_column_fields<Person>("phone", stringsFilterByField),
+    ...get_text_fields<Person>("phone", GET_PHONE_NUMBER_RULES(), updatePerson),
     width: "12em"
   },
   {
