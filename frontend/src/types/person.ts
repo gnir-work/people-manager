@@ -14,4 +14,7 @@ export interface Person extends BasicData {
   wasSegel: boolean;
 }
 
+// The serialized version is the same with the current data.
+export interface SerializedPerson extends Person {}
+
 export type PersonFields = Omit<Person, "id">;

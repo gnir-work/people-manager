@@ -50,7 +50,6 @@ export function getDataListContext<DataType extends BasicData>() {
  * In order for this to work for your data list you need to do the following things:
  * 1. Create your interface and extend from BasicData interface.
  * 2. Write all of the api calls following the CRUDApi interface.
- *
  */
 export function DataListContextProvider<DataType extends BasicData>({
   children,
@@ -105,7 +104,7 @@ export function DataListContextProvider<DataType extends BasicData>({
     field: K,
     value: DataType[K]
   ) {
-    return api.update(dataToUpdate.id, field, value).then(response => {
+    return api.update(dataToUpdate, field, value).then(response => {
       const newDatum = { ...dataToUpdate, [field]: value };
       const newData = [
         ...dataList.map(data => (data.id === dataToUpdate.id ? newDatum : data))

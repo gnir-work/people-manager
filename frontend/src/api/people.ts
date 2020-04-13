@@ -5,10 +5,10 @@ export const getPeople = (): Promise<Person[]> =>
   axios.get("/api/people/person").then(response => response.data);
 
 export const updatePersonRequest = <K extends keyof Person>(
-  personId: string,
+  person: Person,
   field: K,
   value: Person[K]
-) => axios.put(`/api/people/person/${personId}`, { [field]: value });
+) => axios.put(`/api/people/person/${person.id}`, { [field]: value });
 
 export const deletePersonRequest = (personId: string) =>
   axios.delete(`/api/people/person/${personId}`);

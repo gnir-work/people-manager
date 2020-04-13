@@ -8,7 +8,7 @@ export interface CRUDApi<DataType extends BasicData> {
   get: () => Promise<DataType[]>;
   delete: (idToDelete: string) => Promise<AxiosResponse>;
   update: <K extends keyof DataType>(
-    idToUpdate: string,
+    data: DataType,
     key: K,
     value: DataType[K]
   ) => Promise<AxiosResponse>;
