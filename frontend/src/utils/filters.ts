@@ -1,10 +1,6 @@
 import { ConditionalProps, getElementType } from "./types";
 import moment, { Moment } from "moment";
 
-interface test {
-  a: number;
-}
-
 /**
  * Run a simple comparison.
  * This function helps simplify the configuration of antd columns.
