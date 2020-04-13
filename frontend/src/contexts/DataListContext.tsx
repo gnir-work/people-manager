@@ -2,31 +2,22 @@ import React, {
   createContext,
   useEffect,
   useState,
-  ReactChildren,
   Context,
   ReactNode
 } from "react";
 import _ from "lodash";
-import { AxiosResponse } from "axios";
 import BasicData from "../types/data";
+import { CRUDApi } from "../api/types";
 
-export interface DataListApi<DataType extends BasicData> {
-  get: () => Promise<DataType[]>;
-  delete: (idToDelete: string) => Promise<AxiosResponse>;
-  update: <K extends keyof DataType>(
-    idToUpdate: string,
-    key: K,
-    value: DataType[K]
-  ) => Promise<AxiosResponse>;
-  add: (newData: Omit<DataType, "id">) => Promise<AxiosResponse>;
-}
-
+/**
+ * The API that the context providers to its children.
+ */
 export interface DataListContextInterface<DataType extends BasicData> {
   data: DataType[];
-  deleteData: (personToDelete: DataType) => void;
+  deleteData: (dataToDelete: DataType) => void;
   getFieldDataSet: (field: keyof DataType) => any[];
   updateData: <K extends keyof DataType>(
-    personToUpdate: DataType,
+    dataToUpdate: DataType,
     field: K,
     value: DataType[K]
   ) => void;
@@ -34,13 +25,17 @@ export interface DataListContextInterface<DataType extends BasicData> {
   doesDataExist: (dataId: string) => boolean;
 }
 
+/**
+ * A factory for creating a generic CRUD context (read more in the providers doc).
+ * This is a function in order to allow generics over the type of the data.
+ */
 export function getDataListContext<DataType extends BasicData>() {
   const defaultData: DataListContextInterface<DataType> = {
     data: [],
-    deleteData: (personToDelete: DataType) => {},
+    deleteData: (dataToDelete: DataType) => {},
     getFieldDataSet: (field: keyof DataType) => [],
     updateData: <K extends keyof DataType>(
-      personToUpdate: DataType,
+      dataToUpdate: DataType,
       field: K,
       value: DataType[K]
     ) => {},
@@ -51,8 +46,11 @@ export function getDataListContext<DataType extends BasicData>() {
 }
 
 /**
- * A context which handles all of the manipulation on the people dataset.
- * From fetching the data set to deleting or adding people.
+ * The provider provides all of the functionality regarding CRUD operation between the client and server over a given list of data.
+ * In order for this to work for your data list you need to do the following things:
+ * 1. Create your interface and extend from BasicData interface.
+ * 2. Write all of the api calls following the CRUDApi interface.
+ *
  */
 export function DataListContextProvider<DataType extends BasicData>({
   children,
@@ -61,7 +59,7 @@ export function DataListContextProvider<DataType extends BasicData>({
 }: {
   children: ReactNode;
   DataListContext: Context<DataListContextInterface<DataType>>;
-  api: DataListApi<DataType>;
+  api: CRUDApi<DataType>;
 }) {
   const [dataList, setDataList]: [DataType[], Function] = useState([]);
 
@@ -72,23 +70,21 @@ export function DataListContextProvider<DataType extends BasicData>({
   }, []);
 
   /**
-   * Check if we already have a person with this id.
-   * @param personId The id of the person.
+   * Check if we already have a data with this id.
+   * @param dataId The id of the data.
    */
   const doesDataExist = (dataId: string) => !!_.find(dataList, ["id", dataId]);
 
   /**
-   * Deletes a specific person identified by id.
+   * Deletes a specific data identified by id.
    *
-   * @param dataToDelete The person to delete from the dataset.
+   * @param dataToDelete The data to delete from the dataset.
    * @returns a boolean indicating the success of the operation.
    */
   const deleteData = (dataToDelete: DataType) => {
     return api.delete(dataToDelete.id).then(response => {
-      const filteredPeople = dataList.filter(
-        person => person.id !== dataToDelete.id
-      );
-      setDataList(filteredPeople);
+      const filteredData = dataList.filter(data => data.id !== dataToDelete.id);
+      setDataList(filteredData);
     });
   };
 
@@ -97,31 +93,29 @@ export function DataListContextProvider<DataType extends BasicData>({
    * @param field The field from which the data set should be built
    */
   const getFieldDataSet = (field: keyof DataType) => {
-    const fields = dataList.map((person: DataType) => person[field]);
+    const fields = dataList.map((data: DataType) => data[field]);
     return _.uniq(fields);
   };
 
   /**
-   * Update a specific person.
+   * Update a specific data.
    */
   function updateData<K extends keyof DataType>(
-    personToUpdate: DataType,
+    dataToUpdate: DataType,
     field: K,
     value: DataType[K]
   ) {
-    return api.update(personToUpdate.id, field, value).then(response => {
-      const newPerson = { ...personToUpdate, [field]: value };
-      const newPeople = [
-        ...dataList.map(person =>
-          person.id === personToUpdate.id ? newPerson : person
-        )
+    return api.update(dataToUpdate.id, field, value).then(response => {
+      const newDatum = { ...dataToUpdate, [field]: value };
+      const newData = [
+        ...dataList.map(data => (data.id === dataToUpdate.id ? newDatum : data))
       ];
-      setDataList(newPeople);
+      setDataList(newData);
     });
   }
 
   /**
-   * Create new Person
+   * Create new Data instance and append it to the current list.
    */
   const addData = (newDataFields: Omit<DataType, "id">) => {
     return api.add(newDataFields).then(response => {
