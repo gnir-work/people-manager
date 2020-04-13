@@ -14,7 +14,7 @@ interface PeopleTableProps {
 const PeopleTable: React.FC<PeopleTableProps> = ({ className }) => {
   const peopleContext = useContext(PeopleContext);
   const peopleSettingsContext = useContext(PeopleSettingsContext);
-  const data = peopleContext.people.map(person => ({
+  const data = peopleContext.data.map(person => ({
     ...person,
     key: person.id
   }));

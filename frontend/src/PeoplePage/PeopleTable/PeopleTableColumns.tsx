@@ -28,7 +28,11 @@ import DeleteButton from "../../components/actions/DeleteButton";
 import EditableText from "../../components/text/EditableText";
 
 export const PeopleTableColumns = (
-  { doesPersonExist, updatePerson, deletePerson }: PeopleContextInterface,
+  {
+    doesDataExist: doesPersonExist,
+    updateData: updatePerson,
+    deleteData: deletePerson
+  }: PeopleContextInterface,
   { settings }: PeopleSettingsContextInterface
 ) => [
   {

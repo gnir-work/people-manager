@@ -7,9 +7,11 @@ import FormModal, {
 import AddPersonForm from "./AddPersonForm";
 
 const AddPersonModal: React.FC = () => {
-  const { addPerson, doesPersonExist, getFieldDataSet } = useContext(
-    PeopleContext
-  );
+  const {
+    addData: addPerson,
+    doesDataExist: doesPersonExist,
+    getFieldDataSet
+  } = useContext(PeopleContext);
   const { settings } = useContext(PeopleSettingsContext);
   const possibleTeams = getFieldDataSet("team");
 

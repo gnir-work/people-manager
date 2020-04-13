@@ -20,7 +20,9 @@ const EditableTextAutoComplete: React.FC<EditableTextAutoCompleteProps> = ({
   initialValue,
   rules = []
 }) => {
-  const { updatePerson, getFieldDataSet } = useContext(PeopleContext);
+  const { updateData: updatePerson, getFieldDataSet } = useContext(
+    PeopleContext
+  );
   const dataSet = getFieldDataSet(field);
 
   const handleTextSelection = (newValue: string) => {

@@ -14,7 +14,7 @@ const PersonAutoComplete: React.FC<PersonAutoCompleteProps> = ({
   value,
   onChange = () => {}
 }) => {
-  const { people } = useContext(PeopleContext);
+  const { data: people } = useContext(PeopleContext);
   const [filter, setFilter] = useState((value && value.fullName) || "");
 
   const dataSet = people.filter((person: Person) =>
