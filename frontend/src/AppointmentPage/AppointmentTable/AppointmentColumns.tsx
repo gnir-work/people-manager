@@ -1,10 +1,6 @@
 import React from "react";
 import { sortByField } from "../../utils/sorters";
-import {
-  stringsFilterByField,
-  simpleFilterByField,
-  arrayToAntdMappings
-} from "../../utils/filters";
+import { stringsFilterByField, simpleFilterByField } from "../../utils/filters";
 import TableTextFilter from "../../components/filters/TableTextFilter";
 import { Appointment } from "../../types/appointment";
 import { Checkbox } from "antd";
@@ -14,49 +10,9 @@ import { AppointmentsContextInterface } from "../../contexts/AppointmentContext"
 import EditableText from "../../components/text/EditableText";
 import TextArea from "antd/lib/input/TextArea";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
-import EditableTag from "../../components/tags/EditableTag";
 import EditablePersonAutoComplete from "./EditablePersonAutoComplete";
 import AppointmentDateRage from "./AppointmentDateRange";
-
-const _get_column_fields = (
-  field: keyof Appointment,
-  filterFunction?: Function
-) => {
-  const fields = {
-    dataIndex: field,
-    key: field,
-    sorter: (firstAppointment: Appointment, secondAppointment: Appointment) =>
-      sortByField(firstAppointment, secondAppointment, field)
-  };
-
-  if (filterFunction) {
-    return {
-      ...fields,
-      onFilter: (value: string, record: Appointment) =>
-        filterFunction(record, value, field)
-    };
-  } else {
-    return fields;
-  }
-};
-
-const _get_tag_fields = (
-  possibleValues: string[],
-  field: string,
-  updateAppointment: Function
-) => ({
-  filters: arrayToAntdMappings(possibleValues),
-  render: (value: string, record: Appointment) => (
-    <EditableTag
-      possibleTags={possibleValues}
-      onTagChange={(newValue: string) =>
-        updateAppointment(record, field, newValue)
-      }
-    >
-      {value}
-    </EditableTag>
-  )
-});
+import { get_column_fields, get_tag_fields } from "../../utils/column_helpers";
 
 export const AppointmentColumns = (
   { updateAppointment }: AppointmentsContextInterface,
@@ -64,7 +20,7 @@ export const AppointmentColumns = (
 ) => [
   {
     title: "איש חוץ",
-    ..._get_column_fields("person"),
+    ...get_column_fields("person"),
     sorter: (firstAppointment: Appointment, secondAppointment: Appointment) =>
       sortByField(
         firstAppointment.person,
@@ -85,12 +41,12 @@ export const AppointmentColumns = (
   },
   {
     title: "תקופה",
-    ..._get_column_fields("phase", stringsFilterByField),
-    ..._get_tag_fields(settings.possiblePhases, "phase", updateAppointment)
+    ...get_column_fields("phase", stringsFilterByField),
+    ...get_tag_fields(settings.possiblePhases, "phase", updateAppointment)
   },
   {
     title: "שבוע",
-    ..._get_column_fields("week", simpleFilterByField),
+    ...get_column_fields("week", simpleFilterByField),
     filterDropdown: TableTextFilter
   },
   {
@@ -107,7 +63,7 @@ export const AppointmentColumns = (
 
   {
     title: "מזמין",
-    ..._get_column_fields("invitor", stringsFilterByField),
+    ...get_column_fields("invitor", stringsFilterByField),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Appointment) => (
       <EditableText
@@ -120,8 +76,8 @@ export const AppointmentColumns = (
   },
   {
     title: "מיטה",
-    ..._get_column_fields("bedStatus", stringsFilterByField),
-    ..._get_tag_fields(
+    ...get_column_fields("bedStatus", stringsFilterByField),
+    ...get_tag_fields(
       settings.possibleBedStatus,
       "bedStatus",
       updateAppointment
@@ -129,8 +85,8 @@ export const AppointmentColumns = (
   },
   {
     title: "אישור כניסה",
-    ..._get_column_fields("entryStatus", stringsFilterByField),
-    ..._get_tag_fields(
+    ...get_column_fields("entryStatus", stringsFilterByField),
+    ...get_tag_fields(
       settings.possibleEntryStates,
       "entryStatus",
       updateAppointment
@@ -138,7 +94,7 @@ export const AppointmentColumns = (
   },
   {
     title: "מצב מהקישור",
-    ..._get_column_fields("makishur", simpleFilterByField),
+    ...get_column_fields("makishur", simpleFilterByField),
     filters: ANTD_BOOLEAN_FILTERS,
     render: (value: string, record: Appointment) => (
       <Checkbox
@@ -149,7 +105,7 @@ export const AppointmentColumns = (
   },
   {
     title: "מזמין מה קישור",
-    ..._get_column_fields("makishurInvitor", stringsFilterByField),
+    ...get_column_fields("makishurInvitor", stringsFilterByField),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Appointment) => (
       <EditableText
@@ -162,13 +118,13 @@ export const AppointmentColumns = (
   },
   {
     title: "מסלול",
-    ..._get_column_fields("track", stringsFilterByField),
-    ..._get_tag_fields(settings.possibleTracks, "track", updateAppointment)
+    ...get_column_fields("track", stringsFilterByField),
+    ...get_tag_fields(settings.possibleTracks, "track", updateAppointment)
   },
   {
     title: "סיבה",
-    ..._get_column_fields("reason", stringsFilterByField),
-    ..._get_tag_fields(
+    ...get_column_fields("reason", stringsFilterByField),
+    ...get_tag_fields(
       settings.possibleAppointmentReasons,
       "reason",
       updateAppointment
@@ -176,7 +132,7 @@ export const AppointmentColumns = (
   },
   {
     title: "הערות",
-    ..._get_column_fields("remarks", stringsFilterByField),
+    ...get_column_fields("remarks", stringsFilterByField),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Appointment) => (
       <EditableText
