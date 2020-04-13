@@ -8,12 +8,9 @@ import React, {
 } from "react";
 import _ from "lodash";
 import { AxiosResponse } from "axios";
+import BasicData from "../types/data";
 
-type BasicDataType = {
-  id: string;
-};
-
-export interface DataListApi<DataType extends BasicDataType> {
+export interface DataListApi<DataType extends BasicData> {
   get: () => Promise<DataType[]>;
   delete: (idToDelete: string) => Promise<AxiosResponse>;
   update: <K extends keyof DataType>(
@@ -24,7 +21,7 @@ export interface DataListApi<DataType extends BasicDataType> {
   add: (newData: Omit<DataType, "id">) => Promise<AxiosResponse>;
 }
 
-export interface DataListContextInterface<DataType extends BasicDataType> {
+export interface DataListContextInterface<DataType extends BasicData> {
   data: DataType[];
   deleteData: (personToDelete: DataType) => void;
   getFieldDataSet: (field: keyof DataType) => any[];
@@ -37,7 +34,7 @@ export interface DataListContextInterface<DataType extends BasicDataType> {
   doesDataExist: (dataId: string) => boolean;
 }
 
-export function getDataListContext<DataType extends BasicDataType>() {
+export function getDataListContext<DataType extends BasicData>() {
   const defaultData: DataListContextInterface<DataType> = {
     data: [],
     deleteData: (personToDelete: DataType) => {},
@@ -57,7 +54,7 @@ export function getDataListContext<DataType extends BasicDataType>() {
  * A context which handles all of the manipulation on the people dataset.
  * From fetching the data set to deleting or adding people.
  */
-export function DataListContextProvider<DataType extends BasicDataType>({
+export function DataListContextProvider<DataType extends BasicData>({
   children,
   DataListContext,
   api

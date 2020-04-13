@@ -13,12 +13,11 @@ const serializePerson = (person: Person) => person.id;
 export const getAppointments = (): Promise<Appointment[]> =>
   axios.get("/api/appointments/appointment").then(appointments =>
     appointments.data.map((appointment: Appointment) => {
-      const person = new Person(appointment.person);
       const dates: [Moment, Moment] = [
         moment(appointment.dates[0]),
         moment(appointment.dates[1])
       ];
-      return new Appointment({ ...appointment, person, dates });
+      return { ...appointment, dates };
     })
   );
 

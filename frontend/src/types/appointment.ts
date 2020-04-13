@@ -1,8 +1,8 @@
 import { Person } from "./person";
 import { Moment } from "moment";
+import BasicData from "./data";
 
-export class Appointment {
-  readonly id: string;
+export interface Appointment extends BasicData {
   person: Person;
   phase: string;
   week: number;
@@ -15,20 +15,6 @@ export class Appointment {
   track: string;
   reason: string;
   remarks: string;
-
-  constructor(newAppointment: Appointment) {
-    this.id = newAppointment.id;
-    this.person = newAppointment.person;
-    this.phase = newAppointment.phase;
-    this.week = newAppointment.week;
-    this.dates = newAppointment.dates;
-    this.invitor = newAppointment.invitor;
-    this.bedStatus = newAppointment.bedStatus;
-    this.entryStatus = newAppointment.entryStatus;
-    this.makishur = newAppointment.makishur;
-    this.makishurInvitor = newAppointment.makishurInvitor;
-    this.track = newAppointment.track;
-    this.reason = newAppointment.reason;
-    this.remarks = newAppointment.remarks;
-  }
 }
+
+export type AppointmentFields = Omit<Appointment, "id">;

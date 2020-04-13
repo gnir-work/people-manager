@@ -2,9 +2,7 @@ import axios from "axios";
 import { Person, PersonFields } from "../types/person";
 
 export const getPeople = (): Promise<Person[]> =>
-  axios
-    .get("/api/people/person")
-    .then(people => people.data.map((person: Person) => new Person(person)));
+  axios.get("/api/people/person").then(response => response.data);
 
 export const updatePersonRequest = <K extends keyof Person>(
   personId: string,
