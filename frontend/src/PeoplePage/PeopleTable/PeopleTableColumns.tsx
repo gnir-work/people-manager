@@ -8,7 +8,6 @@ import {
   simpleFilterByField
 } from "../../utils/filters";
 import { Person } from "../../types/person";
-import EditableTextWithPersonContext from "./EditableTextWithPersonContext";
 import PersonTags from "./PersonTags";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
 import BooleanField from "../../components/fields/BooleanField";
@@ -21,11 +20,12 @@ import { PeopleContextInterface } from "../../contexts/PeopleContext";
 import EditableTextAutoComplete from "../../components/text/EditableTextAutoComplete";
 import { Input } from "antd";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
-import PersonDeleteButton from "./PersonDeleteButton";
 import { get_column_fields, get_tag_fields } from "../../utils/column_helpers";
+import DeleteButton from "../../components/actions/DeleteButton";
+import EditableText from "../../components/text/EditableText";
 
 export const PeopleTableColumns = (
-  { doesPersonExist, updatePerson }: PeopleContextInterface,
+  { doesPersonExist, updatePerson, deletePerson }: PeopleContextInterface,
   { settings }: PeopleSettingsContextInterface
 ) => [
   {
@@ -33,11 +33,10 @@ export const PeopleTableColumns = (
     ...get_column_fields<Person>("fullName", stringsFilterByField),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <EditableTextWithPersonContext
-        field="fullName"
-        person={record}
-        initialValue={value}
+      <EditableText
+        onChange={newValue => updatePerson(record, "fullName", newValue)}
         rules={GET_BASIC_TEXT_RULES()}
+        initialValue={value}
       />
     ),
     width: "15em"
@@ -47,11 +46,10 @@ export const PeopleTableColumns = (
     ...get_column_fields<Person>("personalId", stringsFilterByField),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <EditableTextWithPersonContext
-        field="personalId"
-        person={record}
-        initialValue={value}
+      <EditableText
+        onChange={newValue => updatePerson(record, "personalId", newValue)}
         rules={GET_PERSONAL_ID_RULES(doesPersonExist)}
+        initialValue={value}
       />
     ),
     width: "15em"
@@ -60,11 +58,10 @@ export const PeopleTableColumns = (
     title: "פלאפון",
     ...get_column_fields<Person>("phone"),
     render: (value: string, record: Person) => (
-      <EditableTextWithPersonContext
-        field="phone"
-        person={record}
-        initialValue={value}
+      <EditableText
+        onChange={newValue => updatePerson(record, "phone", newValue)}
         rules={GET_PHONE_NUMBER_RULES()}
+        initialValue={value}
       />
     ),
     width: "12em"
@@ -148,11 +145,10 @@ export const PeopleTableColumns = (
     width: "30em",
     filterDropdown: TableTextFilter,
     render: (value: string, record: Person) => (
-      <EditableTextWithPersonContext
-        textClassName="remarks-text"
+      <EditableText
         InputType={Input.TextArea}
-        field="remarks"
-        person={record}
+        textClassName="remarks-text"
+        onChange={newValue => updatePerson(record, "remarks", newValue)}
         initialValue={value}
       />
     )
@@ -162,7 +158,10 @@ export const PeopleTableColumns = (
     dataIndex: "",
     key: "actions",
     render: (text: string, record: Person) => (
-      <PersonDeleteButton person={record} />
+      <DeleteButton
+        confirmationMessage={`האם למחוק את ${record.fullName}?`}
+        onDelete={() => deletePerson(record)}
+      />
     )
   }
 ];
