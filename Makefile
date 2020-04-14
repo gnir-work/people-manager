@@ -16,6 +16,10 @@ start-app: build-frontend export-python-requirements
 populate-db:
 	docker exec -it people-manager_backend_1 /bin/sh -c "python -m src.create_db"
 
-local-mongo:
+delete-local-mongo:
+	docker stop local-people-manager-mongo 2> /dev/null | true
+	docker rm local-people-manager-mongo 2> /dev/null | true
+
+local-mongo: delete-local-mongo
 	docker run --name local-people-manager-mongo -d -p 27017:27017 mongo:4.2.3
 	cd backend && poetry run python -m people_manager.src.create_db
