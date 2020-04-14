@@ -20,10 +20,6 @@ const appointmentCrudApi = createCrudApi<Appointment>({
   serializer: serializeAppointment
 });
 
-/**
- * A context which handles all of the manipulation on the appointment dataset.
- * From fetching the data set to deleting or adding appointment.
- */
 export const AppointmentContextProvider: React.FC = ({ children }) => {
   return (
     <DataListContextProvider

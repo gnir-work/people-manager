@@ -14,6 +14,9 @@ interface FormModalProps {
   title: string;
 }
 
+/**
+ * A generic modal that contains and antd form that should be submitted.
+ */
 const FormModal: React.FC<FormModalProps> = ({ onSubmit, children, title }) => {
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();

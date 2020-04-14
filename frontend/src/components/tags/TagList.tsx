@@ -38,8 +38,8 @@ const TagList: React.FC<TagListProps> = ({
   };
 
   /**
-   * We want the current value of the tag to be a possible tag that the user
-   * can change the current value to because of the following:
+   * We want the current value of the tag to be a possible value that the user
+   * can select because of the following:
    * In case there are no other options (All of the possibleTags are selected) when a person
    * clicks a tag to edit it its weird that there are no options, it looks a lot better
    * if the current value is available.

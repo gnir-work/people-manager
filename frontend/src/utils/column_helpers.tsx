@@ -3,7 +3,7 @@ import { sortByField } from "./sorters";
 import EditableTag from "../components/tags/EditableTag";
 import { arrayToAntdMappings } from "./filters";
 import TagList from "../components/tags/TagList";
-import EditableText from "../components/text/EditableText";
+import EditableText from "../components/fields/text/EditableText";
 import { Rule } from "antd/lib/form";
 import TableTextFilter from "../components/filters/TableTextFilter";
 import BasicData from "../types/data";

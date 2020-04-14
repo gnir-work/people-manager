@@ -1,19 +1,17 @@
 import { Person as K } from "../types/person";
 
 /**
- * Compares between two person objects by a specific field.
- * @param firstPerson
- * @param secondPerson
+ * Compares between two data objects by a specific field.
  * @param field The field name by which the objects should be compared
  */
 export const sortByField = <K>(
-  firstPerson: K,
-  secondPerson: K,
+  firstData: K,
+  secondData: K,
   field: keyof K
 ): number => {
-  if (firstPerson[field] > secondPerson[field]) {
+  if (firstData[field] > secondData[field]) {
     return 1;
-  } else if (firstPerson[field] < secondPerson[field]) {
+  } else if (firstData[field] < secondData[field]) {
     return -1;
   } else {
     return 0;

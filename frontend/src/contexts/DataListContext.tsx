@@ -50,7 +50,8 @@ export function getDataListContext<DataType extends BasicData>() {
  * The provider provides all of the functionality regarding CRUD operation between the client and server over a given list of data.
  * In order for this to work for your data list you need to do the following things:
  * 1. Create your interface and extend from BasicData interface.
- * 2. Write all of the api calls following the CRUDApi interface.
+ * 2. Use createCrudApi in order to create your api.
+ * Look at PeopleContext and Person interface for an example.
  */
 export function DataListContextProvider<DataType extends BasicData>({
   children,
@@ -84,7 +85,7 @@ export function DataListContextProvider<DataType extends BasicData>({
    * Deletes a specific data identified by id.
    *
    * @param dataToDelete The data to delete from the dataset.
-   * @returns a boolean indicating the success of the operation.
+   * @returns a promise that can be used to followup success.
    */
   const deleteData = (dataToDelete: DataType) => {
     return api
@@ -112,6 +113,9 @@ export function DataListContextProvider<DataType extends BasicData>({
 
   /**
    * Update a specific data.
+   * We update a specific key and not just dump the whole object to the server in order to minimize overrides in case the same data
+   * was edited from to different clients.
+   * @returns a promise that can be used to followup success.
    */
   function updateData<K extends keyof DataType>(
     dataToUpdate: DataType,
@@ -120,7 +124,7 @@ export function DataListContextProvider<DataType extends BasicData>({
   ) {
     return api
       .update(dataToUpdate, field, value)
-      .then(response => {
+      .then(() => {
         const newDatum = { ...dataToUpdate, [field]: value };
         const newData = [
           ...dataList.map(data =>
@@ -136,6 +140,7 @@ export function DataListContextProvider<DataType extends BasicData>({
 
   /**
    * Create new Data instance and append it to the current list.
+   * @returns a promise that can be used to followup success.
    */
   const addData = (newDataFields: Omit<DataType, "id">) => {
     return api

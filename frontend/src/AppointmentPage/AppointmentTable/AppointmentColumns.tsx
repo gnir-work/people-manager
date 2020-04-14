@@ -4,7 +4,7 @@ import { stringsFilterByField, simpleFilterByField } from "../../utils/filters";
 import TableTextFilter from "../../components/filters/TableTextFilter";
 import { Appointment } from "../../types/appointment";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
-import EditableText from "../../components/text/EditableText";
+import EditableText from "../../components/fields/text/EditableText";
 import TextArea from "antd/lib/input/TextArea";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
 import EditablePersonAutoComplete from "../../components/fields/PersonAutoComplete/EditablePersonAutoComplete";
