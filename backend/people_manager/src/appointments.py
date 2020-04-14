@@ -56,12 +56,23 @@ def _get_id_to_person_mapping():
 
 
 def _map_fields_before_db(appointment: dict):
+    """
+    This is a patch.
+    We are using mongo compound index in order to enforce uniquity of the documents, however this future doesn't work well with
+    fields that are arrays. In order to by pass this we break the array to two separate fields. 
+    Because this is a backend concern and the frontend doesn't support this kind of convertion easily I preferred to handle this here.
+
+    You are welcomed to change \ fix this.
+    """
     appointment["from"] = appointment["dates"][0]
     appointment["to"] = appointment["dates"][1]
     del appointment["dates"]
 
 
 def _map_fields_after_db(appointment: dict):
+    """
+    Read the doc of _map_fields_before_db.
+    """
     appointment["dates"] = [appointment["from"], appointment["to"]]
     del appointment["from"]
     del appointment["to"]
