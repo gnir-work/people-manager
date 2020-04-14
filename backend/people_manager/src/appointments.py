@@ -18,6 +18,9 @@ def get_all_appointments():
     id_to_person = get_id_to_person_mapping()
     for appointment in appointments:
         appointment["person"] = id_to_person[appointment["person"]]
+        appointment["dates"] = [appointment["from"], appointment["to"]]
+        del appointment["from"]
+        del appointment["to"]
         appointment = format_document_id(appointment)
     return appointments
 
@@ -25,6 +28,11 @@ def get_all_appointments():
 def update_appointment(appointment_id: str, new_values: dict):
     appointments = get_appointments_collection()
     try:
+        if "dates" in new_values:
+            new_values["from"] = new_values["dates"][0]
+            new_values["to"] = new_values["dates"][1]
+            del new_values["dates"]
+
         result = appointments.update_one(
             {"_id": ObjectId(appointment_id)}, {"$set": new_values}
         )
@@ -42,6 +50,9 @@ def delete_appointment(appointment_id: str):
 def create_appointment(appointment: dict):
     appointments = get_appointments_collection()
     try:
+        appointment["from"] = appointment["dates"][0]
+        appointment["to"] = appointment["dates"][1]
+        del appointment["dates"]
         result = appointments.insert_one(appointment)
         if result.acknowledged and result.inserted_id:
             return str(result.inserted_id)
