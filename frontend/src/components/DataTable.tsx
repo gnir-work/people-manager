@@ -21,7 +21,7 @@ export default function DataTable<K extends BasicData>({
       <Table
         dataSource={data.map((item: K) => ({ ...item, key: item.id }))}
         size="middle"
-        pagination={{ pageSize: 30 }}
+        pagination={{ pageSize: 15 }}
         {...tableProps}
       />
     </div>

@@ -9,6 +9,9 @@ import "./App.scss";
 import AppHeader from "./AppHeader";
 import { APPOINTMENT_PAGE_URL, PEOPLE_PAGE_URL } from "./consts";
 import AppointmentPage from "./AppointmentPage/AppointmentPage";
+import { PeopleSettingsContextProvider } from "./contexts/PeopleSettingsContext";
+import { PeopleContextProvider } from "./contexts/PeopleContext";
+import { AppointmentContextProvider } from "./contexts/AppointmentContext";
 
 const { Content, Footer } = Layout;
 
@@ -17,14 +20,20 @@ const App: React.FC = () => (
     <Layout className="layout">
       <AppHeader />
       <Content>
-        <Switch>
-          <Route exact path={APPOINTMENT_PAGE_URL}>
-            <AppointmentPage />
-          </Route>
-          <Route path={PEOPLE_PAGE_URL}>
-            <PeoplePage />
-          </Route>
-        </Switch>
+        <PeopleSettingsContextProvider>
+          <PeopleContextProvider>
+            <AppointmentContextProvider>
+              <Switch>
+                <Route exact path={APPOINTMENT_PAGE_URL}>
+                  <AppointmentPage />
+                </Route>
+                <Route path={PEOPLE_PAGE_URL}>
+                  <PeoplePage />
+                </Route>
+              </Switch>
+            </AppointmentContextProvider>
+          </PeopleContextProvider>
+        </PeopleSettingsContextProvider>
       </Content>
       <Footer>Bis Hibur ©2019 Created by Nir Geller</Footer>
     </Layout>
