@@ -16,7 +16,7 @@ const AddPersonModal: React.FC = () => {
   const possibleTeams = getFieldDataSet("team");
 
   const handleSubmit = (values: Object) => {
-    addPerson(values as any);
+    return addPerson(values as any);
   };
 
   const renderForm = useCallback(

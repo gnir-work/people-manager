@@ -21,7 +21,7 @@ export interface DataListContextInterface<DataType extends BasicData> {
     field: K,
     value: DataType[K]
   ) => void;
-  addData: (newDataFields: Omit<DataType, "id">) => void;
+  addData: (newDataFields: Omit<DataType, "id">) => Promise<void>;
   doesDataExist: (dataId: string) => boolean;
 }
 
@@ -39,7 +39,7 @@ export function getDataListContext<DataType extends BasicData>() {
       field: K,
       value: DataType[K]
     ) => {},
-    addData: (newDataFields: Omit<DataType, "id">) => {},
+    addData: (newDataFields: Omit<DataType, "id">) => new Promise(() => {}),
     doesDataExist: (dataId: string) => false
   };
   return createContext(defaultData);
