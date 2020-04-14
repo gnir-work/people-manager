@@ -10,8 +10,18 @@ const AddAppointmentModal: React.FC = () => {
   const { addData: addAppointment } = useContext(AppointmentContext);
   const peopleSettings = useContext(PeopleSettingsContext);
 
-  const handleSubmit = (values: Object) => {
-    return addAppointment(values as any);
+  const handleSubmit = ({
+    dates: [from, to],
+    ...otherValues
+  }: {
+    [key: string]: any;
+  }) => {
+    const newAppointment = {
+      from,
+      to,
+      ...otherValues
+    };
+    return addAppointment(newAppointment as any);
   };
 
   const renderForm = useCallback(

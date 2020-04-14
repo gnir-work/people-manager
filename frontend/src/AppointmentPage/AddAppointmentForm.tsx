@@ -14,7 +14,8 @@ const layout = {
 
 const initialValues = {
   person: null,
-  makishur: false
+  makishur: false,
+  week: 1
 };
 
 interface AddAppointmentFormProps {

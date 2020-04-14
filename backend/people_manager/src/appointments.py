@@ -3,6 +3,8 @@ from .people import get_person_by_id
 from .utils import format_document_id
 from .exceptions import AppointmentExists
 from bson import ObjectId
+from pymongo.errors import DuplicateKeyError
+
 
 def get_all_appointments():
     appointments_collection = get_appointments_collection()
@@ -15,8 +17,13 @@ def get_all_appointments():
 
 def update_appointment(appointment_id: str, new_values: dict):
     appointments = get_appointments_collection()
-    result = appointments.update_one({"_id": ObjectId(appointment_id)}, {"$set": new_values})
-    return result.acknowledged and result.matched_count == 1
+    try:
+        result = appointments.update_one(
+            {"_id": ObjectId(appointment_id)}, {"$set": new_values}
+        )
+        return result.acknowledged and result.matched_count == 1
+    except DuplicateKeyError:
+        raise AppointmentExists
 
 
 def delete_appointment(appointment_id: str):
@@ -27,11 +34,11 @@ def delete_appointment(appointment_id: str):
 
 def create_appointment(appointment: dict):
     appointments = get_appointments_collection()
-    if appointments.find_one({"person": appointment["person"], "dates": appointment["dates"]}):
-        raise AppointmentExists()
-
-    result = appointments.insert_one(appointment)
-    if result.acknowledged and result.inserted_id:
-        return str(result.inserted_id)
-    else:
-        return None
+    try:
+        result = appointments.insert_one(appointment)
+        if result.acknowledged and result.inserted_id:
+            return str(result.inserted_id)
+        else:
+            return None
+    except DuplicateKeyError:
+        raise AppointmentExists

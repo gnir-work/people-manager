@@ -1,3 +1,4 @@
+import pymongo
 from .db import (
     get_people_settings_collection,
     get_people_collection,
@@ -25,7 +26,8 @@ APPOINTMENTS = [
     {
         "phase": "אחוד",
         "week": 1,
-        "dates": [1585249896000, 1585349996000],
+        "from": 1585249896000,
+        "to": 1585349996000,
         "bedStatus": "לא צריך",
         "entryStatus": "יש",
         "invitor": "gnir",
@@ -48,6 +50,8 @@ def create_default_people():
     people = get_people_collection()
     for person in PEOPLE:
         people.insert_one(person)
+    
+    people.create_index('personalId', unique=True)
 
 
 def create_default_appointments():
@@ -57,6 +61,8 @@ def create_default_appointments():
     for appointment in APPOINTMENTS:
         appointment["person"] = str(person["_id"])
         appointments.insert_one(appointment)
+
+    appointments.create_index([('person', pymongo.DESCENDING), ('from', pymongo.DESCENDING), ('to', pymongo.DESCENDING)], unique=True)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,11 @@
 from flask import Flask, jsonify, request
 from .people import get_all_people, update_person, delete_person, create_person
-from .appointments import get_all_appointments, delete_appointment, update_appointment, create_appointment
+from .appointments import (
+    get_all_appointments,
+    delete_appointment,
+    update_appointment,
+    create_appointment,
+)
 from .people_settings import get_all_settings
 from .const import DEBUG
 from .exceptions import PersonExists, AppointmentExists
@@ -24,10 +29,16 @@ def get_all_people_route():
 @app.route("/api/people/person/<person_id>", methods=["PUT"])
 def update_person_route(person_id: str):
     data = request.get_json()
-    if update_person(person_id, data):
-        return _get_ok_response()
-    else:
-        return _get_failed_response(404)
+    try:
+        if update_person(person_id, data):
+            return _get_ok_response()
+        else:
+            return _get_failed_response(404)
+    except PersonExists:
+        return (
+            jsonify({"status": "Person already exists"}),
+            409,
+        )
 
 
 @app.route("/api/people/person/<person_id>", methods=["DELETE"])
@@ -77,13 +88,19 @@ def delete_appointment_route(appointment_id: str):
 @app.route("/api/appointments/appointment/<appointment_id>", methods=["PUT"])
 def update_appointment_route(appointment_id: str):
     data = request.get_json()
-    if update_appointment(appointment_id, data):
-        return _get_ok_response()
-    else:
-        return _get_failed_response(404)
+    try:
+        if update_appointment(appointment_id, data):
+            return _get_ok_response()
+        else:
+            return _get_failed_response(404)
+    except AppointmentExists:
+        return (
+            jsonify({"status": f"Appointment already exists"}),
+            409,
+        )
 
 
-@app.route("/api/appointments/appointment", methods=['POST'])
+@app.route("/api/appointments/appointment", methods=["POST"])
 def create_appointment_route():
     appointment = request.get_json()
     try:
@@ -94,11 +111,10 @@ def create_appointment_route():
             return _get_failed_response(500)
     except AppointmentExists:
         return (
-            jsonify(
-                {"status": f"Appointment already exists"}
-            ),
+            jsonify({"status": f"Appointment already exists"}),
             409,
         )
+
 
 def _get_ok_response():
     return jsonify({"status": "ok"})
