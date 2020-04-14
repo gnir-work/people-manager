@@ -5,18 +5,18 @@ import { AppointmentContext } from "../../contexts/AppointmentContext";
 import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
 import DataTable from "../../components/DataTable";
 
-interface PeopleTableProps {
+interface AppointmentTableProps {
   className?: String;
 }
 
-const AppointmentTable: React.FC<PeopleTableProps> = ({ className }) => {
-  const appointmentContext = useContext(AppointmentContext);
+const AppointmentTable: React.FC<AppointmentTableProps> = ({ className }) => {
+  const { data, updateData, deleteData } = useContext(AppointmentContext);
   const peopleSettings = useContext(PeopleSettingsContext);
   return (
     <DataTable
       className={className}
-      columns={AppointmentColumns(appointmentContext, peopleSettings)}
-      data={appointmentContext.data}
+      columns={AppointmentColumns(updateData, deleteData, peopleSettings)}
+      data={data}
     />
   );
 };

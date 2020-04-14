@@ -32,7 +32,7 @@ const AddPersonModal: React.FC = () => {
   );
 
   return (
-    <FormModal onSubmit={handleSubmit} title="Hello">
+    <FormModal onSubmit={handleSubmit} title="הוספת איש חוץ">
       {renderForm}
     </FormModal>
   );

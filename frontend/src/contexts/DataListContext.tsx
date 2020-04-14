@@ -8,6 +8,7 @@ import React, {
 import _ from "lodash";
 import BasicData from "../types/data";
 import { CRUDApi } from "../api/types";
+import { message } from "antd";
 
 /**
  * The API that the context providers to its children.
@@ -63,9 +64,14 @@ export function DataListContextProvider<DataType extends BasicData>({
   const [dataList, setDataList]: [DataType[], Function] = useState([]);
 
   useEffect(() => {
-    api.get().then((newData: DataType[]) => {
-      setDataList(newData);
-    });
+    api
+      .get()
+      .then((newData: DataType[]) => {
+        setDataList(newData);
+      })
+      .catch(() => {
+        message.error("היית שגיאה בשליפת המידע");
+      });
   }, [api]);
 
   /**
@@ -81,10 +87,18 @@ export function DataListContextProvider<DataType extends BasicData>({
    * @returns a boolean indicating the success of the operation.
    */
   const deleteData = (dataToDelete: DataType) => {
-    return api.delete(dataToDelete.id).then(response => {
-      const filteredData = dataList.filter(data => data.id !== dataToDelete.id);
-      setDataList(filteredData);
-    });
+    return api
+      .delete(dataToDelete.id)
+      .then(response => {
+        const filteredData = dataList.filter(
+          data => data.id !== dataToDelete.id
+        );
+        setDataList(filteredData);
+        message.success("האובייקט נמחק בהצלחה");
+      })
+      .catch(() => {
+        message.error("היית שגיאה");
+      });
   };
 
   /**
@@ -104,26 +118,43 @@ export function DataListContextProvider<DataType extends BasicData>({
     field: K,
     value: DataType[K]
   ) {
-    return api.update(dataToUpdate, field, value).then(response => {
-      const newDatum = { ...dataToUpdate, [field]: value };
-      const newData = [
-        ...dataList.map(data => (data.id === dataToUpdate.id ? newDatum : data))
-      ];
-      setDataList(newData);
-    });
+    return api
+      .update(dataToUpdate, field, value)
+      .then(response => {
+        const newDatum = { ...dataToUpdate, [field]: value };
+        const newData = [
+          ...dataList.map(data =>
+            data.id === dataToUpdate.id ? newDatum : data
+          )
+        ];
+        setDataList(newData);
+      })
+      .catch(() => {
+        message.error("היית שגיאה");
+      });
   }
 
   /**
    * Create new Data instance and append it to the current list.
    */
   const addData = (newDataFields: Omit<DataType, "id">) => {
-    return api.add(newDataFields).then(response => {
-      const newData = {
-        ...newDataFields,
-        id: response.data.id
-      };
-      setDataList([...dataList, newData]);
-    });
+    return api
+      .add(newDataFields)
+      .then(response => {
+        const newData = {
+          ...newDataFields,
+          id: response.data.id
+        };
+        setDataList([...dataList, newData]);
+        message.success("האובייקט נוצר בהצלחה");
+      })
+      .catch(error => {
+        if (error.response?.status === 409) {
+          message.error("כבר קיימת רשומה כזו");
+        } else {
+          message.error("היית שגיאה");
+        }
+      });
   };
 
   return (

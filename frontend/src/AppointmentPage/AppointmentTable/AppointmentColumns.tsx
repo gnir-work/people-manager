@@ -4,7 +4,6 @@ import { stringsFilterByField, simpleFilterByField } from "../../utils/filters";
 import TableTextFilter from "../../components/filters/TableTextFilter";
 import { Appointment } from "../../types/appointment";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
-import { AppointmentsContextInterface } from "../../contexts/AppointmentContext";
 import EditableText from "../../components/text/EditableText";
 import TextArea from "antd/lib/input/TextArea";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
@@ -17,12 +16,11 @@ import {
 } from "../../utils/column_helpers";
 import BooleanField from "../../components/fields/BooleanField";
 import DeleteButton from "../../components/actions/DeleteButton";
+import { AppointmentsContextInterface } from "../../contexts/AppointmentContext";
 
 export const AppointmentColumns = (
-  {
-    updateData: updateAppointment,
-    deleteData: deleteAppointment
-  }: AppointmentsContextInterface,
+  updateAppointment: AppointmentsContextInterface["updateData"],
+  deleteAppointment: AppointmentsContextInterface["deleteData"],
   { settings }: PeopleSettingsContextInterface
 ) => [
   {

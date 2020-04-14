@@ -1,8 +1,7 @@
 import React, { useState, KeyboardEvent, ReactNode } from "react";
 import AddButton from "../actions/AddButton";
-import { Modal, Form, message } from "antd";
+import { Modal, Form } from "antd";
 import { FormInstance } from "antd/lib/form";
-import { AxiosError } from "axios";
 
 export interface ChildrenFunction {
   onEnter: (event: KeyboardEvent<HTMLFormElement>) => void;
@@ -35,19 +34,10 @@ const FormModal: React.FC<FormModalProps> = ({ onSubmit, children, title }) => {
 
   const submitModal = () => {
     form.validateFields().then(values => {
-      onSubmit(values as any)
-        .then(() => {
-          form.resetFields();
-          message.success("הטופס הוגש בהצלחה");
-          hideModal();
-        })
-        .catch(error => {
-          if (error.response?.status === 409) {
-            message.error("כבר קיימת רשומה כזו");
-          } else {
-            message.error("היית שגיאה");
-          }
-        });
+      onSubmit(values as any).then(() => {
+        form.resetFields();
+        hideModal();
+      });
     });
   };
 
