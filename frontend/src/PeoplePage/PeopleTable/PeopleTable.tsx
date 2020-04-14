@@ -6,7 +6,7 @@ import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
 import DataTable from "../../components/DataTable";
 
 interface PeopleTableProps {
-  className?: String;
+  className?: string;
 }
 
 const PeopleTable: React.FC<PeopleTableProps> = ({ className }) => {
@@ -17,6 +17,7 @@ const PeopleTable: React.FC<PeopleTableProps> = ({ className }) => {
       className={className}
       data={peopleContext.data}
       columns={PeopleTableColumns(peopleContext, peopleSettingsContext)}
+      loading={peopleContext.loading}
     />
   );
 };

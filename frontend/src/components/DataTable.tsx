@@ -4,26 +4,25 @@ import { Table } from "antd";
 
 import "./DataTable.scss";
 import BasicData from "../types/data";
-import { ColumnsType } from "antd/lib/table";
+import { TableProps } from "antd/lib/table";
 
-interface DataTableProps<K extends BasicData> {
-  className?: String;
+interface DataTableProps<K extends BasicData> extends TableProps<K> {
+  className?: string;
   data: K[];
-  columns: ColumnsType<K>;
 }
 
 export default function DataTable<K extends BasicData>({
-  className,
   data,
-  columns
+  className,
+  ...tableProps
 }: DataTableProps<K>) {
   return (
     <div className={classNames(className, "data-table-container")}>
       <Table
         dataSource={data.map((item: K) => ({ ...item, key: item.id }))}
-        columns={columns}
         size="middle"
         pagination={{ pageSize: 30 }}
+        {...tableProps}
       />
     </div>
   );
