@@ -1,5 +1,5 @@
 import React, { KeyboardEvent } from "react";
-import { Form, Input, Radio, Checkbox, AutoComplete } from "antd";
+import { Form, Input, Radio, Checkbox } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import TagList from "../components/tags/TagList";
 import {
@@ -10,6 +10,7 @@ import {
 } from "../components/validators/validators";
 import { FormInstance } from "antd/lib/form";
 import { PeopleSettingsContextInterface } from "../contexts/PeopleSettingsContext";
+import { FilterableAutoComplete } from "../components/fields/text/FilterableAutoComplete";
 
 const layout = {
   labelCol: { span: 5 },
@@ -67,11 +68,11 @@ const AddPersonForm: React.FC<AddPersonFormProps> = ({
       <Input />
     </Form.Item>
     <Form.Item name="team" label="צוות">
-      <AutoComplete
+      <FilterableAutoComplete
         onKeyDown={event => {
           event.stopPropagation();
         }}
-        options={possibleTeams.map(team => ({ value: team }))}
+        data={possibleTeams}
       />
     </Form.Item>
     <Form.Item

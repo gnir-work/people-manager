@@ -1,8 +1,8 @@
 import React, { useContext, KeyboardEvent } from "react";
-import { AutoComplete } from "antd";
 import { Person } from "../../../types/person";
 import { PeopleContext } from "../../../contexts/PeopleContext";
 import { ConditionalProps } from "../../../utils/types";
+import { FilterableAutoComplete } from "./FilterableAutoComplete";
 
 import { Rule } from "antd/lib/form";
 import EditableTextForm from "./EditableTextForm";
@@ -45,8 +45,8 @@ const EditableTextAutoComplete: React.FC<EditableTextAutoCompleteProps> = ({
       onSubmit={handleTextSelection}
     >
       {(submitForm, toggleEditing) => (
-        <AutoComplete
-          options={dataSet.map(data => ({ value: data }))}
+        <FilterableAutoComplete
+          data={dataSet}
           defaultValue={initialValue}
           autoFocus
           onBlur={toggleEditing}
