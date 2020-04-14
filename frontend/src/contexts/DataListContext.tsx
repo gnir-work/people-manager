@@ -133,8 +133,12 @@ export function DataListContextProvider<DataType extends BasicData>({
         ];
         setDataList(newData);
       })
-      .catch(() => {
-        message.error("היית שגיאה");
+      .catch(error => {
+        if (error.response?.status === 409) {
+          message.error("כבר קיים אובייקט כזה");
+        } else {
+          message.error("היית שגיאה");
+        }
       });
   }
 
