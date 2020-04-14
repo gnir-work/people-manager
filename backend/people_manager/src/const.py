@@ -24,4 +24,4 @@ DEFAULT_PEOPLE_SETTINGS = {
 
 DAY = timedelta(days=1).seconds
 
-DATASET_SIZE = 1000
+DATASET_SIZE = 100
