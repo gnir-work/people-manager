@@ -24,6 +24,7 @@ export interface DataListContextInterface<DataType extends BasicData> {
   ) => void;
   addData: (newDataFields: Omit<DataType, "id">) => Promise<void>;
   doesDataExist: (dataId: string) => boolean;
+  loading: boolean;
 }
 
 /**
@@ -41,7 +42,8 @@ export function getDataListContext<DataType extends BasicData>() {
       value: DataType[K]
     ) => {},
     addData: (newDataFields: Omit<DataType, "id">) => new Promise(() => {}),
-    doesDataExist: (dataId: string) => false
+    doesDataExist: (dataId: string) => false,
+    loading: true
   };
   return createContext(defaultData);
 }
@@ -63,12 +65,14 @@ export function DataListContextProvider<DataType extends BasicData>({
   api: CRUDApi<DataType>;
 }) {
   const [dataList, setDataList]: [DataType[], Function] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api
       .get()
       .then((newData: DataType[]) => {
         setDataList(newData);
+        setLoading(false);
       })
       .catch(() => {
         message.error("היית שגיאה בשליפת המידע");
@@ -174,7 +178,8 @@ export function DataListContextProvider<DataType extends BasicData>({
         data: dataList,
         deleteData: deleteData,
         getFieldDataSet,
-        updateData: updateData
+        updateData: updateData,
+        loading
       }}
     >
       {children}

@@ -1,16 +1,23 @@
 from .db import get_appointments_collection, get_people_collection
-from .people import get_person_by_id
+from .people import get_all_people
 from .utils import format_document_id
 from .exceptions import AppointmentExists
 from bson import ObjectId
 from pymongo.errors import DuplicateKeyError
 
+def get_id_to_person_mapping():
+    people = get_people_collection().find({})
+    return {
+        str(person["_id"]): format_document_id(person) for person in people
+    }
+
 
 def get_all_appointments():
     appointments_collection = get_appointments_collection()
     appointments = list(appointments_collection.find({}))
+    id_to_person = get_id_to_person_mapping()
     for appointment in appointments:
-        appointment["person"] = get_person_by_id(appointment["person"])
+        appointment["person"] = id_to_person[appointment["person"]]
         appointment = format_document_id(appointment)
     return appointments
 
