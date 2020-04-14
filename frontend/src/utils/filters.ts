@@ -1,6 +1,12 @@
 import { ConditionalProps, getElementType } from "./types";
 
 /**
+ * Basically include function which ignores case.
+ */
+export const filterStringIgnoringCasing = (data: string, filter: string) =>
+  data.toLowerCase().includes(filter.toLowerCase());
+
+/**
  * Run a simple comparison.
  * This function helps simplify the configuration of antd columns.
  */
@@ -20,7 +26,7 @@ export const stringsFilterByField = <K extends { [key: string]: any }>(
   data: K,
   text: string,
   field: ConditionalProps<K, string>
-) => data[field].toLowerCase().includes(text.toLowerCase());
+) => filterStringIgnoringCasing(data[field], text);
 
 export function arrayFilterByField<K extends { [key: string]: any }>(
   data: K,

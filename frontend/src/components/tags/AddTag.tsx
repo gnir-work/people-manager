@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { AutoComplete, Tag } from "antd";
+import React, { useState } from "react";
+import { Tag } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { SelectValue } from "antd/lib/select";
+import { FilterableAutoComplete } from "../fields/text/FilterableAutoComplete";
 
 import "./AddTag.scss";
 
@@ -13,15 +14,6 @@ interface AddTagProps {
 
 const AddTag: React.FC<AddTagProps> = ({ possibleTags, onSubmit, text }) => {
   const [editing, setEditing] = useState(false);
-  const [filter, setFilter] = useState("");
-  const filteredTags = possibleTags.filter(tag => tag.includes(filter));
-
-  /**
-   * We want a fresh filter each time we enter or exit the filtering state.
-   */
-  useEffect(() => {
-    setFilter("");
-  }, [editing]);
 
   /**
    * Handle the selection of a value from the auto complete.
@@ -36,16 +28,11 @@ const AddTag: React.FC<AddTagProps> = ({ possibleTags, onSubmit, text }) => {
     setEditing(!editing);
   };
 
-  const handleChange = (newFilter: SelectValue) => {
-    setFilter(newFilter.toString());
-  };
-
   return editing ? (
-    <AutoComplete
-      onChange={handleChange}
+    <FilterableAutoComplete
       autoFocus
       defaultOpen
-      options={filteredTags.map(tag => ({ value: tag }))}
+      data={possibleTags}
       onSelect={handleSelection}
       onBlur={toggleEditing}
     />
