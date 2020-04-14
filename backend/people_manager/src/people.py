@@ -10,12 +10,6 @@ def get_all_people():
     return list(map(format_document_id, people.find({})))
 
 
-def get_person_by_id(person_id: str):
-    return format_document_id(
-        get_people_collection().find_one({"_id": ObjectId(person_id)})
-    )
-
-
 def update_person(person_id: str, new_values: dict):
     people = get_people_collection()
     try:
