@@ -4,13 +4,10 @@ from .db import (
     get_people_collection,
     get_appointments_collection,
 )
-from .const import DEFAULT_PEOPLE_SETTINGS
+from .const import DEFAULT_PEOPLE_SETTINGS, DATASET_SIZE, DAY
 from random import randrange
 from datetime import timedelta
 
-DAY = timedelta(days=1).seconds
-
-DATASET_SIZE = 10000
 
 PEOPLE = [
     {
@@ -25,7 +22,8 @@ PEOPLE = [
         "subjects": [],
         "availability": "לא זמין",
         "wasSegel": False,
-    } for _ in range(DATASET_SIZE)
+    }
+    for _ in range(DATASET_SIZE)
 ]
 
 APPOINTMENTS = [
@@ -42,7 +40,8 @@ APPOINTMENTS = [
         "track": "pasten",
         "reason": "reasons",
         "remarks": "remarkss",
-    } for _ in range(DATASET_SIZE)
+    }
+    for _ in range(DATASET_SIZE)
 ]
 
 
@@ -56,8 +55,8 @@ def create_default_people():
     people = get_people_collection()
     for person in PEOPLE:
         people.insert_one(person)
-    
-    people.create_index('personalId', unique=True)
+
+    people.create_index("personalId", unique=True)
 
 
 def create_default_appointments():
@@ -68,7 +67,14 @@ def create_default_appointments():
         appointment["person"] = str(people[index]["_id"])
         appointments.insert_one(appointment)
 
-    appointments.create_index([('person', pymongo.DESCENDING), ('from', pymongo.DESCENDING), ('to', pymongo.DESCENDING)], unique=True)
+    appointments.create_index(
+        [
+            ("person", pymongo.DESCENDING),
+            ("from", pymongo.DESCENDING),
+            ("to", pymongo.DESCENDING),
+        ],
+        unique=True,
+    )
 
 
 if __name__ == "__main__":

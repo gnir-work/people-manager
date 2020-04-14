@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 DEBUG = False
 MONGO_HOST = "mongo"
 
@@ -16,6 +18,10 @@ DEFAULT_PEOPLE_SETTINGS = {
         "possibleAppointmentReasons": ["מרצה", "בודק תרגילים"],
         "possibleEntryStates": ["אין", "מחכה לאישור", "יש"],
         "possibleBedStatus": ["אין צורך", "טרם", "יש"],
-        "possiblePhases": ["אחוד", "מכינה"]
+        "possiblePhases": ["אחוד", "מכינה"],
     }
 }
+
+DAY = timedelta(days=1).seconds
+
+DATASET_SIZE = 1000
