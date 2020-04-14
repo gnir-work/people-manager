@@ -1,6 +1,6 @@
 import { Moment } from "moment";
 import { Person } from "../types/person";
-import { Appointment, AppointmentFields } from "../types/appointment";
+import { AppointmentFields } from "../types/appointment";
 
 const serializeDates = ([from, to]: [Moment, Moment]) => [
   from.valueOf(),

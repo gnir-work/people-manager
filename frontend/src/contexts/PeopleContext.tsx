@@ -1,6 +1,5 @@
 import React from "react";
 import { Person } from "../types/person";
-import _ from "lodash";
 import {
   getDataListContext,
   DataListContextInterface,

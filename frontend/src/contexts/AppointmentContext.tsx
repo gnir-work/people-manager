@@ -1,5 +1,4 @@
 import React from "react";
-import _ from "lodash";
 import { Appointment } from "../types/appointment";
 import {
   DataListContextInterface,

@@ -66,7 +66,7 @@ export function DataListContextProvider<DataType extends BasicData>({
     api.get().then((newData: DataType[]) => {
       setDataList(newData);
     });
-  }, []);
+  }, [api]);
 
   /**
    * Check if we already have a data with this id.
