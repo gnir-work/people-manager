@@ -1,12 +1,14 @@
 import moment, { Moment } from "moment";
 import { SerializedAppointment, Appointment } from "../types/appointment";
 
-const parseDate = (date: number): Moment => moment(date);
+const parseDates = ([from, to]: [number, number]): [Moment, Moment] => [
+  moment(from),
+  moment(to)
+];
 
 export const parseAppointment = (
   appointment: SerializedAppointment
 ): Appointment => ({
   ...appointment,
-  from: parseDate(appointment.from),
-  to: parseDate(appointment.to)
+  dates: parseDates(appointment.dates)
 });
