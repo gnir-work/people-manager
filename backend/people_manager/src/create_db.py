@@ -26,7 +26,8 @@ APPOINTMENTS = [
     {
         "phase": "אחוד",
         "week": 1,
-        "dates": [1585249896000, 1585349996000],
+        "from": 1585249896000,
+        "to": 1585349996000,
         "bedStatus": "לא צריך",
         "entryStatus": "יש",
         "invitor": "gnir",
@@ -61,7 +62,7 @@ def create_default_appointments():
         appointment["person"] = str(person["_id"])
         appointments.insert_one(appointment)
 
-    appointments.create_index([('person', pymongo.DESCENDING), ('dates', pymongo.DESCENDING)], unique=True)
+    appointments.create_index([('person', pymongo.DESCENDING), ('from', pymongo.DESCENDING), ('to', pymongo.DESCENDING)], unique=True)
 
 
 if __name__ == "__main__":

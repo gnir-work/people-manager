@@ -62,9 +62,10 @@ export const AppointmentColumns = (
     title: "תאריכים",
     render: (value: string, record: Appointment) => (
       <DateRangeField
-        dates={record.dates}
-        onChange={newDates => {
-          updateAppointment(record, "dates", newDates);
+        dates={[record.from, record.to]}
+        onChange={([from, to]) => {
+          updateAppointment(record, "from", from);
+          updateAppointment(record, "to", to);
         }}
       />
     )

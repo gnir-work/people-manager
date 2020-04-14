@@ -18,3 +18,4 @@ populate-db:
 
 local-mongo:
 	docker run --name local-people-manager-mongo -d -p 27017:27017 mongo:4.2.3
+	cd backend && poetry run python -m people_manager.src.create_db

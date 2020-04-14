@@ -6,7 +6,8 @@ export interface Appointment extends BasicData {
   person: Person;
   phase: string;
   week: number;
-  dates: [Moment, Moment];
+  from: Moment;
+  to: Moment;
   invitor: string;
   bedStatus: string;
   entryStatus: string;
@@ -18,9 +19,10 @@ export interface Appointment extends BasicData {
 }
 
 export interface SerializedAppointment
-  extends Omit<Appointment, "person" | "dates"> {
+  extends Omit<Appointment, "person" | "from" | "to"> {
   person: SerializedPerson;
-  dates: [number, number];
+  from: number;
+  to: number;
 }
 
 export type AppointmentFields = Omit<Appointment, "id">;
