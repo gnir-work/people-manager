@@ -1,8 +1,8 @@
 import React, { useContext, KeyboardEvent } from "react";
 import { AutoComplete } from "antd";
-import { Person } from "../../types/person";
-import { PeopleContext } from "../../contexts/PeopleContext";
-import { ConditionalProps } from "../../utils/types";
+import { Person } from "../../../types/person";
+import { PeopleContext } from "../../../contexts/PeopleContext";
+import { ConditionalProps } from "../../../utils/types";
 
 import { Rule } from "antd/lib/form";
 import EditableTextForm from "./EditableTextForm";
@@ -20,7 +20,9 @@ const EditableTextAutoComplete: React.FC<EditableTextAutoCompleteProps> = ({
   initialValue,
   rules = []
 }) => {
-  const { updatePerson, getFieldDataSet } = useContext(PeopleContext);
+  const { updateData: updatePerson, getFieldDataSet } = useContext(
+    PeopleContext
+  );
   const dataSet = getFieldDataSet(field);
 
   const handleTextSelection = (newValue: string) => {

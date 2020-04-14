@@ -1,59 +1,33 @@
 import { ConditionalProps, getElementType } from "./types";
-import moment, { Moment } from "moment";
-
-interface test {
-  a: number;
-}
 
 /**
  * Run a simple comparison.
  * This function helps simplify the configuration of antd columns.
- * @param person
- * @param text
- * @param field
  */
 export const simpleFilterByField = <K extends { [key: string]: any }>(
-  person: K,
+  data: K,
   value: boolean | number,
   field: ConditionalProps<K, boolean | number>
   // This is on purpose in order to allow string to number comparison.
   // eslint-disable-next-line
-) => person[field] === value;
+) => data[field] == value;
 
 /**
- * Checks if the person value of the property key contains the given value.
+ * Checks if the value of the property key contains the given value.
  * Please notice: the check ignores case.
- * @param person The person that should be filtered.
- * @param text The value that should be part of the fields value.
- * @param field The field to check against
  */
 export const stringsFilterByField = <K extends { [key: string]: any }>(
-  person: K,
+  data: K,
   text: string,
   field: ConditionalProps<K, string>
-) => person[field].toLowerCase().includes(text.toLowerCase());
-
-/**
- * Checks wether the persons date field is within the range given.
- * Please notice the range is inclusive on both ends (since and until).
- * @param person The person that should be filtered.
- * @param datesRange The dates range by which we will filter
- * @param field The date field that will be filtered.
- */
-export const datesFilterByField = <K extends { [key: string]: any }>(
-  person: K,
-  datesRange: { since: Moment; until: Moment },
-  field: ConditionalProps<K, moment.Moment>
-) =>
-  datesRange.since.startOf("day") <= person[field] &&
-  person[field] <= datesRange.until.endOf("day");
+) => data[field].toLowerCase().includes(text.toLowerCase());
 
 export function arrayFilterByField<K extends { [key: string]: any }>(
-  person: K,
+  data: K,
   value: getElementType<K[ConditionalProps<K, Array<any>>]>,
   field: ConditionalProps<K, Array<any>>
 ) {
-  return person[field].includes(value);
+  return data[field].includes(value);
 }
 
 /**

@@ -9,11 +9,14 @@ export interface ChildrenFunction {
 }
 
 interface FormModalProps {
-  onSubmit: (values: Object) => void;
+  onSubmit: (values: Object) => Promise<void>;
   children: (params: ChildrenFunction) => ReactNode;
   title: string;
 }
 
+/**
+ * A generic modal that contains and antd form that should be submitted.
+ */
 const FormModal: React.FC<FormModalProps> = ({ onSubmit, children, title }) => {
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
@@ -33,14 +36,12 @@ const FormModal: React.FC<FormModalProps> = ({ onSubmit, children, title }) => {
   };
 
   const submitModal = () => {
-    form
-      .validateFields()
-      .then(values => {
+    form.validateFields().then(values => {
+      onSubmit(values as any).then(() => {
         form.resetFields();
-        onSubmit(values as any);
         hideModal();
-      })
-      .catch(() => {});
+      });
+    });
   };
 
   return (

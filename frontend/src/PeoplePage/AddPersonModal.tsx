@@ -7,14 +7,16 @@ import FormModal, {
 import AddPersonForm from "./AddPersonForm";
 
 const AddPersonModal: React.FC = () => {
-  const { addPerson, doesPersonExist, getFieldDataSet } = useContext(
-    PeopleContext
-  );
+  const {
+    addData: addPerson,
+    doesDataExist: doesPersonExist,
+    getFieldDataSet
+  } = useContext(PeopleContext);
   const { settings } = useContext(PeopleSettingsContext);
   const possibleTeams = getFieldDataSet("team");
 
   const handleSubmit = (values: Object) => {
-    addPerson(values as any);
+    return addPerson(values as any);
   };
 
   const renderForm = useCallback(
@@ -30,7 +32,7 @@ const AddPersonModal: React.FC = () => {
   );
 
   return (
-    <FormModal onSubmit={handleSubmit} title="Hello">
+    <FormModal onSubmit={handleSubmit} title="הוספת איש חוץ">
       {renderForm}
     </FormModal>
   );

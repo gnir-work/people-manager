@@ -15,7 +15,7 @@ import {
   GET_PHONE_NUMBER_RULES
 } from "../../components/validators/validators";
 import { PeopleContextInterface } from "../../contexts/PeopleContext";
-import EditableTextAutoComplete from "../../components/text/EditableTextAutoComplete";
+import EditableTextAutoComplete from "../../components/fields/text/EditableTextAutoComplete";
 import { Input } from "antd";
 import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
 import {
@@ -25,10 +25,14 @@ import {
   get_text_fields
 } from "../../utils/column_helpers";
 import DeleteButton from "../../components/actions/DeleteButton";
-import EditableText from "../../components/text/EditableText";
+import EditableText from "../../components/fields/text/EditableText";
 
 export const PeopleTableColumns = (
-  { doesPersonExist, updatePerson, deletePerson }: PeopleContextInterface,
+  {
+    doesDataExist: doesPersonExist,
+    updateData: updatePerson,
+    deleteData: deletePerson
+  }: PeopleContextInterface,
   { settings }: PeopleSettingsContextInterface
 ) => [
   {
