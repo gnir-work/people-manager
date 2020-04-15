@@ -6,9 +6,13 @@ import { SiteSettingsContext } from "../../contexts/SiteSettingsContext";
 import "./SettingsEditorModal.scss";
 
 const SettingsEditorModal = () => {
-  const [visible, setVisible] = useState(true);
-  const [error, setError] = useState(true);
-  const { dynamicSettings, loading } = useContext(SiteSettingsContext);
+  const { dynamicSettings, loading, updateDynamicSettings } = useContext(
+    SiteSettingsContext
+  );
+
+  const [visible, setVisible] = useState(false);
+  const [error, setError] = useState(false);
+  const [newSettings, setNewSettings] = useState(dynamicSettings);
 
   const toggleVisible = () => {
     setVisible(!visible);
@@ -18,16 +22,31 @@ const SettingsEditorModal = () => {
     setError(hasError);
   };
 
+  const handleSubmit = () => {
+    updateDynamicSettings(newSettings);
+    toggleVisible();
+  };
+
+  const handleCancel = () => {
+    setNewSettings(dynamicSettings);
+    toggleVisible();
+  };
+
+  const handleOnChange = (newSettings: any) => {
+    setNewSettings(newSettings);
+  };
+
   return (
     <>
       <Modal
-        onCancel={toggleVisible}
+        onCancel={handleCancel}
         closable
         visible={visible}
         title="עריכת הגדרות"
         okText="שמירה"
         cancelText="ביטול"
         okButtonProps={{ disabled: error }}
+        onOk={handleSubmit}
       >
         <Spin spinning={loading}>
           {error && (
@@ -42,7 +61,7 @@ const SettingsEditorModal = () => {
             <JsonEditor
               onError={handleError}
               value={dynamicSettings}
-              onChange={console.log}
+              onChange={handleOnChange}
             />
           )}
         </Spin>

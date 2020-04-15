@@ -11,6 +11,7 @@ export interface SiteSettingsContextInterface {
   staticSettings: StaticSettings;
   dynamicSettings: DynamicSettings;
   loading: boolean;
+  updateDynamicSettings: (newDynamicSettings: DynamicSettings) => void;
 }
 
 const defaultDynamicSettings = {
@@ -27,7 +28,8 @@ const defaultData: SiteSettingsContextInterface = {
   },
   staticSettings: STATIC_SETTINGS,
   dynamicSettings: defaultDynamicSettings,
-  loading: false
+  loading: false,
+  updateDynamicSettings: () => {}
 };
 
 export const SiteSettingsContext = createContext(defaultData);
@@ -51,12 +53,17 @@ export const SiteSettingsContextProvider: React.FC = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const updateDynamicSettings = (newDynamicSettings: DynamicSettings) => {
+    setDynamicSettings(newDynamicSettings);
+  };
+
   return (
     <SiteSettingsContext.Provider
       value={{
         settings: { ...STATIC_SETTINGS, ...dynamicSettings },
         staticSettings: STATIC_SETTINGS,
         dynamicSettings,
+        updateDynamicSettings,
         loading
       }}
     >
