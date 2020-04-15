@@ -30,6 +30,8 @@ export const SiteSettingsContextProvider: React.FC = ({ children }) => {
     getSettings().then(({ settings: dynamicSettings }) => {
       setSettings({ ...settings, ...dynamicSettings });
     });
+    // This should happen only one time.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
