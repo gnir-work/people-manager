@@ -9,7 +9,7 @@ import {
   GET_REQUIRED_RULE
 } from "../components/validators/validators";
 import { FormInstance } from "antd/lib/form";
-import { PeopleSettingsContextInterface } from "../contexts/PeopleSettingsContext";
+import { SiteSettingsContextInterface } from "../contexts/SiteSettingsContext";
 import { FilterableAutoComplete } from "../components/fields/text/FilterableAutoComplete";
 
 const layout = {
@@ -36,7 +36,7 @@ interface AddPersonFormProps {
   onEnter: (event: KeyboardEvent<HTMLFormElement>) => void;
   doesPersonExist: (personalId: string) => boolean;
   possibleTeams: string[];
-  settings: PeopleSettingsContextInterface["settings"];
+  settings: SiteSettingsContextInterface["settings"];
 }
 
 const AddPersonForm: React.FC<AddPersonFormProps> = ({

@@ -17,7 +17,7 @@ import {
 import { PeopleContextInterface } from "../../contexts/PeopleContext";
 import EditableTextAutoComplete from "../../components/fields/text/EditableTextAutoComplete";
 import { Input } from "antd";
-import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
+import { SiteSettingsContextInterface } from "../../contexts/SiteSettingsContext";
 import {
   get_column_fields,
   get_tag_fields,
@@ -33,7 +33,7 @@ export const PeopleTableColumns = (
     updateData: updatePerson,
     deleteData: deletePerson
   }: PeopleContextInterface,
-  { settings }: PeopleSettingsContextInterface
+  { settings }: SiteSettingsContextInterface
 ) => [
   {
     title: "שם מלא",

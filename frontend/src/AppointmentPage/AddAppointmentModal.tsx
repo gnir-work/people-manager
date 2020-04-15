@@ -1,5 +1,5 @@
 import React, { useContext, useCallback } from "react";
-import { PeopleSettingsContext } from "../contexts/PeopleSettingsContext";
+import { SiteSettingsContext } from "../contexts/SiteSettingsContext";
 import FormModal, {
   ChildrenFunction as FormModalChildren
 } from "../components/modals/FormModal";
@@ -8,7 +8,7 @@ import AddAppointmentForm from "./AddAppointmentForm";
 
 const AddAppointmentModal: React.FC = () => {
   const { addData: addAppointment } = useContext(AppointmentContext);
-  const peopleSettings = useContext(PeopleSettingsContext);
+  const peopleSettings = useContext(SiteSettingsContext);
 
   const handleSubmit = ({
     dates: [from, to],
