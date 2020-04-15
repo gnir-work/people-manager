@@ -6,10 +6,11 @@ from .appointments import (
     update_appointment,
     create_appointment,
 )
-from .people_settings import get_all_settings
+from .site_settings import get_all_settings, update_site_settings
 from .const import DEBUG
 from .exceptions import PersonExists, AppointmentExists
 import pymongo
+from pymongo.errors import PyMongoError
 
 app = Flask(__name__)
 
@@ -67,9 +68,19 @@ def create_person_route():
         )
 
 
-@app.route("/api/people/settings/")
-def get_people_settings():
+@app.route("/api/site/settings")
+def get_site_settings():
     return jsonify(get_all_settings())
+
+
+@app.route("/api/site/settings", methods=["PUT"])
+def update_site_settings_route():
+    new_settings = request.get_json()
+    try:
+        update_site_settings(new_settings)
+        return _get_ok_response()
+    except PyMongoError:
+        return _get_failed_response(500)
 
 
 @app.route("/api/appointments/appointment")

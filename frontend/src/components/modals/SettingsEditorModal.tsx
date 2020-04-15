@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Modal, Spin, Alert } from "antd";
+import { Modal, Spin, Alert, message } from "antd";
 import JsonEditor from "../editors/JsonEditor";
 import { SiteSettingsContext } from "../../contexts/SiteSettingsContext";
 
@@ -23,8 +23,14 @@ const SettingsEditorModal = () => {
   };
 
   const handleSubmit = () => {
-    updateDynamicSettings(newSettings);
-    toggleVisible();
+    updateDynamicSettings(newSettings)
+      .then(() => {
+        toggleVisible();
+        message.success("הגדרות נשמרו בהצלחה");
+      })
+      .catch(() => {
+        message.error("היית שגיאה");
+      });
   };
 
   const handleCancel = () => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createContext } from "react";
-import { getSettings } from "../api/people_settings";
+import { getSettings, updateSettings } from "../api/settings";
 import SiteSettings, {
   StaticSettings,
   DynamicSettings
@@ -11,7 +11,7 @@ export interface SiteSettingsContextInterface {
   staticSettings: StaticSettings;
   dynamicSettings: DynamicSettings;
   loading: boolean;
-  updateDynamicSettings: (newDynamicSettings: DynamicSettings) => void;
+  updateDynamicSettings: (newDynamicSettings: DynamicSettings) => Promise<void>;
 }
 
 const defaultDynamicSettings = {
@@ -29,7 +29,7 @@ const defaultData: SiteSettingsContextInterface = {
   staticSettings: STATIC_SETTINGS,
   dynamicSettings: defaultDynamicSettings,
   loading: false,
-  updateDynamicSettings: () => {}
+  updateDynamicSettings: () => new Promise(() => {})
 };
 
 export const SiteSettingsContext = createContext(defaultData);
@@ -55,6 +55,9 @@ export const SiteSettingsContextProvider: React.FC = ({ children }) => {
 
   const updateDynamicSettings = (newDynamicSettings: DynamicSettings) => {
     setDynamicSettings(newDynamicSettings);
+    return updateSettings(newDynamicSettings).then(() => {
+      setDynamicSettings(newDynamicSettings);
+    });
   };
 
   return (
