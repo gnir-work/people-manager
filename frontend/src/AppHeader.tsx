@@ -6,7 +6,7 @@ import {
   APPOINTMENT_PAGE_URL,
   PEOPLE_PAGE_URL
 } from "./consts";
-import SettingsEditorModal from "./components/modals/SettingsEditor";
+import SettingsEditorModal from "./components/modals/SettingsEditorModal";
 const { Header } = Layout;
 
 const AppHeader: React.FC = () => {

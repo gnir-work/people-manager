@@ -11,12 +11,17 @@ import _ from "lodash";
 
 interface JsonEditorProps {
   onChange: (newValue: { [key: string]: any }) => void;
+  onError: (containsError: boolean) => void;
   value: { [key: string]: any };
 }
 
-const JsonEditor: React.FC<JsonEditorProps> = ({ value, onChange }) => {
+const JsonEditor: React.FC<JsonEditorProps> = ({
+  value,
+  onChange,
+  onError
+}) => {
   const validateNewValue = (newValue: { [key: string]: any }) => {
-    if (!_.isEqual(_.keys(value), _.keys(newValue))) {
+    if (!_.isEqual(_.keys(value).sort(), _.keys(newValue).sort())) {
       return false;
     }
 
@@ -26,6 +31,9 @@ const JsonEditor: React.FC<JsonEditorProps> = ({ value, onChange }) => {
   const handleChange = (newValue: { [key: string]: any }) => {
     if (validateNewValue(newValue)) {
       onChange(newValue);
+      onError(false);
+    } else {
+      onError(true);
     }
   };
 
