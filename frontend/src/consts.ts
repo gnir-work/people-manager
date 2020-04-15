@@ -44,3 +44,17 @@ export const STATIC_SETTINGS: StaticSettings = {
   possiblePhases: ["מכינה", "אחוד"],
   possibleStatuses: ["סדיר", "מילואים", "אעצ", "אזרח"]
 };
+
+export const STATIC_SETTINGS_COLORS: { [key: string]: string } = {
+  זמין: "green",
+  "לא זמין": "red",
+  יש: "green",
+  טרם: "red",
+  "לא צריך": "orange",
+  אחוד: "cyan",
+  מכינה: "purple",
+  אזרח: "volcano",
+  מילואים: "volcano",
+  אעצ: "volcano",
+  סדיר: "lime"
+};

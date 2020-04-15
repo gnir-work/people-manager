@@ -7,6 +7,7 @@ import EditableText from "../components/fields/text/EditableText";
 import { Rule } from "antd/lib/form";
 import TableTextFilter from "../components/filters/TableTextFilter";
 import BasicData from "../types/data";
+import { STATIC_SETTINGS_COLORS } from "../consts";
 
 export function get_column_fields<K extends BasicData>(
   field: keyof K,
@@ -43,6 +44,7 @@ export function get_tag_fields<K extends BasicData>(
         onTagChange={(newValue: string) =>
           updateData(currentData, field, newValue)
         }
+        color={STATIC_SETTINGS_COLORS[value]}
       >
         {value}
       </EditableTag>
