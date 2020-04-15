@@ -1,7 +1,7 @@
 import React from "react";
 import { Input, Button } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "./TableTextFilter.scss";
 
 interface TableTextFilterProps {
@@ -39,7 +39,7 @@ const TableTextFilter: React.FC<TableTextFilterProps> = ({
       <Button
         type="primary"
         onClick={confirm}
-        icon={<SearchOutlined />}
+        icon={<FontAwesomeIcon className="search-icon" icon={faSearch} />}
         size="small"
         className="search-button"
       >

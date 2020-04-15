@@ -1,11 +1,18 @@
 import React, { useContext, useState } from "react";
 import { Modal, Spin, Alert, message } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCogs } from "@fortawesome/free-solid-svg-icons";
 import JsonEditor from "../editors/JsonEditor";
+import classNames from "classnames";
 import { SiteSettingsContext } from "../../contexts/SiteSettingsContext";
 
 import "./SettingsEditorModal.scss";
 
-const SettingsEditorModal = () => {
+interface SettingsEditorModal {
+  className?: string;
+}
+
+const SettingsEditorModal: React.FC<SettingsEditorModal> = ({ className }) => {
   const { dynamicSettings, loading, updateDynamicSettings } = useContext(
     SiteSettingsContext
   );
@@ -72,9 +79,11 @@ const SettingsEditorModal = () => {
           )}
         </Spin>
       </Modal>
-      <span className="clickable" onClick={toggleVisible}>
-        {" "}
-        הגדרות האתר{" "}
+      <span
+        className={classNames("clickable", className)}
+        onClick={toggleVisible}
+      >
+        <FontAwesomeIcon className="settings-icon" icon={faCogs} /> הגדרות האתר{" "}
       </span>
     </>
   );
