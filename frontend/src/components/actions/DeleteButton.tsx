@@ -1,6 +1,7 @@
 import React from "react";
 import { Popconfirm } from "antd";
-import { DeleteFilled } from "@ant-design/icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import "./DeleteButton.scss";
 
@@ -24,7 +25,7 @@ const DeleteButton: React.FC<DeleteButton> = ({
       cancelText="לא"
       placement="right"
     >
-      <DeleteFilled />
+      <FontAwesomeIcon className="delete-icon" icon={faTrash} />
     </Popconfirm>
   );
 };
