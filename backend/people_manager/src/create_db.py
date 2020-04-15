@@ -1,6 +1,6 @@
 import pymongo
 from .db import (
-    get_people_settings_collection,
+    get_site_settings_collection,
     get_people_collection,
     get_appointments_collection,
 )
@@ -53,10 +53,10 @@ APPOINTMENTS = [
 ]
 
 
-def create_default_people_settings():
-    people_settings = get_people_settings_collection()
+def create_default_site_settings():
+    site_settings = get_site_settings_collection()
     people = get_people_collection()
-    people_settings.insert_one(DEFAULT_PEOPLE_SETTINGS)
+    site_settings.insert_one(DEFAULT_PEOPLE_SETTINGS)
 
 
 def create_default_people():
@@ -87,7 +87,7 @@ def create_default_appointments():
 
 if __name__ == "__main__":
     print("Creating people default settings...")
-    create_default_people_settings()
+    create_default_site_settings()
     create_default_people()
     create_default_appointments()
     print("Finshed Creating people default settings")

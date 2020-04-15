@@ -6,6 +6,7 @@ import {
   APPOINTMENT_PAGE_URL,
   PEOPLE_PAGE_URL
 } from "./consts";
+import SettingsEditorModal from "./components/modals/SettingsEditorModal";
 const { Header } = Layout;
 
 const AppHeader: React.FC = () => {
@@ -27,6 +28,7 @@ const AppHeader: React.FC = () => {
         <Menu.Item key={LOCATION_TO_ITEM[PEOPLE_PAGE_URL]}>
           <Link to={PEOPLE_PAGE_URL}>אנשים</Link>
         </Menu.Item>
+        <SettingsEditorModal />
       </Menu>
     </Header>
   );

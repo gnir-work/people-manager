@@ -18,9 +18,9 @@ const { Content, Footer } = Layout;
 const App: React.FC = () => (
   <Router>
     <Layout className="layout">
-      <AppHeader />
-      <Content>
-        <SiteSettingsContextProvider>
+      <SiteSettingsContextProvider>
+        <AppHeader />
+        <Content>
           <PeopleContextProvider>
             <AppointmentContextProvider>
               <Switch>
@@ -33,9 +33,9 @@ const App: React.FC = () => (
               </Switch>
             </AppointmentContextProvider>
           </PeopleContextProvider>
-        </SiteSettingsContextProvider>
-      </Content>
-      <Footer>Bis Hibur ©2019 Created by Nir Geller</Footer>
+        </Content>
+        <Footer>Bis Hibur ©2019 Created by Nir Geller</Footer>
+      </SiteSettingsContextProvider>
     </Layout>
   </Router>
 );

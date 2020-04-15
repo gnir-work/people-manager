@@ -12,5 +12,5 @@ def get_people_collection():
 def get_appointments_collection():
     return get_db().appointments
 
-def get_people_settings_collection():
-    return get_db()["people-settings"]
+def get_site_settings_collection():
+    return get_db().settings

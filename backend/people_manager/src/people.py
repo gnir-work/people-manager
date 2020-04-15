@@ -1,4 +1,4 @@
-from .db import get_people_collection, get_people_settings_collection
+from .db import get_people_collection
 from .exceptions import PersonExists
 from .utils import format_document_id
 from bson import ObjectId
