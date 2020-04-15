@@ -6,7 +6,7 @@ import { Appointment } from "../../types/appointment";
 import { ANTD_BOOLEAN_FILTERS } from "../../consts";
 import EditableText from "../../components/fields/text/EditableText";
 import TextArea from "antd/lib/input/TextArea";
-import { PeopleSettingsContextInterface } from "../../contexts/PeopleSettingsContext";
+import { SiteSettingsContextInterface } from "../../contexts/SiteSettingsContext";
 import EditablePersonAutoComplete from "../../components/fields/PersonAutoComplete/EditablePersonAutoComplete";
 import DateRangeField from "../../components/fields/DateRangeField";
 import {
@@ -21,7 +21,7 @@ import { AppointmentsContextInterface } from "../../contexts/AppointmentContext"
 export const AppointmentColumns = (
   updateAppointment: AppointmentsContextInterface["updateData"],
   deleteAppointment: AppointmentsContextInterface["deleteData"],
-  { settings }: PeopleSettingsContextInterface
+  { settings }: SiteSettingsContextInterface
 ) => [
   {
     title: "איש חוץ",

@@ -4,17 +4,25 @@ from .db import (
     get_people_collection,
     get_appointments_collection,
 )
-from .const import DEFAULT_PEOPLE_SETTINGS, DATASET_SIZE, DAY
+from .const import DATASET_SIZE, DAY
 from random import randrange
 from datetime import timedelta
 
+DEFAULT_PEOPLE_SETTINGS = {
+    "settings": {
+        "possibleTracks": ["נאון", "ארגון"],
+        "possiblePreferences": ["להישאר לישון", "לבדוק תרגילים"],
+        "possibleSubjects": ["TPY", "C"],
+        "possibleAppointmentReasons": ["מרצה", "בודק תרגילים"]
+    }
+}
 
 PEOPLE = [
     {
         "fullName": "ניר",
         "personalId": str(randrange(10000000, 99999999)),
         "phone": "123456789",
-        "status": "חייל",
+        "status": "סדיר",
         "team": "דשדג",
         "remarks": "שלום",
         "preferences": ["להישאר לישון", "לבדוק תרגילים"],

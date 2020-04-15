@@ -1,3 +1,5 @@
+import { StaticSettings } from "./types/settings";
+
 /**
  * Filters for the antd table component that correspond to boolean fields.
  */
@@ -30,4 +32,29 @@ export const LOCATION_TO_ITEM: {
 } = {
   [APPOINTMENT_PAGE_URL]: "1",
   [PEOPLE_PAGE_URL]: "2"
+};
+
+/**
+ * Settings
+ */
+export const STATIC_SETTINGS: StaticSettings = {
+  possibleAvailabilities: ["זמין", "לא זמין"],
+  possibleBedStatus: ["לא צריך", "טרם", "יש"],
+  possibleEntryStates: ["יש", "טרם"],
+  possiblePhases: ["מכינה", "אחוד"],
+  possibleStatuses: ["סדיר", "מילואים", "אעצ", "אזרח"]
+};
+
+export const STATIC_SETTINGS_COLORS: { [key: string]: string } = {
+  זמין: "green",
+  "לא זמין": "red",
+  יש: "green",
+  טרם: "red",
+  "לא צריך": "orange",
+  אחוד: "cyan",
+  מכינה: "purple",
+  אזרח: "volcano",
+  מילואים: "volcano",
+  אעצ: "volcano",
+  סדיר: "lime"
 };

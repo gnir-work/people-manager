@@ -9,7 +9,7 @@ import "./App.scss";
 import AppHeader from "./AppHeader";
 import { APPOINTMENT_PAGE_URL, PEOPLE_PAGE_URL } from "./consts";
 import AppointmentPage from "./AppointmentPage/AppointmentPage";
-import { PeopleSettingsContextProvider } from "./contexts/PeopleSettingsContext";
+import { SiteSettingsContextProvider } from "./contexts/SiteSettingsContext";
 import { PeopleContextProvider } from "./contexts/PeopleContext";
 import { AppointmentContextProvider } from "./contexts/AppointmentContext";
 
@@ -20,7 +20,7 @@ const App: React.FC = () => (
     <Layout className="layout">
       <AppHeader />
       <Content>
-        <PeopleSettingsContextProvider>
+        <SiteSettingsContextProvider>
           <PeopleContextProvider>
             <AppointmentContextProvider>
               <Switch>
@@ -33,7 +33,7 @@ const App: React.FC = () => (
               </Switch>
             </AppointmentContextProvider>
           </PeopleContextProvider>
-        </PeopleSettingsContextProvider>
+        </SiteSettingsContextProvider>
       </Content>
       <Footer>Bis Hibur ©2019 Created by Nir Geller</Footer>
     </Layout>

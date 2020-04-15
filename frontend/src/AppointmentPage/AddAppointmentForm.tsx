@@ -3,7 +3,7 @@ import { Form, Input, Radio, Checkbox, AutoComplete, InputNumber } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { GET_REQUIRED_RULE } from "../components/validators/validators";
 import { FormInstance } from "antd/lib/form";
-import { PeopleSettingsContextInterface } from "../contexts/PeopleSettingsContext";
+import { SiteSettingsContextInterface } from "../contexts/SiteSettingsContext";
 import PersonAutoComplete from "../components/fields/PersonAutoComplete/PersonAutoComplete";
 import DateRangeField from "../components/fields/DateRangeField";
 
@@ -21,7 +21,7 @@ const initialValues = {
 interface AddAppointmentFormProps {
   form: FormInstance;
   onEnter: (event: KeyboardEvent<HTMLFormElement>) => void;
-  settings: PeopleSettingsContextInterface["settings"];
+  settings: SiteSettingsContextInterface["settings"];
 }
 
 const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({

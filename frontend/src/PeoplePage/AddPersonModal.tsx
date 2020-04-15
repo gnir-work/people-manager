@@ -1,6 +1,6 @@
 import React, { useContext, useCallback } from "react";
 import { PeopleContext } from "../contexts/PeopleContext";
-import { PeopleSettingsContext } from "../contexts/PeopleSettingsContext";
+import { SiteSettingsContext } from "../contexts/SiteSettingsContext";
 import FormModal, {
   ChildrenFunction as FormModalChildren
 } from "../components/modals/FormModal";
@@ -12,7 +12,7 @@ const AddPersonModal: React.FC = () => {
     doesDataExist: doesPersonExist,
     getFieldDataSet
   } = useContext(PeopleContext);
-  const { settings } = useContext(PeopleSettingsContext);
+  const { settings } = useContext(SiteSettingsContext);
   const possibleTeams = getFieldDataSet("team");
 
   const handleSubmit = (values: Object) => {

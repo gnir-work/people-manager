@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { AppointmentColumns } from "./AppointmentColumns";
 import { AppointmentContext } from "../../contexts/AppointmentContext";
-import { PeopleSettingsContext } from "../../contexts/PeopleSettingsContext";
+import { SiteSettingsContext } from "../../contexts/SiteSettingsContext";
 import DataTable from "../../components/DataTable";
 
 interface AppointmentTableProps {
@@ -13,7 +13,7 @@ const AppointmentTable: React.FC<AppointmentTableProps> = ({ className }) => {
   const { data, updateData, deleteData, loading } = useContext(
     AppointmentContext
   );
-  const peopleSettings = useContext(PeopleSettingsContext);
+  const peopleSettings = useContext(SiteSettingsContext);
   return (
     <DataTable
       className={className}
