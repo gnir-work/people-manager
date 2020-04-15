@@ -11,7 +11,7 @@ const SettingsEditorModal = () => {
   );
 
   const [visible, setVisible] = useState(false);
-  const [error, setError] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [newSettings, setNewSettings] = useState(dynamicSettings);
 
   const toggleVisible = () => {
@@ -19,7 +19,7 @@ const SettingsEditorModal = () => {
   };
 
   const handleError = (hasError: boolean) => {
-    setError(hasError);
+    setHasError(hasError);
   };
 
   const handleSubmit = () => {
@@ -51,11 +51,11 @@ const SettingsEditorModal = () => {
         title="עריכת הגדרות"
         okText="שמירה"
         cancelText="ביטול"
-        okButtonProps={{ disabled: error }}
+        okButtonProps={{ disabled: hasError }}
         onOk={handleSubmit}
       >
         <Spin spinning={loading}>
-          {error && (
+          {hasError && (
             <Alert
               showIcon
               className="error-message"
