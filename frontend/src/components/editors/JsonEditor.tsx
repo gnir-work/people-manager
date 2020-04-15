@@ -8,6 +8,7 @@ import "./JsonEditor.scss";
 import "./editor.d.ts";
 import "jsoneditor-react/es/editor.min.css";
 import _ from "lodash";
+import { compareJsonSchema } from "../../utils/equality";
 
 interface JsonEditorProps {
   onChange: (newValue: { [key: string]: any }) => void;
@@ -20,16 +21,8 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
   onChange,
   onError
 }) => {
-  const validateNewValue = (newValue: { [key: string]: any }) => {
-    if (!_.isEqual(_.keys(value).sort(), _.keys(newValue).sort())) {
-      return false;
-    }
-
-    return true;
-  };
-
   const handleChange = (newValue: { [key: string]: any }) => {
-    if (validateNewValue(newValue)) {
+    if (compareJsonSchema(value, newValue)) {
       onChange(newValue);
       onError(false);
     } else {
