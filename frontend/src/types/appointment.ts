@@ -15,6 +15,7 @@ export interface Appointment extends BasicData {
   track: string;
   reason: string;
   remarks: string;
+  course: string;
 }
 
 export interface SerializedAppointment

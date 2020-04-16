@@ -31,9 +31,10 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
 }) => {
   const dynamicInitialValues = {
     ...initialValues,
-    phase: settings.possiblePhases[0],
+    phase: settings.currentPhase,
     bedStatus: settings.possibleBedStatus[0],
-    entryStatus: settings.possibleEntryStates[0]
+    entryStatus: settings.possibleEntryStates[0],
+    course: settings.currentCourse
   };
 
   return (
@@ -51,6 +52,19 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
         label="איש חוץ:"
       >
         <PersonAutoComplete />
+      </Form.Item>
+      <Form.Item
+        name="course"
+        label="מחזור: "
+        rules={[GET_REQUIRED_RULE("בבקשה תבחר קורס")]}
+      >
+        <Radio.Group>
+          {settings.possibleCourses.map(phase => (
+            <Radio key={phase} value={phase}>
+              {phase}
+            </Radio>
+          ))}
+        </Radio.Group>
       </Form.Item>
       <Form.Item
         name="phase"

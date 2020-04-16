@@ -19,6 +19,9 @@ export interface DynamicSettings {
   possibleTracks: string[];
   possiblePreferences: string[];
   possibleAppointmentReasons: string[];
+  possibleCourses: string[];
+  currentCourse: string;
+  currentPhase: string;
 }
 
 export default interface SiteSettings extends StaticSettings, DynamicSettings {}

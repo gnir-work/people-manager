@@ -5,23 +5,14 @@ import FormModal, {
 } from "../components/modals/FormModal";
 import { AppointmentContext } from "../contexts/AppointmentContext";
 import AddAppointmentForm from "./AddAppointmentForm";
+import { Appointment } from "../types/appointment";
 
 const AddAppointmentModal: React.FC = () => {
   const { addData: addAppointment } = useContext(AppointmentContext);
   const peopleSettings = useContext(SiteSettingsContext);
 
-  const handleSubmit = ({
-    dates: [from, to],
-    ...otherValues
-  }: {
-    [key: string]: any;
-  }) => {
-    const newAppointment = {
-      from,
-      to,
-      ...otherValues
-    };
-    return addAppointment(newAppointment as any);
+  const handleSubmit = (newAppointment: Appointment) => {
+    return addAppointment(newAppointment);
   };
 
   const renderForm = useCallback(
@@ -32,7 +23,7 @@ const AddAppointmentModal: React.FC = () => {
   );
 
   return (
-    <FormModal onSubmit={handleSubmit} title="הוספת זימון">
+    <FormModal onSubmit={handleSubmit as any} title="הוספת זימון">
       {renderForm}
     </FormModal>
   );

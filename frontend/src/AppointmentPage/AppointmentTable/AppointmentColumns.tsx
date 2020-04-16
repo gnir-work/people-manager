@@ -45,6 +45,16 @@ export const AppointmentColumns = (
     )
   },
   {
+    title: "קורס",
+    ...get_column_fields<Appointment>("course", stringsFilterByField),
+    ...get_tag_fields<Appointment>(
+      settings.possibleCourses,
+      "course",
+      updateAppointment
+    ),
+    filteredValue: [settings.currentCourse]
+  },
+  {
     title: "תקופה",
     ...get_column_fields<Appointment>("phase", stringsFilterByField),
     ...get_tag_fields<Appointment>(

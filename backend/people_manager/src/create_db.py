@@ -13,7 +13,10 @@ DEFAULT_PEOPLE_SETTINGS = {
         "possibleTracks": ["נאון", "ארגון"],
         "possiblePreferences": ["להישאר לישון", "לבדוק תרגילים"],
         "possibleSubjects": ["TPY", "C"],
-        "possibleAppointmentReasons": ["מרצה", "בודק תרגילים"]
+        "possibleAppointmentReasons": ["מרצה", "בודק תרגילים"],
+        "possibleCourses": ["bisZ"],
+        "currentCourse": "bisZ",
+        "currentPhase": "מכינה"
     }
 }
 
@@ -48,6 +51,7 @@ APPOINTMENTS = [
         "track": "pasten",
         "reason": "reasons",
         "remarks": "remarkss",
+        "course": "bisZ"
     }
     for _ in range(DATASET_SIZE)
 ]
