@@ -19,7 +19,8 @@ const defaultDynamicSettings = {
   possibleTracks: [],
   possiblePreferences: [],
   possibleAppointmentReasons: [],
-  possibleCourses: []
+  possibleCourses: [],
+  currentCourse: ""
 };
 
 const defaultData: SiteSettingsContextInterface = {

@@ -23,8 +23,8 @@ const JsonEditor: React.FC<JsonEditorProps> = ({
 }) => {
   const handleChange = (newValue: { [key: string]: any }) => {
     if (compareJsonSchema(value, newValue)) {
-      onChange(newValue);
       onError(false);
+      onChange(newValue);
     } else {
       onError(true);
     }

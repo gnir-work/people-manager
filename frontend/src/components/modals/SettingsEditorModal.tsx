@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { SiteSettingsContext } from "../../contexts/SiteSettingsContext";
 
 import "./SettingsEditorModal.scss";
+import { DynamicSettings } from "../../types/settings";
 
 interface SettingsEditorModal {
   className?: string;
@@ -16,9 +17,8 @@ const SettingsEditorModal: React.FC<SettingsEditorModal> = ({ className }) => {
   const { dynamicSettings, loading, updateDynamicSettings } = useContext(
     SiteSettingsContext
   );
-
   const [visible, setVisible] = useState(false);
-  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState("");
   const [newSettings, setNewSettings] = useState(dynamicSettings);
 
   const toggleVisible = () => {
@@ -26,7 +26,11 @@ const SettingsEditorModal: React.FC<SettingsEditorModal> = ({ className }) => {
   };
 
   const handleError = (hasError: boolean) => {
-    setHasError(hasError);
+    if (hasError) {
+      setError("אל תשנו את המפתחות או את סוגי השדות!");
+    } else {
+      setError("");
+    }
   };
 
   const handleSubmit = () => {
@@ -45,8 +49,13 @@ const SettingsEditorModal: React.FC<SettingsEditorModal> = ({ className }) => {
     toggleVisible();
   };
 
-  const handleOnChange = (newSettings: any) => {
+  const handleOnChange = (newSettings: DynamicSettings) => {
     setNewSettings(newSettings);
+    if (!newSettings.possibleCourses.includes(newSettings.currentCourse)) {
+      setError("הקורס הנוכחי חייב להיות אחד מהקורסים האפשריים");
+    } else {
+      setError("");
+    }
   };
 
   return (
@@ -58,23 +67,23 @@ const SettingsEditorModal: React.FC<SettingsEditorModal> = ({ className }) => {
         title="עריכת הגדרות"
         okText="שמירה"
         cancelText="ביטול"
-        okButtonProps={{ disabled: hasError }}
+        okButtonProps={{ disabled: !!error }}
         onOk={handleSubmit}
       >
         <Spin spinning={loading}>
-          {hasError && (
+          {error && (
             <Alert
               showIcon
               className="error-message"
               type="error"
-              message="אל תשנו את המפתחות או את סוגי השדות!"
+              message={error}
             />
           )}
           {!loading && (
             <JsonEditor
               onError={handleError}
               value={dynamicSettings}
-              onChange={handleOnChange}
+              onChange={handleOnChange as any}
             />
           )}
         </Spin>

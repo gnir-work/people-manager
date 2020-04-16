@@ -19,6 +19,7 @@ export interface DynamicSettings {
   possibleTracks: string[];
   possiblePreferences: string[];
   possibleAppointmentReasons: string[];
+  currentCourse: string;
   possibleCourses: string[];
 }
 

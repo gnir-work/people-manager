@@ -14,7 +14,8 @@ DEFAULT_PEOPLE_SETTINGS = {
         "possiblePreferences": ["להישאר לישון", "לבדוק תרגילים"],
         "possibleSubjects": ["TPY", "C"],
         "possibleAppointmentReasons": ["מרצה", "בודק תרגילים"],
-        "possibleCourses": ["bisZ"]
+        "possibleCourses": ["bisZ"],
+        "currentCourse": "bisZ"
     }
 }
 
