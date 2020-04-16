@@ -31,7 +31,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
 }) => {
   const dynamicInitialValues = {
     ...initialValues,
-    phase: settings.possiblePhases[0],
+    phase: settings.currentPhase,
     bedStatus: settings.possibleBedStatus[0],
     entryStatus: settings.possibleEntryStates[0],
     course: settings.currentCourse

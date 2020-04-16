@@ -15,7 +15,8 @@ DEFAULT_PEOPLE_SETTINGS = {
         "possibleSubjects": ["TPY", "C"],
         "possibleAppointmentReasons": ["מרצה", "בודק תרגילים"],
         "possibleCourses": ["bisZ"],
-        "currentCourse": "bisZ"
+        "currentCourse": "bisZ",
+        "currentPhase": "מכינה"
     }
 }
 

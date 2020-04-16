@@ -14,9 +14,12 @@ interface SettingsEditorModal {
 }
 
 const SettingsEditorModal: React.FC<SettingsEditorModal> = ({ className }) => {
-  const { dynamicSettings, loading, updateDynamicSettings } = useContext(
-    SiteSettingsContext
-  );
+  const {
+    dynamicSettings,
+    loading,
+    updateDynamicSettings,
+    staticSettings
+  } = useContext(SiteSettingsContext);
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState("");
   const [newSettings, setNewSettings] = useState(dynamicSettings);
@@ -53,6 +56,10 @@ const SettingsEditorModal: React.FC<SettingsEditorModal> = ({ className }) => {
     setNewSettings(newSettings);
     if (!newSettings.possibleCourses.includes(newSettings.currentCourse)) {
       setError("הקורס הנוכחי חייב להיות אחד מהקורסים האפשריים");
+    } else if (
+      !staticSettings.possiblePhases.includes(newSettings.currentPhase)
+    ) {
+      setError("התקופה חייבת להיות אחת מהתקופות האפשריות!");
     } else {
       setError("");
     }
