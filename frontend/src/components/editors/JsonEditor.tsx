@@ -7,7 +7,6 @@ import "brace/theme/github";
 import "./JsonEditor.scss";
 import "./editor.d.ts";
 import "jsoneditor-react/es/editor.min.css";
-import _ from "lodash";
 import { compareJsonSchema } from "../../utils/equality";
 
 interface JsonEditorProps {

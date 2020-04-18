@@ -17,6 +17,7 @@ import {
 import BooleanField from "../../components/fields/BooleanField";
 import DeleteButton from "../../components/actions/DeleteButton";
 import { AppointmentsContextInterface } from "../../contexts/AppointmentContext";
+import { Person } from "../../types/person";
 
 export const AppointmentColumns = (
   updateAppointment: AppointmentsContextInterface["updateData"],
@@ -33,7 +34,7 @@ export const AppointmentColumns = (
         "fullName"
       ),
     onFilter: (value: string, record: Appointment) =>
-      stringsFilterByField(record.person, value, "fullName"),
+      stringsFilterByField<Person>(record.person, value, "fullName"),
     filterDropdown: TableTextFilter,
     render: (value: string, record: Appointment) => (
       <EditablePersonAutoComplete
@@ -52,7 +53,7 @@ export const AppointmentColumns = (
       "course",
       updateAppointment
     ),
-    filteredValue: [settings.currentCourse]
+    defaultFilteredValue: [settings.currentCourse]
   },
   {
     title: "תקופה",
