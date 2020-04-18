@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 
 import "./LoginPage.scss";
+import { login, getCurrentUser } from "../api/login";
 
 interface LoginPageProps {}
 
@@ -15,12 +16,16 @@ const tailLayout = {
 
 const LoginPage: React.FC<LoginPageProps> = () => {
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    login(values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+  useEffect(() => {
+    getCurrentUser().then(console.log);
+  }, []);
 
   return (
     <div className="login-container">

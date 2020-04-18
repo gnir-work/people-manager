@@ -1,4 +1,4 @@
-import BasicData from "../types/data";
+import BasicData from "./data";
 import { AxiosResponse } from "axios";
 
 /**
