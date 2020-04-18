@@ -52,7 +52,8 @@ export const AppointmentColumns = (
       settings.possibleCourses,
       "course",
       updateAppointment
-    )
+    ),
+    defaultFilteredValue: [settings.currentCourse]
   },
   {
     title: "תקופה",
