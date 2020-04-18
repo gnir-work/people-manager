@@ -26,6 +26,7 @@ export const EDIT_ERROR_MESSAGE = "לא ניתן לעדכן את השדה.";
  */
 export const PEOPLE_PAGE_URL = "/people";
 export const APPOINTMENT_PAGE_URL = "/";
+export const LOGIN_PAGE_URL = "/login";
 
 export const LOCATION_TO_ITEM: {
   [key: string]: string;
