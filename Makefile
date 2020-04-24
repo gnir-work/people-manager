@@ -14,7 +14,10 @@ start-app: build-frontend export-python-requirements
 	docker-compose up --build --force-recreate -d
 
 populate-db:
-	docker exec -it people-manager_backend_1 /bin/sh -c "python -m src.create_db"
+	docker exec -it people-manager_backend_1 /bin/sh -c "python -m src.create_db --prod"
+
+backend-shell:
+	docker exec -it people-manager_backend_1 /bin/sh
 
 delete-local-mongo:
 	docker stop local-people-manager-mongo 2> /dev/null | true
