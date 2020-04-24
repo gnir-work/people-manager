@@ -168,7 +168,11 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
         />
       </Form.Item>
       <Form.Item name="remarks" label="הערות נוספות">
-        <TextArea />
+        <TextArea
+          onKeyDown={event => {
+            event.stopPropagation();
+          }}
+        />
       </Form.Item>
     </Form>
   );

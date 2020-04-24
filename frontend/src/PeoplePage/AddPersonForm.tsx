@@ -117,7 +117,11 @@ const AddPersonForm: React.FC<AddPersonFormProps> = ({
       />
     </Form.Item>
     <Form.Item name="remarks" label="הערות נוספות">
-      <TextArea />
+      <TextArea
+        onKeyDown={event => {
+          event.stopPropagation();
+        }}
+      />
     </Form.Item>
   </Form>
 );
