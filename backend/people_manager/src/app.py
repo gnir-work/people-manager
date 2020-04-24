@@ -52,7 +52,7 @@ def login():
     user.authenticate(credentials["password"])
 
     if user.is_authenticated:
-        login_user(user)
+        login_user(user, remember=True)
         return jsonify({"username": user.username})
     else:
         return _get_failed_response(401)
