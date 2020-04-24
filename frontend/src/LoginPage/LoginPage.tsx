@@ -4,6 +4,7 @@ import { Form, Input, Button } from "antd";
 import "./LoginPage.scss";
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
+import { APPOINTMENT_PAGE_URL } from "../consts";
 
 interface LoginPageProps {}
 
@@ -29,7 +30,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
 
   useEffect(() => {
     if (!!username) {
-      history.replace("/");
+      history.replace(APPOINTMENT_PAGE_URL);
     }
   }, [username, history]);
 
