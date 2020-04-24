@@ -1,4 +1,5 @@
 import pymongo
+import click
 from .db import (
     get_site_settings_collection,
     get_people_collection,
@@ -58,13 +59,17 @@ APPOINTMENTS = [
 
 
 def create_default_site_settings():
+    print("Creating default settings...")
     site_settings = get_site_settings_collection()
+    site_settings.drop()
     people = get_people_collection()
     site_settings.insert_one(DEFAULT_PEOPLE_SETTINGS)
 
 
 def create_default_people():
+    print("Creating people...")
     people = get_people_collection()
+    people.drop()
     for person in PEOPLE:
         people.insert_one(person)
 
@@ -72,7 +77,9 @@ def create_default_people():
 
 
 def create_default_appointments():
+    print("Creating appointments...")
     appointments = get_appointments_collection()
+    appointments.drop()
     people_collection = get_people_collection()
     people = list(people_collection.find({}))
     for index, appointment in enumerate(APPOINTMENTS):
@@ -88,10 +95,14 @@ def create_default_appointments():
         unique=True,
     )
 
+@click.command()
+@click.option('--prod', default=False, is_flag=True, help='If set will only populate settings')
+def main(prod):
+    create_default_site_settings()
+    if not prod:
+        create_default_people()
+        create_default_appointments()
+    print("Finshed Creating people default settings")
 
 if __name__ == "__main__":
-    print("Creating people default settings...")
-    create_default_site_settings()
-    create_default_people()
-    create_default_appointments()
-    print("Finshed Creating people default settings")
+    main()
