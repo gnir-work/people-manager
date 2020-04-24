@@ -65,3 +65,12 @@ export const GET_PHONE_NUMBER_RULES = (): Rule[] => [
     min: MIN_PHONE_LENGTH
   }
 ];
+
+export const GET_WEEK_NUMBER_RULES = (): Rule[] => [
+  GET_REQUIRED_RULE("בבקשה הכנס שבוע בקורס"),
+  {
+    message: "המספר פלאפון חייב להכיל רק מספרים",
+    transform: value => _.toNumber(value),
+    type: "number"
+  }
+];
