@@ -6,10 +6,12 @@ import FormModal, {
 import { AppointmentContext } from "../contexts/AppointmentContext";
 import AddAppointmentForm from "./AddAppointmentForm";
 import { Appointment } from "../types/appointment";
+import { UserContext } from "../contexts/UserContext";
 
 const AddAppointmentModal: React.FC = () => {
   const { addData: addAppointment } = useContext(AppointmentContext);
   const peopleSettings = useContext(SiteSettingsContext);
+  const { username } = useContext(UserContext);
 
   const handleSubmit = (newAppointment: Appointment) => {
     return addAppointment(newAppointment);
@@ -17,7 +19,11 @@ const AddAppointmentModal: React.FC = () => {
 
   const renderForm = useCallback(
     (formProps: FormModalChildren) => (
-      <AddAppointmentForm settings={peopleSettings.settings} {...formProps} />
+      <AddAppointmentForm
+        settings={peopleSettings.settings}
+        currentUser={username}
+        {...formProps}
+      />
     ),
     [peopleSettings.settings]
   );
