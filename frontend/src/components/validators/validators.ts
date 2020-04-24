@@ -22,17 +22,8 @@ export const GET_REQUIRED_RULE = (errorMessage: string) => ({
   message: errorMessage
 });
 
-export const GET_PERSONAL_ID_RULES = (doesPersonExist: Function): Rule[] => [
+export const GET_PERSONAL_ID_RULES = (): Rule[] => [
   GET_REQUIRED_RULE("בבקשה הכנס מספר אישי"),
-  {
-    validator(rule: any, value: string) {
-      if (!doesPersonExist(value)) {
-        return Promise.resolve();
-      } else {
-        return Promise.reject("כבר יש איש חוץ עם המספר אישי הזה");
-      }
-    }
-  },
   {
     message: "המספר אישי חייב להכיל רק מספרים",
     transform: (value: string) => _.toNumber(value),
@@ -63,5 +54,14 @@ export const GET_PHONE_NUMBER_RULES = (): Rule[] => [
   {
     message: `המספר פלאפון חייב להכין לפחות ${MIN_PHONE_LENGTH} תוים`,
     min: MIN_PHONE_LENGTH
+  }
+];
+
+export const GET_WEEK_NUMBER_RULES = (): Rule[] => [
+  GET_REQUIRED_RULE("בבקשה הכנס שבוע בקורס"),
+  {
+    message: "המספר פלאפון חייב להכיל רק מספרים",
+    transform: value => _.toNumber(value),
+    type: "number"
   }
 ];

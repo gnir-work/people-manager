@@ -18,6 +18,8 @@ import BooleanField from "../../components/fields/BooleanField";
 import DeleteButton from "../../components/actions/DeleteButton";
 import { AppointmentsContextInterface } from "../../contexts/AppointmentContext";
 import { Person } from "../../types/person";
+import { GET_WEEK_NUMBER_RULES } from "../../components/validators/validators";
+import _ from "lodash";
 
 export const AppointmentColumns = (
   updateAppointment: AppointmentsContextInterface["updateData"],
@@ -67,6 +69,15 @@ export const AppointmentColumns = (
   {
     title: "שבוע",
     ...get_column_fields<Appointment>("week", simpleFilterByField),
+    render: (value: string, record: Appointment) => (
+      <EditableText
+        onChange={newValue =>
+          updateAppointment(record, "week", _.toNumber(newValue))
+        }
+        rules={GET_WEEK_NUMBER_RULES()}
+        initialValue={value}
+      />
+    ),
     filterDropdown: TableTextFilter
   },
   {

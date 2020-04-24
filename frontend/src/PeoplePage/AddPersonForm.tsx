@@ -34,7 +34,6 @@ const initialValues = {
 interface AddPersonFormProps {
   form: FormInstance;
   onEnter: (event: KeyboardEvent<HTMLFormElement>) => void;
-  doesPersonExist: (personalId: string) => boolean;
   possibleTeams: string[];
   settings: SiteSettingsContextInterface["settings"];
 }
@@ -42,7 +41,6 @@ interface AddPersonFormProps {
 const AddPersonForm: React.FC<AddPersonFormProps> = ({
   form,
   onEnter,
-  doesPersonExist,
   possibleTeams,
   settings
 }) => (
@@ -57,11 +55,7 @@ const AddPersonForm: React.FC<AddPersonFormProps> = ({
     <Form.Item name="fullName" label="שם מלא" rules={GET_BASIC_TEXT_RULES()}>
       <Input />
     </Form.Item>
-    <Form.Item
-      name="personalId"
-      label="מ.א"
-      rules={GET_PERSONAL_ID_RULES(doesPersonExist)}
-    >
+    <Form.Item name="personalId" label="מ.א" rules={GET_PERSONAL_ID_RULES()}>
       <Input />
     </Form.Item>
     <Form.Item name="phone" label="פלאפון" rules={GET_PHONE_NUMBER_RULES()}>
