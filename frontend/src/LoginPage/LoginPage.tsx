@@ -59,10 +59,6 @@ const LoginPage: React.FC<LoginPageProps> = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-          <Checkbox>תזכור אותי</Checkbox>
-        </Form.Item>
-
         <Form.Item className="submit-button" {...tailLayout}>
           <Button type="primary" htmlType="submit">
             התחבר
