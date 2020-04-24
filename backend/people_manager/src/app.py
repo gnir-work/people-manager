@@ -1,4 +1,15 @@
 from flask import Flask, jsonify, request
+import pymongo
+from pymongo.errors import PyMongoError
+from flask_login import (
+    LoginManager,
+    login_user,
+    logout_user,
+    login_required,
+    current_user,
+)
+
+from .user import User
 from .people import get_all_people, update_person, delete_person, create_person
 from .appointments import (
     get_all_appointments,
@@ -9,10 +20,17 @@ from .appointments import (
 from .site_settings import get_all_settings, update_site_settings
 from .const import DEBUG
 from .exceptions import PersonExists, AppointmentExists
-import pymongo
-from pymongo.errors import PyMongoError
+
+login_manager = LoginManager()
+
 
 app = Flask(__name__)
+
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+
+login_manager.init_app(app)
+
 
 if DEBUG:
     # We need only in dev mode so there is no reason to install it in production.
@@ -20,6 +38,41 @@ if DEBUG:
     from flask_cors import CORS
 
     CORS(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User(user_id, is_authenticated=True)
+
+
+@app.route("/api/user/login", methods=["POST"])
+def login():
+    credentials = request.get_json()
+    user = User(credentials["username"])
+    user.authenticate(credentials["password"])
+
+    if user.is_authenticated:
+        login_user(user, remember=True)
+        return jsonify({"username": user.username})
+    else:
+        return _get_failed_response(401)
+
+@app.route("/api/user/logout", methods=["POST"])
+def logout():
+    try:
+        logout_user()
+        return _get_ok_response()
+    except Exception:
+        return _get_failed_response()
+
+
+@app.route("/api/user")
+def get_current_user():
+    if current_user.is_authenticated:
+        username = current_user.username
+    else:
+        username = None
+    return jsonify({"currentUser": username})
 
 
 @app.route("/api/people/person/")

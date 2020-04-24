@@ -22,19 +22,22 @@ interface AddAppointmentFormProps {
   form: FormInstance;
   onEnter: (event: KeyboardEvent<HTMLFormElement>) => void;
   settings: SiteSettingsContextInterface["settings"];
+  currentUser: string;
 }
 
 const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
   form,
   onEnter,
-  settings
+  settings,
+  currentUser
 }) => {
   const dynamicInitialValues = {
     ...initialValues,
     phase: settings.currentPhase,
     bedStatus: settings.possibleBedStatus[0],
     entryStatus: settings.possibleEntryStates[0],
-    course: settings.currentCourse
+    course: settings.currentCourse,
+    invitor: currentUser
   };
 
   return (

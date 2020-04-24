@@ -1,4 +1,4 @@
-import { CRUDApi } from "./types";
+import { CRUDApi } from "../types/api";
 import axios from "axios";
 import BasicData from "../types/data";
 

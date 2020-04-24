@@ -1,3 +1,16 @@
-.settings-menu-item {
-  padding: 1em;
+.app-header {
+  display: flex;
+  .app-navbar {
+    flex: 1;
+  }
+  .settings {
+    color: #ffffffa6;
+    font-size: 1.2em;
+    .settings-menu-item {
+      padding: 1em;
+    }
+    svg:hover {
+      color: white;
+    }
+  }
 }

@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import _ from "lodash";
 import BasicData from "../types/data";
-import { CRUDApi } from "../api/types";
+import { CRUDApi } from "../types/api";
 import { message } from "antd";
 
 /**
