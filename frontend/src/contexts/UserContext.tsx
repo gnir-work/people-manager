@@ -8,6 +8,7 @@ import LoginData from "../types/login";
 
 interface UserContextInterface {
   username: string;
+  loading: boolean;
   isAuthenticated: () => boolean;
   login: (values: LoginData) => void;
   logout: () => void;
@@ -15,6 +16,7 @@ interface UserContextInterface {
 
 const defaultUserContext: UserContextInterface = {
   username: "",
+  loading: true,
   isAuthenticated: () => false,
   login: (values: LoginData) => {},
   logout: () => {}
@@ -24,11 +26,12 @@ export const UserContext = createContext(defaultUserContext);
 
 const UserContextProvider: React.FC = ({ children }) => {
   const [username, setUsername] = useState(defaultUserContext.username);
+  const [loading, setLoading] = useState(defaultUserContext.loading);
 
   useEffect(() => {
     getCurrentUser().then(data => {
       setUsername(data.currentUser);
-      console.log(data);
+      setLoading(false);
     });
   }, []);
 
@@ -52,7 +55,8 @@ const UserContextProvider: React.FC = ({ children }) => {
         username,
         isAuthenticated,
         login,
-        logout
+        logout,
+        loading
       }}
     >
       {children}

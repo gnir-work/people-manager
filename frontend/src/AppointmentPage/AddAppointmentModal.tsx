@@ -25,7 +25,7 @@ const AddAppointmentModal: React.FC = () => {
         {...formProps}
       />
     ),
-    [peopleSettings.settings]
+    [peopleSettings.settings, username]
   );
 
   return (
