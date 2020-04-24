@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button } from "antd";
 
 import "./LoginPage.scss";
 import { UserContext } from "../contexts/UserContext";
