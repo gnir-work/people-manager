@@ -167,6 +167,7 @@ export function DataListContextProvider<DataType extends BasicData>({
         } else {
           message.error("היית שגיאה");
         }
+        throw new Error("server error");
       });
   };
 

@@ -37,10 +37,12 @@ const FormModal: React.FC<FormModalProps> = ({ onSubmit, children, title }) => {
 
   const submitModal = () => {
     form.validateFields().then(values => {
-      onSubmit(values as any).then(() => {
-        form.resetFields();
-        hideModal();
-      });
+      onSubmit(values as any)
+        .then(() => {
+          form.resetFields();
+          hideModal();
+        })
+        .catch(() => {});
     });
   };
 

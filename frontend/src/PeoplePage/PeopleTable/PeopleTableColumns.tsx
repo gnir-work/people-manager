@@ -29,7 +29,6 @@ import EditableText from "../../components/fields/text/EditableText";
 
 export const PeopleTableColumns = (
   {
-    doesDataExist: doesPersonExist,
     updateData: updatePerson,
     deleteData: deletePerson
   }: PeopleContextInterface,
@@ -50,7 +49,7 @@ export const PeopleTableColumns = (
     ...get_column_fields<Person>("personalId", stringsFilterByField),
     ...get_text_fields<Person>(
       "personalId",
-      GET_PERSONAL_ID_RULES(doesPersonExist),
+      GET_PERSONAL_ID_RULES(),
       updatePerson
     ),
     width: "15em"
