@@ -1,6 +1,7 @@
 import React from "react";
 import PeopleTable from "./PeopleTable/PeopleTable";
 import AddPersonModal from "./AddPersonModal";
+import requireLogin from "../HOC/requireLogin";
 
 const PeoplePage: React.FC = () => (
   <>
@@ -9,4 +10,4 @@ const PeoplePage: React.FC = () => (
   </>
 );
 
-export default PeoplePage;
+export default requireLogin(PeoplePage);
