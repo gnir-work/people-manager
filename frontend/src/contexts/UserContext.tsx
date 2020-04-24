@@ -1,32 +1,63 @@
-import { createContext, useState, useEffect } from "react";
-import { getCurrentUser } from "../api/login";
+import React, { createContext, useState, useEffect } from "react";
+import {
+  getCurrentUser,
+  login as loginAPI,
+  logout as logoutAPI
+} from "../api/login";
+import LoginData from "../types/login";
 
 interface UserContextInterface {
   username: string;
-  is_authenticated: () => boolean;
+  isAuthenticated: () => boolean;
+  login: (values: LoginData) => void;
+  logout: () => void;
 }
 
-const defaultUserContext = {
-  username: undefined,
-  is_authenticated: () => false
+const defaultUserContext: UserContextInterface = {
+  username: "",
+  isAuthenticated: () => false,
+  login: (values: LoginData) => {},
+  logout: () => {}
 };
 
-const UserContext = createContext(defaultUserContext);
+export const UserContext = createContext(defaultUserContext);
 
-const UserProvider: React.FC = () => {
+const UserContextProvider: React.FC = ({ children }) => {
   const [username, setUsername] = useState(defaultUserContext.username);
 
   useEffect(() => {
     getCurrentUser().then(data => {
-      setUsername(data.username);
+      setUsername(data.currentUser);
+      console.log(data);
     });
   }, []);
 
-  const login = () => {
-    login;
+  const login = (values: LoginData) => {
+    loginAPI(values).then(({ username }) => {
+      setUsername(username);
+    });
+  };
+
+  const logout = () => {
+    logoutAPI().then(() => {
+      setUsername("");
+    });
   };
 
   const isAuthenticated = () => !!username;
 
-  return <UserContext.Provider></UserContext.Provider>;
+  return (
+    <UserContext.Provider
+      value={{
+        username,
+        isAuthenticated,
+        login,
+        logout
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
 };
+
+export default UserContextProvider;

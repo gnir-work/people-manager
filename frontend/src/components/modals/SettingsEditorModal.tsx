@@ -99,7 +99,7 @@ const SettingsEditorModal: React.FC<SettingsEditorModal> = ({ className }) => {
         className={classNames("clickable", className)}
         onClick={toggleVisible}
       >
-        <FontAwesomeIcon className="settings-icon" icon={faCogs} /> הגדרות האתר{" "}
+        <FontAwesomeIcon className="settings-icon" icon={faCogs} />
       </span>
     </>
   );

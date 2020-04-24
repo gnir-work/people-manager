@@ -53,9 +53,17 @@ def login():
 
     if user.is_authenticated:
         login_user(user)
-        return _get_ok_response()
+        return jsonify({"username": user.username})
     else:
         return _get_failed_response(401)
+
+@app.route("/api/user/logout", methods=["POST"])
+def logout():
+    try:
+        logout_user()
+        return _get_ok_response()
+    except Exception:
+        return _get_failed_response()
 
 
 @app.route("/api/user")
@@ -65,11 +73,6 @@ def get_current_user():
     else:
         username = None
     return jsonify({"currentUser": username})
-
-@app.route("/api/user/logout")
-def logout():
-    logout_user()
-    return _get_ok_response()
 
 
 @app.route("/api/people/person/")

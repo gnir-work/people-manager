@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Layout, Menu } from "antd";
 import { useLocation, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers, faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUsers,
+  faCalendarCheck,
+  faSignOutAlt
+} from "@fortawesome/free-solid-svg-icons";
 import {
   LOCATION_TO_ITEM,
   APPOINTMENT_PAGE_URL,
@@ -11,19 +15,22 @@ import {
 import SettingsEditorModal from "./components/modals/SettingsEditorModal";
 
 import "./AppHeader.scss";
+import { UserContext } from "./contexts/UserContext";
 
 const { Header } = Layout;
 
 const AppHeader: React.FC = () => {
   const location = useLocation();
+  const { logout } = useContext(UserContext);
   const selectedKey = LOCATION_TO_ITEM[location.pathname];
 
   return (
-    <Header>
-      <div className="logo" />
+    <Header className="app-header">
+      <div className="logo">לוגו</div>
       <Menu
         theme="dark"
         mode="horizontal"
+        className="app-navbar"
         defaultSelectedKeys={[selectedKey]}
         style={{ lineHeight: "64px" }}
       >
@@ -35,8 +42,15 @@ const AppHeader: React.FC = () => {
           <FontAwesomeIcon icon={faUsers} />{" "}
           <Link to={PEOPLE_PAGE_URL}>אנשים</Link>
         </Menu.Item>
-        <SettingsEditorModal className="settings-menu-item" />
       </Menu>
+      <div className="settings">
+        <SettingsEditorModal className="settings-menu-item" />
+        <FontAwesomeIcon
+          onClick={logout}
+          className="clickable"
+          icon={faSignOutAlt}
+        />
+      </div>
     </Header>
   );
 };

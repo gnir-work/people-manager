@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 
 import "./LoginPage.scss";
-import { login, getCurrentUser } from "../api/login";
+import { UserContext } from "../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 
 interface LoginPageProps {}
 
@@ -15,6 +16,9 @@ const tailLayout = {
 };
 
 const LoginPage: React.FC<LoginPageProps> = () => {
+  const { login, username } = useContext(UserContext);
+  const history = useHistory();
+
   const onFinish = (values: any) => {
     login(values);
   };
@@ -24,8 +28,10 @@ const LoginPage: React.FC<LoginPageProps> = () => {
   };
 
   useEffect(() => {
-    getCurrentUser().then(console.log);
-  }, []);
+    if (!!username) {
+      history.replace("/");
+    }
+  }, [username, history]);
 
   return (
     <div className="login-container">
